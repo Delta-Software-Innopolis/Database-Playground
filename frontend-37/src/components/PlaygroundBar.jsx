@@ -11,6 +11,7 @@ export function PlaygroundBar() {
       contentStyle={{ flexBasis: 521 + "px" }}
     >
       <TopBarElement>
+	  {/*
         <NavLink to="/" end>
           <Button
             style={{
@@ -23,6 +24,7 @@ export function PlaygroundBar() {
             <img src={saveSvg} alt="Save button"></img>
           </Button>
         </NavLink>
+	*/}
       </TopBarElement>
       <TopBarElement>
         <NavLink to="/template" end>

@@ -51,7 +51,7 @@ export default function QueryInput({ onQueryChange, onRunClicked }) {
                 textareaRef.current.scrollTop;
             }
           }}
-          placeholder="WHITE YOUR QUERY HERE"
+          placeholder="WRITE YOUR QUERY HERE"
           ref={textareaRef}
         ></textarea>
       </div>
