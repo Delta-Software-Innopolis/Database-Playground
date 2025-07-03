@@ -104,3 +104,4 @@ class QueryView(APIView):
         json_schema = schema.to_json()
 
         return Response({"results": json_results, "schema": json_schema})
+
