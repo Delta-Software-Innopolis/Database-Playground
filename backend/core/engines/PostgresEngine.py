@@ -68,7 +68,6 @@ class PostgresEngine(DBEngine):
         with self._connect(db_name) as conn:
             with conn.cursor() as cur:
                 for query in self._split_queries(full_query):
-                    cur.execute(query)
                     self._save_query_result(cur, query, results)
         return results
 
@@ -84,6 +83,7 @@ class PostgresEngine(DBEngine):
         data = None
 
         start = time.perf_counter()
+        cur.execute(query)
         try:
             data = cur.fetchall()
         except psycopg2.ProgrammingError:
