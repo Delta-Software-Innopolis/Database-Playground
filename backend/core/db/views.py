@@ -1,11 +1,9 @@
-from engines import DBEngine
 from engines.exceptions import QueryError
 from engines.shortcuts import db_exists
 from rest_framework.parsers import BaseParser
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from session.exceptions import ExceptionWithResponse
 from session.models import Session, SessionInfo
 from session.shortcuts import resolve_session_id
 
@@ -56,6 +54,10 @@ class SchemaView(APIView):
 
         session = Session.objects.get(id=session_id)
         session_info = SessionInfo.objects.get(session=session_id)
+
+        if not session_info.template:
+            return Response({"detail": "Template not chosen"}, status=400)
+
         engine = get_db_engine(session_info.template.type)
 
         if not engine:
@@ -79,6 +81,10 @@ class QueryView(APIView):
 
         session = Session.objects.get(id=session_id)
         session_info = SessionInfo.objects.get(session=session_id)
+
+        if not session_info.template:
+            return Response({"detail": "Template not chosen"}, status=400)
+
         engine = get_db_engine(session_info.template.type)
 
         if not engine:
@@ -87,11 +93,12 @@ class QueryView(APIView):
         db_name = session.get_unauth_dbname()
 
         query = request.data
-        query = query.strip()
-        query = query.replace("\\n", "")
-        print("\n\nDATA:", query, "\n\n")
+
         if not isinstance(query, str):
             return Response({"detail": "Not a plain string query"}, status=400)
+
+        query = query.strip()
+        query = query.replace("\\n", "")
 
         try:
             results = engine.send_query(db_name, query)
@@ -104,4 +111,3 @@ class QueryView(APIView):
         json_schema = schema.to_json()
 
         return Response({"results": json_results, "schema": json_schema})
-
