@@ -3,7 +3,7 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from engines.exceptions import QueryError
+from engines.exceptions import QueryError, ParsingError
 from engines.shortcuts import db_exists
 from session.models import Session, SessionInfo
 from session.shortcuts import resolve_session_id
@@ -105,6 +105,8 @@ class QueryView(APIView):
             results = engine.send_query(db_name, query)
         except QueryError as e:
             return Response({"detail": "QueryError: " + str(e)}, status=400)
+        except ParsingError as e:
+            return Response({"detail": "ParsingError: " + str(e)}, status=400)
 
         schema = engine.get_db(db_name)
 

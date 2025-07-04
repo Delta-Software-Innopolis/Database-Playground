@@ -8,6 +8,7 @@ from pymongo.results import InsertManyResult, InsertOneResult
 
 from ..exceptions import QueryError
 from ..models import MQT, OldMongoQuery, MongoQueryResult
+from .parsing import fix_types_to_str
 
 from . import queries
 from .queries import MongoQuery
@@ -123,21 +124,15 @@ def _wrap_result(
 
         case MQT.FIND:
             c: Cursor = raw_result
-            items = [_fix_types(i) for i in c]
+            items = [fix_types_to_str(i) for i in c]
             return MongoQueryResult(q.query, items, 0)
 
         case MQT.AGGREGATE:
             cc: CommandCursor = raw_result
-            items = [_fix_types(i) for i in cc]
+            items = [fix_types_to_str(i) for i in cc]
             return MongoQueryResult(q.query, items, 0)
 
         case _:
             raise Exception("Unknown raw_result", raw_result)
 
 
-def _fix_types(item):
-    if isinstance(item, dict):
-        return {k: _fix_types(v) for k,v in item.items()}
-    if isinstance(item, list):
-        return [_fix_types(v) for v in item]
-    return str(item)

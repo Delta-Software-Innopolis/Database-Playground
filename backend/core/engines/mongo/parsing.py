@@ -122,3 +122,11 @@ def extract_input_string(query: str) -> str | None:
     if start == -1 or end == -1 or end <= start:
         return None  # malformed or no parentheses
     return query[start + 1:end].strip()
+
+
+def fix_types_to_str(item):
+    if isinstance(item, dict):
+        return {k: fix_types_to_str(v) for k, v in item.items()}
+    if isinstance(item, list):
+        return [fix_types_to_str(v) for v in item]
+    return str(item)
