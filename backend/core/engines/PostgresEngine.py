@@ -79,7 +79,6 @@ class PostgresEngine(DBEngine):
     def _save_query_result(
         self, cur: cursor, query: str, results: list[SQLQueryResult]
     ):
-        rowcount = cur.rowcount
         data = None
 
         start = time.perf_counter()
@@ -89,6 +88,7 @@ class PostgresEngine(DBEngine):
         except psycopg2.ProgrammingError:
             pass
         execution_time = time.perf_counter() - start
+        rowcount = cur.rowcount
 
         results.append(SQLQueryResult(query, rowcount, data, execution_time))
 

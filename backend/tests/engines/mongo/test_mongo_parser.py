@@ -1,8 +1,8 @@
 from collections import OrderedDict as OD
 from datetime import datetime
 
-from backend.core.engines.mongo import parsing as parsing
-from backend.core.engines.mongo.parsing import MQT
+from core.engines.mongo import parsing as parsing
+from core.engines.mongo.parsing import MQT
 
 AGGREGATE_RJSON = """
 [

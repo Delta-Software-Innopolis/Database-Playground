@@ -6,6 +6,7 @@ import barely_json
 from ..exceptions import ParsingError, QueryError
 from ..models import MQT, OldMongoQuery
 
+
 PATTERNS = (
    (MQT.GET_COLLECTION_NAMES, re.compile(r".*db\.getCollectionNames(.*).*")),
    (MQT.DROP_COLLECTION, re.compile(r".*db\..*\.drop(.*).*")),
@@ -85,7 +86,7 @@ def _fix_types(data: dict | list | str):
             return True
         elif val.lower() == "false":
             return False
-        elif val.lower() == "null":
+        elif val.lower() in ["null", "none"]:
             return None
 
         # Try to convert numbers
@@ -130,3 +131,39 @@ def fix_types_to_str(item):
     if isinstance(item, list):
         return [fix_types_to_str(v) for v in item]
     return str(item)
+
+
+def split_update_input( input: str | None
+) -> tuple[ str | None, str | None, str | None ]:
+    """ Splits input into query, update, options objects """
+    if input is None:
+        return (None, None, None)
+
+    parts = []
+    brace_level = 0
+    current = ''
+    i = 0
+    while i < len(input):
+        char = input[i]
+
+        if char == '{':
+            brace_level += 1
+            current += char
+        elif char == '}':
+            brace_level -= 1
+            current += char
+            if brace_level == 0:
+                parts.append(current.strip())
+                current = ''
+                # skip comma and whitespace
+                while i + 1 < len(input) and input[i + 1] in ', ':
+                    i += 1
+        elif brace_level > 0:
+            current += char
+        i += 1
+
+    # Pad with None if some parts (like options) are missing
+    while len(parts) < 3:
+        parts.append(None)
+
+    return tuple(parts)

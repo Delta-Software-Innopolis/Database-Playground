@@ -9,6 +9,8 @@ from .parsing import (
     extract_collection_name,
     parse_rjson,
     fix_types_to_str,
+    split_update_input,
+    _fix_types
 )
 from ..models import MongoQueryResult
 from ..exceptions import ParsingError
@@ -30,7 +32,7 @@ class MongoQuery(ABC):
         provided database instance """
         self._parse()
         start_time = time.perf_counter()
-        result = self._execute(db)
+        result = _fix_types(self._execute(db))
         end_time = time.perf_counter()
         return MongoQueryResult(
             self.query, result,
@@ -221,33 +223,55 @@ class FindOne(MongoQuery):
         return results
 
 
-class Aggregate(MongoQuery):
-    pattern = re.compile(r".*db\..*\.aggregate(.*).*")
+class UpdateOne(MongoQuery):
+    pattern = re.compile(r".*db\..*\.updateOne(.*).*")
 
     def __init__(self, str_query: str):
         super().__init__(str_query)
         self.collection: str = ""
-        self.data: list = []
+        self.filter: dict = {}
+        self.update: dict = {}
+        self.options: dict | None = None
 
     def _parse(self):
         input = extract_input_string(self.query)
-        data = parse_rjson(input)
-        if not data or not isinstance(data, list):
+        filter, update, options = split_update_input(input)
+        filter = parse_rjson(filter)
+        update = parse_rjson(update)
+        options = parse_rjson(options)
+        if not filter or not update:
             raise ParsingError(
-                "aggregate() accepts multiple documents"
-                f" (list of relaxed jsons). Got '{data}'"
+                "updateOne() accepts multiple arguments "
+                f"(filter, update, [options]). Got '{filter, update, options}'"
             )
+        if isinstance(filter, list):
+            raise ParsingError("updateOne() awaits for filter as relaxed "
+                               f"json object, got list: {filter}")
+        if isinstance(update, list):
+            raise ParsingError("updateOne() awaits for update as relaxed "
+                               f"json object, got list: {update}")
+        if isinstance(options, list):
+            raise ParsingError("updateOne() awaits for options as relaxed "
+                               f"json object, got list: {options}")
         collection = extract_collection_name(self.query)
         if not collection:
-            raise ParsingError(
-                "query db.<collection>.aggregate(),"
-                " no collection provided"
-            )
-        self.data = data
+            raise ParsingError("query db.<collection>.updateOne(), "
+                               "no collection provided")
         self.collection = collection
+        self.filter = filter
+        self.update = update
+        self.options = options
 
     def _execute(self, db: MongoDatabase) -> list | dict | None:
         coll = db.get_collection(self.collection)
-        cursor = coll.aggregate(self.data)
-        results = [fix_types_to_str(item) for item in cursor]
-        return results
+        if self.options:
+            result = coll.update_one(self.filter, self.update, **self.options)
+        else:
+            result = coll.update_one(self.filter, self.update)
+        return {
+            "acknowledged": str(result.acknowledged),
+            "did_upsert": str(result.did_upsert),
+            "matched_count": str(result.matched_count),
+            "modified_count": str(result.modified_count),
+            "upserted_id": str(result.upserted_id)
+        }

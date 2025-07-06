@@ -51,7 +51,7 @@ def get_matching_query(str_query: str) -> MongoQuery:
     for Query in QUERIES:
         if Query.matches(str_query):
             return Query(str_query)
-    raise QueryError(f"Unknown query '{str_query}'")
+    raise QueryError(f"Unknown Query: '{str_query}'")
 
 
 def execute_queries(
