@@ -2,13 +2,17 @@ import { useEffect, useState } from "react";
 import Schema from "./Schema";
 import Tab from "./Tab";
 import styles from "./SchemaWrapper.module.css";
+import { useSchemas } from "../hooks/useSchemas";
 
-export default function SchemaWrapper({ schemas }) {
+export default function SchemaWrapper() {
+  const { schemas } = useSchemas();
   const [activeSchema, setActiveSchema] = useState(schemas[0] || null);
 
+  console.log(schemas);
   useEffect(() => {
     if (!activeSchema || !schemas.includes(activeSchema)) {
       setActiveSchema(schemas[0] || null);
+      if (!activeSchema) return;
       for (const schema of schemas) {
         if (schema.name == activeSchema.name) {
           setActiveSchema(schema);
@@ -23,7 +27,7 @@ export default function SchemaWrapper({ schemas }) {
   }
 
   return (
-    <div className={styles.wrapper} style={{ width: "100%", height: "100%" }}>
+    <div className={styles.wrapper}>
       <div className={styles.tabs}>
         {schemas.map((schema) => (
           <Tab

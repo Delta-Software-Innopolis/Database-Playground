@@ -1,59 +1,92 @@
 import styles from "./ResultsTable.module.css";
-
-function getTableData(item, headers) {
-  let tableData = Array();
-  for (let i of headers) {
-    tableData.push(item[i]);
-  }
-  return tableData;
-}
+import clockImg from "../assets/clock.jpg";
 
 function Table({ results }) {
-  // if (results.length == 0) return;
-  console.log(results);
-  let headers = [];
-  for (let i in results[0]) {
-    headers.push(i);
-  }
-  return (
-    <div>
-      <table>
-        <thead>
-          <tr>
-            {headers.map((item) => (
-              <th key={item}>{item}</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {results.map((item) => (
-            <tr key={results.indexOf(item)}>
-              {getTableData(item, headers).map((data) => (
-                <td key={data}>{data}</td>
+  if (!results) return;
+  const nums = [];
+  if (results.columns) {
+    for (let i = 0; i < results.columns[0].length; i++) nums.push(i);
+
+    return (
+      <div>
+        <table>
+          <thead>
+            <tr>
+              {results.columns.map((col) => (
+                <td key={col}>{col}</td>
               ))}
             </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
+          </thead>
+          <tbody>
+            {nums.map((index) => (
+              <tr key={index}>
+                {results.columns.map((key) => (
+                  <td key={results.data[key][index]}>
+                    {results.data[key][index]}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    );
+  }
+
+  return <pre>{JSON.stringify(results, null, 2)}</pre>;
 }
 
-export default function ResultsTable({ results }) {
-  console.log("TIMUR DAUN", results); // ну реально
-  if (results.data === null) {
+export default function ResultsTable({ results, queryNum }) {
+  if (results === null) {
+    const rowsAffected = Math.max(0, results.rowcount);
     return (
-      <div className={styles.beautiful}>
-        <p>Execution time: {results.execution_time}</p>
-        <p>{Math.max(0, results.rowcount)} rows affected.</p>
+      <div>
+        <details open>
+          <summary>
+            <span style={{ marginRight: "auto", marginLeft: 10 }}>
+              {queryNum}. {results.query}
+            </span>
+            <span className={styles.greatSpan}>
+              <img
+                className={styles.clocksImg}
+                src={clockImg}
+                alt="clock"
+                style={{ marginRight: 10 }}
+              />
+              {(results.execution_time * 1000).toFixed(3)}ms
+            </span>
+          </summary>
+          <p className={styles.rowAffect}>
+            <em>
+              {rowsAffected} {rowsAffected == 1 ? "row" : "rows"} affected.
+            </em>
+          </p>
+        </details>
       </div>
     );
   } else {
     let data = results.data;
     return (
-      <div className={styles.beautiful}>
-        Execution time: {results.execution_time}
-        <Table results={data} />
+      <div>
+        <details open>
+          <summary>
+            <span style={{ marginRight: "auto", marginLeft: 10 }}>
+              {queryNum}. {results.query}
+            </span>
+            <span className={styles.greatSpan}>
+              <img
+                className={styles.clocksImg}
+                src={clockImg}
+                alt="clock"
+                style={{ marginRight: 10 }}
+              />
+              {(results.execution_time * 1000).toFixed(3)}ms
+            </span>
+          </summary>
+          <div className={styles.beautiful}>
+            <Table results={data} />
+          </div>
+        </details>
       </div>
     );
   }
