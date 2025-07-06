@@ -81,8 +81,8 @@ class PostgresEngine(DBEngine):
     ):
         data = None
         start = time.perf_counter()
+        cur.execute(query)
         try:
-            cur.execute(query)
             raw_data = cur.fetchall()
             # Only try formatting if description is available (for SELECT)
             if cur.description:
@@ -99,6 +99,7 @@ class PostgresEngine(DBEngine):
         except psycopg2.ProgrammingError:
             # For queries that do not return results (e.g., INSERT, DROP)
             data = None
+        rowcount = cur.rowcount
         execution_time = time.perf_counter() - start
         rowcount = cur.rowcount
 
