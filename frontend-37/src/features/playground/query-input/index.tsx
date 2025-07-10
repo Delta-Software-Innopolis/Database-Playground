@@ -1,17 +1,17 @@
+import { API_URL } from "@/config/env";
 import { useRef, useState, useEffect } from "react";
 import styles from "./QueryInput.module.css";
-import { RunButton } from "./RunButton";
 import { queryResultsStore } from "../queryResultsStore";
 import { schemasStore } from "../schemasStore";
-import { API_URL } from "@/config/env";
-import { QueryResult, Schema } from "../types";
+import { QueryResult, DBSchema } from "../types";
+import { RunButton } from "./RunButton";
 
 export interface QueryResultsResponse {
   detail?: string; // error
   results?: QueryResult[];
   schema?: {
     name: string;
-    tables: Schema[];
+    tables: DBSchema[];
   };
 }
 
@@ -26,11 +26,11 @@ export function QueryInput() {
 
   const session_id = localStorage.getItem("session_id");
 
-  let shiftDown = useRef(false);
+  const shiftDown = useRef(false);
 
-  let [numberColumnValues, changeNumberColumnValues] = useState(["1"]);
+  const [numberColumnValues, changeNumberColumnValues] = useState(["1"]);
 
-  let containerResizeObserver = new ResizeObserver(adjustSizes);
+  const containerResizeObserver = new ResizeObserver(adjustSizes);
   let observerObserving = false;
 
   function getNumberRows() {
@@ -44,7 +44,7 @@ export function QueryInput() {
 
   function selectionChangeHandler(e: Event) {
     const target = e.target as HTMLTextAreaElement;
-    let { selectionStart, selectionEnd } = target;
+    const { selectionStart, selectionEnd } = target;
 
     onQueryChange(
       selectionEnd > selectionStart
@@ -68,10 +68,10 @@ export function QueryInput() {
 
   const onQueryChange = setQuery;
 
-  let isSelectionChangeHandlerAdded = useRef(false);
+  const isSelectionChangeHandlerAdded = useRef(false);
 
   useEffect(() => {
-    let input = textareaRef.current;
+    const input = textareaRef.current;
 
     if (input && !isSelectionChangeHandlerAdded.current) {
       input.addEventListener("selectionchange", selectionChangeHandler);
@@ -100,8 +100,8 @@ export function QueryInput() {
         <textarea
           className={styles["query-input-area"]}
           onChange={(e) => {
-            let rows = e.target.value.split("\n");
-            let columnValues = rows.map((_, i) => `${i + 1}`);
+            const rows = e.target.value.split("\n");
+            const columnValues = rows.map((_, i) => `${i + 1}`);
 
             changeNumberColumnValues(columnValues);
 
@@ -121,9 +121,9 @@ export function QueryInput() {
               e.preventDefault();
 
               const textarea = e.currentTarget;
-              let { selectionStart, selectionEnd } = textarea;
+              const { selectionStart, selectionEnd } = textarea;
 
-              let lineStart =
+              const lineStart =
                 textarea.value.lastIndexOf("\n", selectionStart - 1) + 1;
               let lineEnd = textarea.value
                 .substring(selectionStart)

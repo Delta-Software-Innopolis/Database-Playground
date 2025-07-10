@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router";
 import { Main } from "./features/main";
-import { TemplateChoice } from "./features/template-choice";
 import { Playground } from "./features/playground";
+import { TemplateChoice } from "./features/template-choice";
 
 export default function Router() {
   return (

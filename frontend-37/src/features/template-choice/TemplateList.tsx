@@ -12,7 +12,7 @@ export function TemplateList({
   templateChoice,
   onTemplateChoiceChange,
 }: TemplateListProps) {
-  let list = data.map((template) => {
+  const list = data.map((template) => {
     return (
       <li
         className={styles["template-list-item"]}

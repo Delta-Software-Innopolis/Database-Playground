@@ -1,47 +1,27 @@
-import globals from "globals";
 import js from "@eslint/js";
-import reactPlugin from "eslint-plugin-react";
+import react from "eslint-plugin-react";
+import reactHooks from "eslint-plugin-react-hooks";
+import reactRefresh from "eslint-plugin-react-refresh";
+import { defineConfig, globalIgnores } from "eslint/config";
+import globals from "globals";
+import tseslint from "typescript-eslint";
 
-export default [
-  // Базовые правила ESLint
-  js.configs.recommended,
-
-  // Настройки для React
+export default defineConfig([
   {
-    files: ["**/*.{js,jsx}"],
-    plugins: {
-      react: reactPlugin, // Правильный формат плагинов в Flat Config
-    },
+    files: ["**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
+    plugins: { js, react },
+    extends: ["js/recommended"],
     languageOptions: {
-      globals: {
-        ...globals.browser,
-        React: "readonly", // Глобальный React не требуется импортировать
-      },
+      globals: globals.browser,
       parserOptions: {
         ecmaFeatures: {
-          jsx: true, // Включаем поддержку JSX
+          jsx: true,
         },
       },
     },
-    rules: {
-      "no-unused-vars": "off",
-      // React-специфичные правила
-      "react/react-in-jsx-scope": "off",
-      "react/jsx-uses-react": "error",
-      "react/prop-types": "off", // Отключаем проверку prop-types
-
-      // Дополнительные правила по желанию
-      "react/jsx-key": "error", // Проверка key в массивах
-    },
-    settings: {
-      react: {
-        version: "detect", // Автоматически определяет версию React
-      },
-    },
   },
-
-  // Игнорируемые файлы (замена .eslintignore)
-  {
-    ignores: ["**/node_modules/**", "**/dist/**", "**/*.config.js"],
-  },
-];
+  tseslint.configs.recommended,
+  reactHooks.configs["recommended-latest"],
+  reactRefresh.configs.vite,
+  globalIgnores([".dependency-cruiser.cjs"]),
+]);

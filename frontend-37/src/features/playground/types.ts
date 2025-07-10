@@ -1,3 +1,5 @@
+export type Cell = string | number | boolean;
+
 export interface Column {
   name: string;
   type: string;
@@ -11,7 +13,7 @@ export interface DBSchema {
 
 export interface QueryData {
   columns: string[];
-  data: Record<string, any[]>;
+  data: Record<string, Cell>;
 }
 
 export interface QueryResult {
