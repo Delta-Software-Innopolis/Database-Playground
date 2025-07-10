@@ -1,12 +1,12 @@
-import mainImg from "../../assets/people.png";
-import humansImg from "../../assets/humans.jpg";
-import assignmentsImg from "../../assets/taska.jpg";
-import humanWithDeskImg from "../../assets/rectangleAndHuman.jpg";
-import styles from "./Main.module.css";
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
-import { MainTopBar } from "./TopBar";
+import styles from "./Main.module.css";
+import humansImg from "../../assets/humans.jpg";
+import mainImg from "../../assets/people.png";
+import humanWithDeskImg from "../../assets/rectangleAndHuman.jpg";
+import assignmentsImg from "../../assets/taska.jpg";
 import { API_URL } from "../../config/env";
+import { MainTopBar } from "./TopBar";
 
 export function Main() {
   const navigate = useNavigate();

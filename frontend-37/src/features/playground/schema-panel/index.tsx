@@ -1,15 +1,13 @@
 import { useEffect, useState } from "react";
-import { Schema } from "./Schema";
-import { SchemaTab } from "./SchemaTab";
 import styles from "./SchemaPanel.module.css";
 import { schemasStore } from "../schemasStore";
+import { Schema } from "./Schema";
+import { SchemaTab } from "./SchemaTab";
 
 export function SchemaPanel() {
   const { schemas } = schemasStore();
-  if (!schemas) return;
   const [activeSchema, setActiveSchema] = useState(schemas[0] || null);
 
-  console.log(schemas);
   useEffect(() => {
     if (!activeSchema || !schemas.includes(activeSchema)) {
       setActiveSchema(schemas[0] || null);
@@ -23,7 +21,7 @@ export function SchemaPanel() {
     }
   }, [schemas]);
 
-  if (schemas.length === 0) {
+  if (schemas.length === 0 || !schemas) {
     return <div className={styles.wrapper} />;
   }
 
