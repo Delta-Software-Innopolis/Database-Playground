@@ -1,5 +1,5 @@
-import styles from "./RunButton.module.css";
 import triangleJpg from "@/assets/triangle.jpg";
+import styles from "./RunButton.module.css";
 
 interface RunButtonProps {
   handleClick: () => void;

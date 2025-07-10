@@ -1,9 +1,9 @@
+import { API_URL } from "@/config/env";
+import { templateStore } from "@/shared/store/templateStore";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import { templateStore } from "@/shared/store/templateStore";
-import { TemplateChoiceTopBar } from "./TopBar";
 import { TemplateList } from "./TemplateList";
-import { API_URL } from "@/config/env";
+import { TemplateChoiceTopBar } from "./TopBar";
 import { Template } from "./types";
 
 export function TemplateChoice() {

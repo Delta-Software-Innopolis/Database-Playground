@@ -1,7 +1,7 @@
 import styles from "./QueryResultItem.module.css";
 import clockImg from "../../../assets/clock.jpg";
-import { SelectQueryResult } from "./SelectQueryResult";
 import { QueryResult } from "../types";
+import { SelectQueryResult } from "./SelectQueryResult";
 
 interface QueryResultItemProps {
   result: QueryResult;
@@ -37,7 +37,7 @@ export function QueryResultItem({ result, queryNum }: QueryResultItemProps) {
       </div>
     );
   } else {
-    let data = result.data;
+    const data = result.data;
     return (
       <div>
         <details open>

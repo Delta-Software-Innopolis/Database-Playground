@@ -1,7 +1,7 @@
-import { NavLink } from "react-router";
+import { Button } from "@/shared/ui/Button";
 import { TopBar } from "@/shared/ui/TopBar";
 import { TopBarElement } from "@/shared/ui/TopBarElement";
-import { Button } from "@/shared/ui/Button";
+import { NavLink } from "react-router";
 
 interface TemplateChoiceTopBarProps {
   onTemplateChoose: (e: React.MouseEvent<HTMLElement>) => void;
