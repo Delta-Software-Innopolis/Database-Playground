@@ -2,5 +2,18 @@
   "semi": true,
   "singleQuote": false,
   "tabWidth": 2,
-  "trailingComma": "es5"
+  "trailingComma": "es5",
+  "useTabs": false,
+  "importOrder": [
+    "<THIRD_PARTY_MODULES>",
+    "^@assets/(.*)$",
+    "^(.*).css$",
+    "^@config/(.*)$",
+    "^@lib/(.*)$",
+    "^@types/(.*)$",
+    "^@shared/store/(.*)$",
+    "^@features/(.*)$",
+    "^[./]"
+  ],
+  "plugins": ["@trivago/prettier-plugin-sort-imports"]
 }

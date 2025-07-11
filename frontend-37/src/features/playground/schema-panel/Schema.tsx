@@ -1,5 +1,5 @@
-import { DBSchema } from "../types";
 import styles from "./Schema.module.css";
+import { DBSchema } from "../types";
 
 interface SchemaProps {
   schema: DBSchema;

@@ -1,9 +1,9 @@
-import { NavLink } from "react-router";
 import saveSvg from "@/assets/save.svg";
 import { templateStore } from "@/shared/store/templateStore";
 import { Button } from "@/shared/ui/Button";
-import { TopBarElement } from "@/shared/ui/TopBarElement";
 import { TopBar } from "@/shared/ui/TopBar";
+import { TopBarElement } from "@/shared/ui/TopBarElement";
+import { NavLink } from "react-router";
 
 import styles from "./TopBar.module.css";
 

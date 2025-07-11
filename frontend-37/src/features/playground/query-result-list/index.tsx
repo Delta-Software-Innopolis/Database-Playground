@@ -78,16 +78,15 @@
 //     );
 //   }
 // }
-
+import styles from "./QueryResultList.module.css";
 import { queryResultsStore } from "../queryResultsStore";
 import { QueryResultItem } from "./QueryResultItem";
-import styles from "./QueryResultList.module.css";
 
 function takeLine(str: string) {
-  let a = str.indexOf('"LINE"');
-  let b = str.indexOf("LINE", a + 2);
-  let c = str.substring(0, b);
-  let d = str.substring(b, str.length);
+  const a = str.indexOf('"LINE"');
+  const b = str.indexOf("LINE", a + 2);
+  const c = str.substring(0, b);
+  const d = str.substring(b, str.length);
 
   return [c, d];
 }

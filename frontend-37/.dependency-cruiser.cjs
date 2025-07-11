@@ -180,10 +180,6 @@ module.exports = {
     },
   ],
   options: {
-    tsConfig: {
-      fileName: "tsconfig.json",
-    },
-
     /* Which modules not to follow further when encountered */
     doNotFollow: {
       /* path: an array of regular expressions in strings to match against */
@@ -193,7 +189,7 @@ module.exports = {
     /* Which modules to exclude */
     exclude: {
       /* path: an array of regular expressions in strings to match against */
-      path: "vite-env.d.ts",
+      path: "src/vite-env.d.ts",
     },
 
     /* Which modules to exclusively include (array of regular expressions in strings)
@@ -259,9 +255,9 @@ module.exports = {
        dependency-cruiser's current working directory). When not provided
        defaults to './tsconfig.json'.
      */
-    // tsConfig: {
-    //   fileName: 'tsconfig.json'
-    // },
+    tsConfig: {
+      fileName: "tsconfig.json",
+    },
 
     /* Webpack configuration to use to get resolve options from.
 
@@ -379,4 +375,4 @@ module.exports = {
     },
   },
 };
-// generated: dependency-cruiser@16.10.4 on 2025-07-06T18:02:14.069Z
+// generated: dependency-cruiser@16.10.4 on 2025-07-10T13:54:08.073Z

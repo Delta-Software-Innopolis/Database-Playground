@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
 import { API_URL } from "../../config/env";
 import { templateStore } from "../../shared/store/templateStore";
-import { schemasStore } from "./schemasStore";
-import { MongoSchema } from "./schema-panel/MongoSchema";
-import { QueryResultList } from "./query-result-list";
 import { PlaygroundTopBar } from "./TopBar";
-import { SchemaPanel } from "./schema-panel";
 import { QueryInput } from "./query-input";
+import { QueryResultList } from "./query-result-list";
+import { SchemaPanel } from "./schema-panel";
+import { MongoSchema } from "./schema-panel/MongoSchema";
+import { schemasStore } from "./schemasStore";
 
 import styles from "./Playground.module.css";
 

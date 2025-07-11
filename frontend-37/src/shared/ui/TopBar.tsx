@@ -1,6 +1,6 @@
+import { CSSProperties, HTMLAttributes, ReactNode } from "react";
 import { NavLink } from "react-router";
 import styles from "./TopBar.module.css";
-import { CSSProperties, HTMLAttributes, ReactNode } from "react";
 
 interface TopBarProps extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
