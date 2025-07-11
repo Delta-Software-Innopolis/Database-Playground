@@ -95,9 +95,9 @@ export function QueryResultList() {
   const { results, error } = queryResultsStore();
   if (error) {
     return (
-      <div className={styles.errors}>
+      <div className={styles.errorWrapper}>
         <p className={styles.errorIn}>Error in query detected:</p>
-        <div className={styles.oshibka}>
+        <div className={styles.errorMessage}>
           <p style={{ marginBottom: 0 }}>{takeLine(error)[0]}</p>
           <p style={{ marginTop: 0, marginBottom: 0, whiteSpace: "pre" }}>
             {takeLine(error)[1]}

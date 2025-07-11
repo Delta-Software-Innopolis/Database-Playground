@@ -21,25 +21,30 @@ th {
   justify-content: space-evenly;
 }
 
-.beautiful {
+.resultTable {
   height: auto;
   margin-left: auto;
   margin-right: auto;
   background-color: #e9e9ff;
 }
 
-.clocksImg {
+.clockImg {
   width: 32px;
   height: 28px;
-  margin-right: 5px;
+  margin-right: 10px;
 }
 
-.rowAffect {
+.affectedRows {
   margin-top: 10px;
   color: rgba(0, 0, 0, 0.7);
 }
 
-.greatSpan {
+.queryTitle {
+  margin-right: auto;
+  margin-left: 10px;
+}
+
+.execTime {
   display: flex;
   align-items: center;
   justify-content: space-around;
