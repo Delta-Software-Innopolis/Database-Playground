@@ -1,5 +1,5 @@
-import { schemasStore } from "../schemasStore";
 import styles from "./MongoSchema.module.css";
+import { schemasStore } from "../schemasStore";
 
 export function MongoSchema() {
   const { schemas } = schemasStore();

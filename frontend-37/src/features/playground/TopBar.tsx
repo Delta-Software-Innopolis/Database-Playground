@@ -4,7 +4,6 @@ import { Button } from "@/shared/ui/Button";
 import { TopBar } from "@/shared/ui/TopBar";
 import { TopBarElement } from "@/shared/ui/TopBarElement";
 import { NavLink } from "react-router";
-
 import styles from "./TopBar.module.css";
 
 export function PlaygroundTopBar() {

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
+import styles from "./Playground.module.css";
 import { API_URL } from "../../config/env";
 import { templateStore } from "../../shared/store/templateStore";
 import { PlaygroundTopBar } from "./TopBar";
@@ -8,8 +9,6 @@ import { QueryResultList } from "./query-result-list";
 import { SchemaPanel } from "./schema-panel";
 import { MongoSchema } from "./schema-panel/MongoSchema";
 import { schemasStore } from "./schemasStore";
-
-import styles from "./Playground.module.css";
 
 export function Playground() {
   const session_id = localStorage.getItem("session_id");
