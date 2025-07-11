@@ -1,4 +1,4 @@
-.query-input-container {
+.container {
   display: block;
   font-size: 24px;
   overflow: hidden;
@@ -10,7 +10,7 @@
   position: relative;
 }
 
-.query-input-wrapper {
+.wrapper {
   display: flex;
   flex-direction: row;
   font-size: 24px;
@@ -27,7 +27,7 @@
   padding: 0;
 }
 
-.query-input-rowcounter {
+.rowcounter {
   display: flex;
   flex-direction: column;
 
@@ -45,12 +45,12 @@
   user-select: none;
 }
 
-.query-input-rowcounter div {
+.rowcounter div {
   text-align: right;
   line-height: 25px;
 }
 
-.query-input-area {
+.textarea {
   all: unset; /* Reset default styles */
   display: block;
 
@@ -81,14 +81,6 @@
   scrollbar-width: thin;
 }
 
-.query-input-area::selection {
+.textarea::selection {
   background-color: #dedeff;
-}
-
-.width-test {
-  font-size: 24px;
-  display: none;
-
-  margin: 0;
-  padding: 0;
 }

@@ -1,4 +1,4 @@
-.topbar {
+.container {
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
@@ -13,16 +13,16 @@
   padding: 21px 28px 21px 28px;
 }
 
-.topbar a {
+.container a {
   color: inherit;
   text-decoration: none;
 }
 
-.topbar p {
+.container p {
   margin: 0;
 }
 
-.topbar-title {
+.title {
   display: flex;
   justify-self: flex-start;
   flex-basis: 249px;
@@ -34,7 +34,7 @@
   justify-content: center;
 }
 
-.topbar-content {
+.content {
   display: flex;
   justify-self: flex-end;
   flex-basis: 454.54px;
@@ -46,11 +46,11 @@
 }
 
 @media (width < 800px) {
-  .topbar {
+  .container {
     gap: 22px;
   }
 
-  .topbar-content {
+  .content {
     justify-content: space-evenly;
     gap: 22px;
   }

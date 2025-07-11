@@ -15,12 +15,12 @@ export function QueryResultItem({ result, queryNum }: QueryResultItemProps) {
       <div>
         <details open>
           <summary>
-            <span style={{ marginRight: "auto", marginLeft: 10 }}>
+            <span className={styles.queryTitle}>
               {queryNum}. {result.query}
             </span>
-            <span className={styles.greatSpan}>
+            <span className={styles.execTime}>
               <img
-                className={styles.clocksImg}
+                className={styles.clockImg}
                 src={clockImg}
                 alt="clock"
                 style={{ marginRight: 10 }}
@@ -28,7 +28,7 @@ export function QueryResultItem({ result, queryNum }: QueryResultItemProps) {
               {(result.execution_time * 1000).toFixed(3)}ms
             </span>
           </summary>
-          <p className={styles.rowAffect}>
+          <p className={styles.affectedRows}>
             <em>
               {rowsAffected} {rowsAffected == 1 ? "row" : "rows"} affected.
             </em>
@@ -42,12 +42,12 @@ export function QueryResultItem({ result, queryNum }: QueryResultItemProps) {
       <div>
         <details open>
           <summary>
-            <span style={{ marginRight: "auto", marginLeft: 10 }}>
+            <span className={styles.queryTitle}>
               {queryNum}. {result.query}
             </span>
-            <span className={styles.greatSpan}>
+            <span className={styles.execTime}>
               <img
-                className={styles.clocksImg}
+                className={styles.clockImg}
                 src={clockImg}
                 alt="clock"
                 style={{ marginRight: 10 }}
@@ -55,7 +55,7 @@ export function QueryResultItem({ result, queryNum }: QueryResultItemProps) {
               {(result.execution_time * 1000).toFixed(3)}ms
             </span>
           </summary>
-          <div className={styles.beautiful}>
+          <div className={styles.resultTable}>
             <SelectQueryResult queryData={data} />
           </div>
         </details>

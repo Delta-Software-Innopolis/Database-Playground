@@ -7,7 +7,7 @@ interface TopBarElementProps extends HTMLAttributes<HTMLDivElement> {
 
 export function TopBarElement({ children, ...props }: TopBarElementProps) {
   return (
-    <div className={styles.topbarElement} {...props}>
+    <div className={styles.element} {...props}>
       {children}
     </div>
   );

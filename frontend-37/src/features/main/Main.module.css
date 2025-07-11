@@ -25,18 +25,18 @@
   align-items: flex-start;
 }
 
-.rectangleContainer {
+.cardContainer {
   display: flex;
   justify-content: space-between;
   width: 99%;
   gap: 40px;
 }
 
-.rectangleContainer img {
+.cardContainer img {
   margin-right: 50px;
 }
 
-.rectangle {
+.card {
   border: solid #c0c0c0 1px;
   border-radius: 30px;
   padding-top: 30px;

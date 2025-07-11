@@ -15,7 +15,7 @@ export function TemplateList({
   let list = data.map((template) => {
     return (
       <li
-        className={styles["template-list-item"]}
+        className={styles.item}
         key={template.id}
         onClick={() => {
           onTemplateChoiceChange(template);
@@ -26,29 +26,29 @@ export function TemplateList({
             : undefined
         }
       >
-        <div className={styles["template-list-data"]}>
+        <div className={styles.data}>
           {typeToName(template.type)}
         </div>
-        <div className={styles["template-list-data"]}>{template.name}</div>
-        <div className={styles["template-list-data"]}>{template.author}</div>
+        <div className={styles.data}>{template.name}</div>
+        <div className={styles.data}>{template.author}</div>
       </li>
     );
   });
 
   return (
     <>
-      <div className={styles["template-list-container"]}>
-        <div className={styles["template-list-title"]}>
+      <div className={styles.container}>
+        <div className={styles.title}>
           Choose Database Template
         </div>
-        <div className={styles["template-list-header"]}>
-          <div className={styles["template-list-header-col"]}>DBMS</div>
-          <div className={styles["template-list-header-col"]}>
+        <div className={styles.header}>
+          <div className={styles.headerCol}>DBMS</div>
+          <div className={styles.headerCol}>
             Template Name
           </div>
-          <div className={styles["template-list-header-col"]}>Author</div>
+          <div className={styles.headerCol}>Author</div>
         </div>
-        <ul className={styles["template-list-wrapper"]}>{list}</ul>
+        <ul className={styles.listWrapper}>{list}</ul>
       </div>
     </>
   );

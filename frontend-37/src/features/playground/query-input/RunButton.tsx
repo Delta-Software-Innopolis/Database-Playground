@@ -8,7 +8,7 @@ interface RunButtonProps {
 export function RunButton({ handleClick }: RunButtonProps) {
   return (
     <>
-      <button className={styles.runButton} onClick={handleClick}>
+      <button className={styles.button} onClick={handleClick}>
         <img src={triangleJpg} />
         <p>run</p>
       </button>

@@ -89,16 +89,16 @@ export function QueryInput() {
   }, []);
 
   return (
-    <div className={styles["query-input-container"]} ref={containerRef}>
-      <div className={styles["query-input-wrapper"]}>
+    <div className={styles.container} ref={containerRef}>
+      <div className={styles.wrapper}>
         <div
-          className={styles["query-input-rowcounter"]}
+          className={styles.rowcounter}
           ref={numbersColumnRef}
         >
           {getNumberRows()}
         </div>
         <textarea
-          className={styles["query-input-area"]}
+          className={styles.textarea}
           onChange={(e) => {
             let rows = e.target.value.split("\n");
             let columnValues = rows.map((_, i) => `${i + 1}`);

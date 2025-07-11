@@ -57,15 +57,15 @@ export function Main() {
         </div>
         <img className={styles.mainImg} src={mainImg} alt="main image" />
       </div>
-      <div className={styles.rectangleContainer}>
-        <div className={styles.rectangle}>
+      <div className={styles.cardContainer}>
+        <div className={styles.card}>
           <img className={styles.peopleImg} src={humansImg} alt="Humans" />
           <div>
             <p className={styles.pAboutClassrooms}>Create classrooms</p>
             <p className={styles.pAboutAdding}>And add students</p>
           </div>
         </div>
-        <div className={styles.rectangle}>
+        <div className={styles.card}>
           <img
             className={styles.assignmentsImg}
             src={assignmentsImg}
@@ -76,7 +76,7 @@ export function Main() {
             <p className={styles.pAboutAdding}>For assignments</p>
           </div>
         </div>
-        <div className={styles.rectangle}>
+        <div className={styles.card}>
           <img
             className={styles.humanWithDeskImg}
             src={humanWithDeskImg}

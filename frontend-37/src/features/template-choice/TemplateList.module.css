@@ -1,4 +1,4 @@
-.template-list-container {
+.container {
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -20,14 +20,14 @@ li {
   margin: 0;
 }
 
-.template-list-title {
+.title {
   text-align: center;
   margin-top: 12px;
 
   font-size: 40px;
 }
 
-.template-list-header {
+.header {
   display: flex;
   gap: 0;
   justify-content: space-evenly;
@@ -35,18 +35,18 @@ li {
   padding: 0px 32px;
 }
 
-.template-list-header-col {
+.headerCol {
   flex-basis: 448.67px;
   text-align: center;
 }
 
-.template-list-wrapper {
+.listWrapper {
   display: flex;
   flex-direction: column;
   gap: 5px;
 }
 
-.template-list-item {
+.item {
   display: flex;
   justify-content: space-evenly;
 
@@ -59,11 +59,11 @@ li {
   cursor: pointer;
 }
 
-.template-list-item:nth-child(even) {
+.item:nth-child(even) {
   background-color: #9797ff;
 }
 
-.template-list-data {
+.data {
   flex-basis: 448.67px;
   text-align: center;
 }

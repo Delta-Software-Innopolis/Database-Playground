@@ -9,15 +9,15 @@ interface TopBarProps extends HTMLAttributes<HTMLDivElement> {
 
 export function TopBar({ children, contentStyle, ...props }: TopBarProps) {
   return (
-    <div className={styles.topbar} {...props}>
-      <div className={styles["topbar-title"]}>
+    <div className={styles.container} {...props}>
+      <div className={styles.title}>
         <p>
           <NavLink to="/" end>
             Database Playground
           </NavLink>
         </p>
       </div>
-      <div className={styles["topbar-content"]} style={contentStyle}>
+      <div className={styles.content} style={contentStyle}>
         {children}
       </div>
     </div>
