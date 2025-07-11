@@ -23,9 +23,7 @@ export function TemplateChoiceTopBar({
               height: 51.15 + "px",
               borderRadius: 11 + "px",
               color: "black",
-              backgroundColor: "white",
-              fontFamily: `"Onest", sans-serif`,
-              fontSize: 24 + "px",
+              backgroundColor: "white"
             }}
           >
             Back
@@ -40,9 +38,7 @@ export function TemplateChoiceTopBar({
               height: 51.15 + "px",
               borderRadius: 11 + "px",
               color: "black",
-              backgroundColor: "white",
-              fontFamily: `"Onest", sans-serif`,
-              fontSize: 24 + "px",
+              backgroundColor: "white"
             }}
           >
             Start

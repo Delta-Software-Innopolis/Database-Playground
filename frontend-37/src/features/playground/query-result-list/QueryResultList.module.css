@@ -10,7 +10,6 @@
   overflow-x: auto;
   overflow-y: auto;
   scrollbar-width: thin;
-  font-size: 24px;
 }
 
 .clockImg {
@@ -42,12 +41,10 @@
 
 .errorIn {
   color: #FF0000;
-  font-size: 24px;
   margin-top: 0px;
   margin-bottom: 0px;
 }
 
 .errorMessage {
-  font-size: 24px;
   margin-top: 15px;
 }

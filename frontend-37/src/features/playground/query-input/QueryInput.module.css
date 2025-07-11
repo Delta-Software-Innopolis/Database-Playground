@@ -1,6 +1,5 @@
 .container {
   display: block;
-  font-size: 24px;
   overflow: hidden;
 
   width: 100%;
@@ -13,7 +12,6 @@
 .wrapper {
   display: flex;
   flex-direction: row;
-  font-size: 24px;
   resize: none;
   overflow: hidden;
   gap: 25px;

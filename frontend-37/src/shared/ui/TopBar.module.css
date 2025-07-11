@@ -27,7 +27,6 @@
   justify-self: flex-start;
   flex-basis: 249px;
 
-  font-size: 24px;
   font-weight: bold;
 
   flex-flow: column nowrap;
@@ -41,8 +40,6 @@
 
   flex-flow: row wrap;
   justify-content: space-between;
-
-  font-size: 24px;
 }
 
 @media (width < 800px) {

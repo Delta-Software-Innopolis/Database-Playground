@@ -25,9 +25,7 @@ export function MainTopBar({ onClick }: MainTopBarProps) {
           style={{
             width: 223.93 + "px",
             height: 51.15 + "px",
-            borderRadius: 11 + "px",
-            fontFamily: `"Onest", sans-serif`,
-            fontSize: 24 + "px",
+            borderRadius: 11 + "px"
           }}
           onClick={onClick}
         >

@@ -38,9 +38,7 @@ export function PlaygroundTopBar() {
               height: 51.15 + "px",
               borderRadius: 11 + "px",
               color: "black",
-              backgroundColor: "white",
-              fontFamily: `"Onest", sans-serif`,
-              fontSize: 24 + "px",
+              backgroundColor: "white"
             }}
           >
             {template}
