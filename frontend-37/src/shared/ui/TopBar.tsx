@@ -4,12 +4,13 @@ import { CSSProperties, HTMLAttributes, ReactNode } from "react";
 
 interface TopBarProps extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
+  contentClassName?: string | undefined;
   contentStyle?: CSSProperties;
 }
 
-export function TopBar({ children, contentStyle, ...props }: TopBarProps) {
+export function TopBar({ children, contentClassName, contentStyle, className, ...props }: TopBarProps) {
   return (
-    <div className={styles.container} {...props}>
+    <div className={[styles.container, className].join(" ")} {...props}>
       <div className={styles.title}>
         <p>
           <NavLink to="/" end>
@@ -17,7 +18,7 @@ export function TopBar({ children, contentStyle, ...props }: TopBarProps) {
           </NavLink>
         </p>
       </div>
-      <div className={styles.content} style={contentStyle}>
+      <div className={[styles.content, contentClassName].join(" ")} style={contentStyle}>
         {children}
       </div>
     </div>

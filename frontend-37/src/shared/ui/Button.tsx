@@ -3,6 +3,6 @@ import styles from "./Button.module.css";
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement>;
 
-export function Button(props: ButtonProps) {
-  return <button className={styles.button} {...props} />;
+export function Button({className, ...props}: ButtonProps) {
+  return <button className={[styles.button, className].join(" ")} {...props} />;
 }
