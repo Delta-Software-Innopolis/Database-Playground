@@ -9,6 +9,8 @@ import { PlaygroundTopBar } from "./TopBar";
 import { SchemaPanel } from "./schema-panel";
 import { QueryInput } from "./query-input";
 
+import styles from "./Playground.module.css";
+
 export function Playground() {
   const session_id = localStorage.getItem("session_id");
   const { updateSchemas } = schemasStore();
@@ -42,28 +44,10 @@ export function Playground() {
   return (
     <>
       {templateType == "PSQL" ? (
-        <div
-          style={{
-            height: "100vh",
-            display: "flex",
-            flexDirection: "column",
-            overflow: "hidden",
-          }}
-        >
+        <div className={styles.pageContainer}>
           <PlaygroundTopBar />
 
-          <div
-            className="mono"
-            style={{
-              flex: 1,
-              display: "flex",
-              flexDirection: "column",
-              marginTop: "10px",
-              marginLeft: "15px",
-              marginRight: "15px",
-              overflow: "hidden",
-            }}
-          >
+          <div className={`mono ${styles.contentContainer}`}>
             <PanelGroup
               direction="vertical"
               style={{
@@ -78,73 +62,35 @@ export function Playground() {
                     display: "flex",
                   }}
                 >
-                  <Panel
-                    style={{
-                      overflow: "hidden",
-                      border: "1px solid #c1c1c1",
-                      borderBottomRightRadius: 10,
-                      minWidth: 300,
-                    }}
-                  >
+                  <Panel className={styles.topContentPanel}>
                     <QueryInput />
                   </Panel>
 
-                  <PanelResizeHandle style={{ width: "10px" }} />
+                  <PanelResizeHandle className={styles.verticalResizeHandle} />
 
-                  <Panel
-                    style={{
-                      overflow: "hidden",
-                      border: "1px solid #c1c1c1",
-                      borderBottomLeftRadius: 10,
-                      minWidth: 300,
-                    }}
-                  >
+                  <Panel className={styles.topContentPanel}>
                     <SchemaPanel />
                   </Panel>
                 </PanelGroup>
               </Panel>
 
-              <PanelResizeHandle style={{ height: "10px" }} />
+              <PanelResizeHandle className={styles.horizontalResizeHandle} />
 
-              <Panel
-                style={{
-                  overflow: "hidden",
-                  border: "1px solid #c1c1c1",
-                  marginBottom: 10,
-                }}
-              >
+              <Panel className={styles.bottomContentPanel}>
                 <QueryResultList />
               </Panel>
             </PanelGroup>
           </div>
         </div>
       ) : (
-        <div
-          style={{
-            height: "100vh",
-            display: "flex",
-            flexDirection: "column",
-            overflow: "hidden",
-          }}
-        >
+        <div className={styles.pageContainer}>
           <div>
             <PlaygroundTopBar />
-            <div style={{ marginLeft: 15, marginTop: 10 }}>
+            <div className={styles.mongoSchemaWrapper}>
               <MongoSchema />
             </div>
           </div>
-          <div
-            className="mono"
-            style={{
-              flex: 1,
-              display: "flex",
-              flexDirection: "column",
-              marginTop: "10px",
-              marginLeft: "15px",
-              marginRight: "15px",
-              overflow: "hidden",
-            }}
-          >
+          <div className={`mono ${styles.contentContainer}`}>
             <PanelGroup
               direction="horizontal"
               style={{
@@ -152,27 +98,13 @@ export function Playground() {
                 marginBottom: 15,
               }}
             >
-              <Panel
-                style={{
-                  overflow: "hidden",
-                  border: "1px solid #c1c1c1",
-                  borderBottomRightRadius: 10,
-                  minWidth: 300,
-                }}
-              >
+              <Panel className={styles.topContentPanel}>
                 <QueryInput />
               </Panel>
 
-              <PanelResizeHandle style={{ width: "10px" }} />
+              <PanelResizeHandle className={styles.verticalResizeHandle} />
 
-              <Panel
-                style={{
-                  overflow: "hidden",
-                  border: "1px solid #c1c1c1",
-                  borderBottomLeftRadius: 10,
-                  minWidth: 300,
-                }}
-              >
+              <Panel className={styles.topContentPanel}>
                 <QueryResultList />
               </Panel>
             </PanelGroup>
