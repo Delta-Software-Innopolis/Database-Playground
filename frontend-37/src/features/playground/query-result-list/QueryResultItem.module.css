@@ -40,8 +40,8 @@ th {
 }
 
 .queryTitle {
-  margin-right: "auto";
-  margin-left: 10;
+  margin-right: auto;
+  margin-left: 10px;
 }
 
 .execTime {
