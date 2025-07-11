@@ -9,7 +9,7 @@ interface MainTopBarProps {
 
 export function MainTopBar({ onClick }: MainTopBarProps) {
   return (
-    <TopBar contentStyle={{ flexBasis: "500px" }}>
+    <TopBar contentStyle={{ flexBasis: 500 }}>
       <TopBarElement>
         <NavLink to="/about" end>
           About
@@ -23,11 +23,9 @@ export function MainTopBar({ onClick }: MainTopBarProps) {
       <TopBarElement>
         <Button
           style={{
-            width: 223.93 + "px",
-            height: 51.15 + "px",
-            borderRadius: 11 + "px",
-            fontFamily: `"Onest", sans-serif`,
-            fontSize: 24 + "px",
+            width: 223.93,
+            height: 51.15,
+            borderRadius: 11,
           }}
           onClick={onClick}
         >

@@ -5,9 +5,13 @@ interface TopBarElementProps extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
 }
 
-export function TopBarElement({ children, ...props }: TopBarElementProps) {
+export function TopBarElement({
+  children,
+  className,
+  ...props
+}: TopBarElementProps) {
   return (
-    <div className={styles.topbarElement} {...props}>
+    <div className={[styles.element, className].join(" ")} {...props}>
       {children}
     </div>
   );

@@ -1,0 +1,16 @@
+.topbar {
+  background-color: #6968ff;
+  color: white;
+}
+
+.topbarContent {
+  flex-basis: 404px;
+}
+
+.button {
+  width: 177px;
+  height: 51.15px;
+  border-radius: 11px;
+  color: black;
+  background-color: white;
+}

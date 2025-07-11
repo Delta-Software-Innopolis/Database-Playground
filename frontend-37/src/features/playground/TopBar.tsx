@@ -4,47 +4,22 @@ import { Button } from "@/shared/ui/Button";
 import { TopBar } from "@/shared/ui/TopBar";
 import { TopBarElement } from "@/shared/ui/TopBarElement";
 import { NavLink } from "react-router";
+import styles from "./TopBar.module.css";
 
 export function PlaygroundTopBar() {
   const { template } = templateStore();
   return (
-    <TopBar
-      style={{
-        backgroundColor: "#6968FF",
-        color: "white",
-        borderRadius: `${22}px ${22}px ${0}px ${0}px`,
-      }}
-      contentStyle={{ flexBasis: 521 + "px" }}
-    >
+    <TopBar className={styles.topbar} contentClassName={styles.topbarContent}>
       <TopBarElement>
         <NavLink to="/" end>
-          <Button
-            style={{
-              width: 52 + "px",
-              height: 51.15 + "px",
-              borderRadius: 11 + "px",
-              backgroundColor: "white",
-            }}
-          >
+          <Button className={styles.saveButton}>
             <img src={saveSvg} alt="Save button"></img>
           </Button>
         </NavLink>
       </TopBarElement>
       <TopBarElement>
         <NavLink to="/template" end>
-          <Button
-            style={{
-              width: 459 + "px",
-              height: 51.15 + "px",
-              borderRadius: 11 + "px",
-              color: "black",
-              backgroundColor: "white",
-              fontFamily: `"Onest", sans-serif`,
-              fontSize: 24 + "px",
-            }}
-          >
-            {template}
-          </Button>
+          <Button className={styles.templateButton}>{template}</Button>
         </NavLink>
       </TopBarElement>
     </TopBar>
