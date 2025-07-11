@@ -26,9 +26,7 @@ export function TemplateList({
             : undefined
         }
       >
-        <div className={styles.data}>
-          {typeToName(template.type)}
-        </div>
+        <div className={styles.data}>{typeToName(template.type)}</div>
         <div className={styles.data}>{template.name}</div>
         <div className={styles.data}>{template.author}</div>
       </li>
@@ -38,14 +36,10 @@ export function TemplateList({
   return (
     <>
       <div className={styles.container}>
-        <div className={styles.title}>
-          Choose Database Template
-        </div>
+        <div className={styles.title}>Choose Database Template</div>
         <div className={styles.header}>
           <div className={styles.headerCol}>DBMS</div>
-          <div className={styles.headerCol}>
-            Template Name
-          </div>
+          <div className={styles.headerCol}>Template Name</div>
           <div className={styles.headerCol}>Author</div>
         </div>
         <ul className={styles.listWrapper}>{list}</ul>

@@ -91,10 +91,7 @@ export function QueryInput() {
   return (
     <div className={styles.container} ref={containerRef}>
       <div className={styles.wrapper}>
-        <div
-          className={styles.rowcounter}
-          ref={numbersColumnRef}
-        >
+        <div className={styles.rowcounter} ref={numbersColumnRef}>
           {getNumberRows()}
         </div>
         <textarea

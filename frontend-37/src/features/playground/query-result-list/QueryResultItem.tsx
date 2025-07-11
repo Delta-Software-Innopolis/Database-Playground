@@ -31,15 +31,11 @@ export function QueryResultItem({ result, queryNum }: QueryResultItemProps) {
             {queryNum}. {result.query}
           </span>
           <span className={styles.execTime}>
-            <img
-              className={styles.clockImg}
-              src={clockImg}
-              alt="clock"
-            />
+            <img className={styles.clockImg} src={clockImg} alt="clock" />
             {(result.execution_time * 1000).toFixed(3)}ms
           </span>
         </summary>
-        { content }
+        {content}
       </details>
     </div>
   );

@@ -8,7 +8,13 @@ interface TopBarProps extends HTMLAttributes<HTMLDivElement> {
   contentStyle?: CSSProperties;
 }
 
-export function TopBar({ children, contentClassName, contentStyle, className, ...props }: TopBarProps) {
+export function TopBar({
+  children,
+  contentClassName,
+  contentStyle,
+  className,
+  ...props
+}: TopBarProps) {
   return (
     <div className={[styles.container, className].join(" ")} {...props}>
       <div className={styles.title}>
@@ -18,7 +24,10 @@ export function TopBar({ children, contentClassName, contentStyle, className, ..
           </NavLink>
         </p>
       </div>
-      <div className={[styles.content, contentClassName].join(" ")} style={contentStyle}>
+      <div
+        className={[styles.content, contentClassName].join(" ")}
+        style={contentStyle}
+      >
         {children}
       </div>
     </div>
