@@ -60,6 +60,10 @@ It encorparates main changes of Team 37 for **MVP 2**
 ### Fixed
 - Frontend bugs with Results Panel
 - Frontend playground top bar not displaying current template name
+- Moved from `JavaScript` to `TypeScript`
+- Migrated to new feature-sliced-like architecture
+- Changed naming of components and stores
+
 
 ## [0.1.0] MVP 1 - 2025-06-23
 The first version with some kind of functionality
