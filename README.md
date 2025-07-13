@@ -20,6 +20,10 @@
     <img src="frontend-37/src/assets/database.svg" width=200 height=200>
     <h1>Database Playground</h1>
     <p>Online platform for learning databases</p>
+    <p>
+      <a href="https://dbpg.ru" target="_blank"><strong>Deploy</strong></a> · 
+      <a href="demo.mp4" target="_blank"><strong>Demo</strong></a>
+    </p>
 </div>
 
 ## Launch/Access instructions
