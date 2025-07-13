@@ -36,11 +36,16 @@ $ cd Database-Playground
 $ cp deploy/db.sqlite backend/core/db.sqlite3
 $ cp deploy/.env.sample .env
 ```
-3. Run the app via `Docker Compose` (Install it [here](https://docs.docker.com/compose/install/)):
+3. Install frontend dependencies via [npm](https://www.npmjs.com):
+```sh
+$ cd frontend-37
+$ npm install
+```
+4. Run the app via `Docker Compose` (Install it [here](https://docs.docker.com/compose/install/)):
 ```sh
 $ docker compose up --build
 ```
-4. Working version should be available at http://localhost:5173
+5. Working version should be available at http://localhost:5173
 
 ## Architecture
 ### Static View
