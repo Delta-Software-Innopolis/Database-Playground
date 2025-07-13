@@ -1,5 +1,27 @@
 ## Architecture
 
+### Tech Stack
+#### Backend
+- Python
+- Django
+- Django REST Framework
+- Psycopg2
+- PyMongo
+- PyTest
+- Flake8
+
+#### Frontend
+- TypeScript
+- NodeJS
+- HTML/CSS
+- Vite
+- React
+- React Router
+- CSS Modules
+- Zustand
+- ESLint
+- Prettier
+
 ### Static View
 
 #### Components of backend
