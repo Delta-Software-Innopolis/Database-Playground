@@ -134,12 +134,18 @@
   flex-direction: row;
   justify-content: center;
   gap: 10px;
+
+  font-size: 16px;
+}
+
+.mainDivContainer {
+  position: relative;
+  top: 220px;
 }
 
 .mainDiv {
   position: absolute;
   right: 183px;
-  top: 296.03px;
 
   width: 543px;
   height: 244.94px;
