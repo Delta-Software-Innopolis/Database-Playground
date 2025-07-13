@@ -11,16 +11,16 @@ interface QueryResultItemProps {
 export function QueryResultItem({ result, queryNum }: QueryResultItemProps) {
   const rowsAffected = Math.max(0, result.rowcount | 0);
 
-  const content = !result.data ? (
+  const content = result.data ? (
+    <div className={styles.resultTable}>
+      <SelectQueryResult queryData={result.data} />
+    </div>
+  ) : (
     <p className={styles.affectedRows}>
       <em>
         {rowsAffected} {rowsAffected == 1 ? "row" : "rows"} affected.
       </em>
     </p>
-  ) : (
-    <div className={styles.resultTable}>
-      <SelectQueryResult queryData={result.data} />
-    </div>
   );
 
   return (
@@ -35,7 +35,7 @@ export function QueryResultItem({ result, queryNum }: QueryResultItemProps) {
             {(result.execution_time * 1000).toFixed(3)}ms
           </span>
         </summary>
-        {content}
+        <div style={{ padding: "0px 10px" }}>{content}</div>
       </details>
     </div>
   );
