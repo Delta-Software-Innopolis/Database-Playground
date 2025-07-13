@@ -24,12 +24,27 @@ Changes not yet assigned to any particular release
 *...*
 
 
-## [0.1.1] Pre Merge - 2025-07-09
+## [0.2.1] MVP 2.5 - 2025-07-13
+The version encorporates the consequences of the **Great Merge**  
+The main points where bugfixes, JWT tweaking and frontend Redesign
+
+### Added
+- Support for CSV data uploading on backend
+- Frontend Redesign in Figma ([see prototype](https://www.figma.com/proto/H0JTjoIeRSe5CWU8q16h81/Database-Playground-UI?node-id=712-155&starting-point-node-id=712%3A155))
+- JWT Logic from Team 46 (only backend)
+- Classrooms Logic from Team 46 (only backend)
+- Redesign changes implemented on Frontend:
+    - Main Page
+    - Table Component
+    - Login/Register modals
+
+## [0.2.0] MVP 2 (Pre Merge) - 2025-07-06
 The version is a save before the **Great Merge**  
 It encorparates main changes of Team 37 for **MVP 2**
 
 ### Added
-- Support for MongoDB on backend (via `MongoEngine`)
+- Support for MongoDB (via `MongoEngine`)
+- Frontend page for MongoDB
 
 ### Changed 
 - Rename `SQLEngine` to `DBEngine`
