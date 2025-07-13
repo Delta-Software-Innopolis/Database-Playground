@@ -1,5 +1,4 @@
 import styles from "./QueryResultItem.module.css";
-import clockImg from "../../../assets/clock.jpg";
 import { QueryResult } from "../types";
 import { SelectQueryResult } from "./SelectQueryResult";
 

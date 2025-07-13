@@ -1,4 +1,3 @@
-import { NavLink } from "react-router";
 import styles from "./TopBar.module.css";
 import dropdownImg from "../../assets/topbarDropdown.svg";
 import { Button } from "../../shared/ui/Button";

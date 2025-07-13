@@ -1,4 +1,3 @@
-import styles from "./QueryResultList.module.css";
 import { queryResultsStore } from "../queryResultsStore";
 import { QueryError } from "./QueryError";
 import { QueryResultItem } from "./QueryResultItem";
