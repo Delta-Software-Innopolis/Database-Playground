@@ -35,8 +35,16 @@ The main points where bugfixes, JWT tweaking and frontend Redesign
 - Classrooms Logic from Team 46 (only backend)
 - Redesign changes implemented on Frontend:
     - Main Page
-    - Table Component
+    - Results Panel
     - Login/Register modals
+### Changed
+- Frontend migrated to the new feature-sliced-like architecture
+- Frontend migrated from JavaScript to TypeScript
+- Frontend hugely refactored: naming, CSS, codestyle
+- Prettier formatting tool properly configured
+
+### Fixed
+- Frontend bug with results panel not displaying all results
 
 ## [0.2.0] MVP 2 (Pre Merge) - 2025-07-06
 The version is a save before the **Great Merge**  
@@ -48,11 +56,10 @@ It encorparates main changes of Team 37 for **MVP 2**
 
 ### Changed 
 - Rename `SQLEngine` to `DBEngine`
-- Rewritten frontend-37 from JavaScript to TypeScript
 
 ### Fixed
-- *Frontenders, add here, please...*
-
+- Frontend bugs with Results Panel
+- Frontend playground top bar not displaying current template name
 
 ## [0.1.0] MVP 1 - 2025-06-23
 The first version with some kind of functionality
