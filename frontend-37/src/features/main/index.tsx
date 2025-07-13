@@ -55,7 +55,11 @@ export function Main() {
   return (
     <div className={styles.pageContainerOuter}>
       <div className={styles.pageContainerInner}>
-        <MainTopBar onClick={onClick} />
+        <MainTopBar
+          onPlaygroundClick={onClick}
+          onLoginClick={() => setShowLogin(true)}
+          onClassroomClick={() => {}}
+        />
         <div className={styles.mainDivContainer}>
           <div className={styles.mainDiv}>
             <div className={styles.bigTitle}>Learn databases</div>
