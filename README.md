@@ -34,6 +34,7 @@ Goal of the project is to provide a easy to use platform for education in the fi
 ## [Feature Roadmap](https://docs.google.com/spreadsheets/d/1BHOc92tSWK-cnXHco21XueYkkOzliWa9WWUfIwjav9k/edit?gid=1707224305#gid=1707224305)
 
 ## Usage instructions
+
 - open https://dbpg.ru in your favorite browser
 - hover the menu in the top right corner
 - select playground
@@ -103,7 +104,6 @@ Thanks! Based on the structure you provided from the `dev` branch, here's a prop
 
 - [Automated Tests](docs/quality-assurance/automated-tests.md)
 - [User Acceptance Tests](docs/quality-assurance/user-acceptance-tests.md)
-- [Quality Attribute Scenarios (QA)](docs/quality-assurance/quality-attribute-scenarios.md)
 
 ### Quality Attributes
 
