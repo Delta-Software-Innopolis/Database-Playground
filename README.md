@@ -33,6 +33,22 @@ Goal of the project is to provide a easy to use platform for education in the fi
 
 ## [Feature Roadmap](https://docs.google.com/spreadsheets/d/1BHOc92tSWK-cnXHco21XueYkkOzliWa9WWUfIwjav9k/edit?gid=1707224305#gid=1707224305)
 
+## Usage instructions
+- open https://dbpg.ru in your favorite browser
+- hover the menu in the top right corner
+- select playground
+- select the template you want to use
+- press the start button
+- you are now in the playground (in case of weird stuff or bugs reload the page)
+  - in case you selected Postgres template:
+    - top left is the query input, you can type your queries there and submit by the send button
+    - top right is the schema panel, you can see your database tables and their schemas in it (switch tabs by clicking them)
+    - bottom is the results panel, once you run a query it should display its execution result
+  - in case you selected MongoDB template:
+    - left is the query input
+    - right is the results panel
+  - via top bar you can return to the main page or change the template
+
 ## Launch/Access instructions
 
 ### You can visit [deployed version](https://dbpg.ru)
