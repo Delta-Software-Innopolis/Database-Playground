@@ -31,6 +31,8 @@ Database Playground is an online platform for learning different databases. You 
 
 Goal of the project is to provide a easy to use platform for education in the field of databases.
 
+## [Feature Roadmap](https://docs.google.com/spreadsheets/d/1BHOc92tSWK-cnXHco21XueYkkOzliWa9WWUfIwjav9k/edit?gid=1707224305#gid=1707224305)
+
 ## Launch/Access instructions
 
 ### You can visit [deployed version](https://dbpg.ru)
