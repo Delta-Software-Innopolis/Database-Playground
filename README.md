@@ -26,6 +26,10 @@
     </p>
 </div>
 
+## Description
+Database Playground is an online platform for learning different databases. You can go to the playground and start learning right away without installing anything. We have pre-made templates with different scenaries with support of PostgreSQL and MongoDB. In the future we will add classrooms and assignments, as well as support for SQLite and MySQL.
+
+Goal of the project is to provide a easy to use platform for education in the field of databases.
 ## Launch/Access instructions
 ### You can visit [deployed version](https://dbpg.ru)
 ### Or you can build the app yourself:
