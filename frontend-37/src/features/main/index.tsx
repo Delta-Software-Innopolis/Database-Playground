@@ -1,4 +1,5 @@
-import { useEffect } from "react";
+import { ModalWindow } from "@/shared/ui/ModalWindow";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import styles from "./Main.module.css";
 import humansImg from "../../assets/humans.jpg";
@@ -6,9 +7,14 @@ import mainImg from "../../assets/people.png";
 import humanWithDeskImg from "../../assets/rectangleAndHuman.jpg";
 import assignmentsImg from "../../assets/taska.jpg";
 import { API_URL } from "../../config/env";
+import { Login } from "./Login";
+import { Register } from "./Register";
 import { MainTopBar } from "./TopBar";
 
 export function Main() {
+  const [showLogin, setShowLogin] = useState(false);
+  const [showRegister, setShowRegister] = useState(false);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -88,6 +94,21 @@ export function Main() {
           </div>
         </div>
       </div>
+      <button onClick={() => setShowLogin(true)}>sign in</button>
+
+      <ModalWindow isOpen={showLogin} setIsOpen={setShowLogin}>
+        <Login
+          onClose={() => setShowLogin(false)}
+          onSwitch={() => setShowRegister(true)}
+        />
+      </ModalWindow>
+
+      <ModalWindow isOpen={showRegister} setIsOpen={setShowRegister}>
+        <Register
+          onClose={() => setShowRegister(false)}
+          onSwitch={() => setShowLogin(true)}
+        />
+      </ModalWindow>
     </div>
   );
 }

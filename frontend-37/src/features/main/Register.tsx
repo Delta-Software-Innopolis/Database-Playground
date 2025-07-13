@@ -3,15 +3,16 @@ import styles from "./Register.module.css";
 
 interface RegisterProps {
   onClose: () => void;
+  onSwitch: () => void;
 }
 
-export function Register({ onClose }: RegisterProps) {
+export function Register({ onClose, onSwitch }: RegisterProps) {
   return (
     <div className={styles.registerWrapper}>
       <div className={styles.registerHeader} style={{ position: "relative" }}>
         Register, we want to know you!
         <div style={{ position: "absolute", right: 10 }}>
-          <img src={crossImg} onClick={onClose} />
+          <img src={crossImg} onClick={onClose} style={{ cursor: "pointer" }} />
         </div>
       </div>
       <div className={styles.rest2}>
@@ -41,9 +42,15 @@ export function Register({ onClose }: RegisterProps) {
           required
         />
         <button className={styles.continueButton2}>Continue</button>
-        <a className={styles.alreadyHaveAcc} href="https://http.dog/">
+        <div
+          className={styles.alreadyHaveAcc}
+          onClick={() => {
+            onClose();
+            onSwitch();
+          }}
+        >
           Already have an account?
-        </a>
+        </div>
       </div>
     </div>
   );

@@ -6,15 +6,16 @@ import styles from "./Login.module.css";
 
 interface LoginProps {
   onClose: () => void;
+  onSwitch: () => void;
 }
 
-export function Login({ onClose }: LoginProps) {
+export function Login({ onClose, onSwitch }: LoginProps) {
   return (
     <div className={styles.loginWrapper}>
       <div className={styles.modalHeader} style={{ position: "relative" }}>
         Log in to unlock full functionality!
         <div style={{ position: "absolute", right: 10 }}>
-          <img src={crossImg} onClick={onClose} />
+          <img src={crossImg} onClick={onClose} style={{ cursor: "pointer" }} />
         </div>
       </div>
       <div className={styles.rest}>
@@ -45,9 +46,15 @@ export function Login({ onClose }: LoginProps) {
           required
         />
         <button className={styles.continueButton}>Continue</button>
-        <a href="https://http.cat/" className={styles.noAccount}>
-          Don't have an accout?
-        </a>
+        <div
+          onClick={() => {
+            onClose();
+            onSwitch();
+          }}
+          className={styles.noAccount}
+        >
+          Don't have an account?
+        </div>
       </div>
     </div>
   );

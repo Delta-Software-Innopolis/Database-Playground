@@ -8,16 +8,11 @@ interface ModalWindowProps {
 }
 
 export function ModalWindow({ isOpen, setIsOpen, children }: ModalWindowProps) {
-  if (!isOpen) {
-    setIsOpen(true);
-    return (
-      <div className={styles.modalWindowWrapper}>
-        {children}
-        <div className={styles.overlay} onClick={() => setIsOpen(false)}></div>
-      </div>
-    );
-  } else {
-    setIsOpen(false);
-    return;
-  }
+  if (!isOpen) return;
+  return (
+    <div className={styles.wrapper}>
+      <div className={styles.overlay} onClick={() => setIsOpen(false)}></div>
+      <div className={styles.content}>{children}</div>
+    </div>
+  );
 }
