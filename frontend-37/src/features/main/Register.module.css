@@ -56,9 +56,16 @@
   color: rgba(255, 255, 255, 1);
   font-size: 16px;
   margin-bottom: 20px;
+  transition: 0.1s;
 }
 
 .continueButton2:hover {
+  cursor: pointer;
+  background-color: #6968ff;
+}
+
+.continueButton2:active {
+  background-color: #5756a5;
   cursor: pointer;
 }
 

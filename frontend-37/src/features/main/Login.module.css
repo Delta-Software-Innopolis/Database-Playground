@@ -50,9 +50,16 @@
   border: 0;
   color: #ffffff;
   margin-bottom: 20px;
+  transition: 0.1s;
 }
 
 .continueButton:hover {
+  cursor: pointer;
+  background-color: #6968ff;
+}
+
+.continueButton:active {
+  background-color: #5756a5;
   cursor: pointer;
 }
 
