@@ -209,6 +209,7 @@ docker compose up -d
   - ESLint - linter for JavaScript code
   - Prettier - formatter for JavaScript and CSS
   - Dependency cruiser - Validating frontend code dependencies
+### Continuous Delivery
 - [deploy.yml](https://github.com/Delta-Software-Innopolis/Database-Playground/blob/pre-chroma/.github/workflows/deploy.yml):
   - Github - to fetch the newest version of the code and run this workflow
   - SSH - to connect to the server and deploy
