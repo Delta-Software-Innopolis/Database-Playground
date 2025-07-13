@@ -31,6 +31,9 @@ Database Playground is an online platform for learning different databases. You 
 
 Goal of the project is to provide a easy to use platform for education in the field of databases.
 
+## Project Context Diagram
+<img width="1230" height="769" alt="image" src="https://github.com/user-attachments/assets/87af0d79-ce08-45ba-a5cf-42dad689d2d9" />
+
 ## [Feature Roadmap](https://docs.google.com/spreadsheets/d/1BHOc92tSWK-cnXHco21XueYkkOzliWa9WWUfIwjav9k/edit?gid=1707224305#gid=1707224305)
 
 ## Usage instructions
