@@ -157,7 +157,10 @@ export function QueryInput() {
             }
 
             if (e.key == "Enter") {
-              if (shiftDown.current) onRunClicked();
+              if (shiftDown.current) {
+                e.preventDefault();
+                onRunClicked();
+              }
             }
           }}
           onKeyUp={(e) => {

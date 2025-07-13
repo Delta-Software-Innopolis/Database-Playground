@@ -1,3 +1,4 @@
+import styles from "./SelectQueryResult.module.css";
 import { QueryData } from "../types";
 
 interface SelectQueryResultProps {
@@ -17,20 +18,23 @@ export function SelectQueryResult({ queryData }: SelectQueryResultProps) {
   }
 
   return (
-    <div>
+    <div className={styles.wrapper}>
       <table>
-        <thead>
+        <thead className={styles.head}>
           <tr>
             {queryData.columns.map((col) => (
               <td key={col}>{col}</td>
             ))}
           </tr>
         </thead>
-        <tbody>
+        <tbody className={styles.body}>
           {nums.map((index) => (
             <tr key={index}>
               {queryData.columns.map((key) => (
-                <td key={queryData.data[key][index]}>
+                <td
+                  key={String(queryData.data[key][index])}
+                  className={styles.item}
+                >
                   {queryData.data[key][index]}
                 </td>
               ))}

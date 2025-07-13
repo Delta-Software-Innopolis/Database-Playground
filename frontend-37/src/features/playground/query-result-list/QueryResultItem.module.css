@@ -21,13 +21,6 @@ th {
   justify-content: space-evenly;
 }
 
-.resultTable {
-  height: auto;
-  margin-left: auto;
-  margin-right: auto;
-  background-color: #e9e9ff;
-}
-
 .clockImg {
   width: 32px;
   height: 28px;

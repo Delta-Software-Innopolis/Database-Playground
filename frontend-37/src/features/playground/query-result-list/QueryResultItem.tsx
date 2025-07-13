@@ -35,7 +35,7 @@ export function QueryResultItem({ result, queryNum }: QueryResultItemProps) {
             {(result.execution_time * 1000).toFixed(3)}ms
           </span>
         </summary>
-        {content}
+        <div style={{ padding: "0px 10px" }}>{content}</div>
       </details>
     </div>
   );
