@@ -10,6 +10,7 @@ export function QueryResultList() {
   }
   return (
     <div>
+      {/* <div className={styles.listHeader}>Total {results}</div> */}
       {results!.map((result, index) => (
         <QueryResultItem result={result} queryNum={index + 1} key={index} />
       ))}

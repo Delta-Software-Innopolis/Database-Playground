@@ -21,15 +21,22 @@
   align-items: center;
   justify-content: space-around;
   color: rgba(169, 169, 255, 1);
+  font-size: 16px;
 }
 
 summary {
+  margin: 0 10px 0 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 4px 0;
+  padding: 0 0;
   cursor: pointer;
-  margin-bottom: 16px;
+  margin-bottom: 5px;
+}
+
+details {
+  border-bottom: 1px solid #F1F1F1;
+  margin-bottom: 10px;
 }
 
 details > summary {

@@ -34,6 +34,7 @@
   overflow: hidden;
   border: 1px solid #c1c1c1;
   margin-bottom: 10px;
+  border-radius: 5px;
 }
 
 .mongoSchemaWrapper {

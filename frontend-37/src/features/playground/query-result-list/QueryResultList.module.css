@@ -1,4 +1,8 @@
-.resTable {
+.resultsListWrapper {
+  width: 100%;
+}
+
+/* .resTable {
   height: 100%;
   padding: 15px;
   gap: 10px;
@@ -47,4 +51,4 @@
 
 .errorMessage {
   margin-top: 15px;
-}
+} */
