@@ -85,8 +85,6 @@ $ docker compose up --build
 
 5. Working version should be available at http://localhost:5173
 
-Thanks! Based on the structure you provided from the `dev` branch, here's a properly formatted **Documentation** section for your `README.md`:
-
 ---
 
 ## Documentation
