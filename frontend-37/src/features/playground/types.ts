@@ -13,7 +13,7 @@ export interface DBSchema {
 
 export interface QueryData {
   columns: string[];
-  data: Record<string, Cell>;
+  data: Record<string, Cell[]>;
 }
 
 export interface QueryResult {
