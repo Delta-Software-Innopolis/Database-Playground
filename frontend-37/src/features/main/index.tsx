@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
 import styles from "./Main.module.css";
+import deltaImg from "../../assets/delta.svg";
 import humansImg from "../../assets/humans.jpg";
 import mainImg from "../../assets/people.png";
 import humanWithDeskImg from "../../assets/rectangleAndHuman.jpg";
@@ -46,47 +47,18 @@ export function Main() {
   };
 
   return (
-    <div>
+    <div className={styles.pageContainer}>
       <MainTopBar onClick={onClick} />
       <div className={styles.mainDiv}>
-        <div>
-          <h1 className={styles.bigTitle}>Learn databases</h1>
-          <p className={styles.description}>
-            Complete assignments, experiment in playground and become expert!
-          </p>
+        <div className={styles.bigTitle}>Learn databases</div>
+        <div className={styles.description}>
+          Complete assignments, experiment in playground and become expert!
         </div>
-        <img className={styles.mainImg} src={mainImg} alt="main image" />
       </div>
-      <div className={styles.cardContainer}>
-        <div className={styles.card}>
-          <img className={styles.peopleImg} src={humansImg} alt="Humans" />
-          <div>
-            <p className={styles.pAboutClassrooms}>Create classrooms</p>
-            <p className={styles.pAboutAdding}>And add students</p>
-          </div>
-        </div>
-        <div className={styles.card}>
-          <img
-            className={styles.assignmentsImg}
-            src={assignmentsImg}
-            alt="Assignments"
-          />
-          <div>
-            <p className={styles.pAboutClassrooms}>Automatic grading</p>
-            <p className={styles.pAboutAdding}>For assignments</p>
-          </div>
-        </div>
-        <div className={styles.card}>
-          <img
-            className={styles.humanWithDeskImg}
-            src={humanWithDeskImg}
-            alt="HumanWithDesk"
-          />
-          <div>
-            <p className={styles.pAboutClassrooms}>Add TA's</p>
-            <p className={styles.pAboutAdding}>To help you manage classrooms</p>
-          </div>
-        </div>
+      <div className={styles.footer}>
+        <p>Software Project Team 37</p>
+        <img src={deltaImg} />
+        <p>Delta-Software-Innopolis</p>
       </div>
     </div>
   );
