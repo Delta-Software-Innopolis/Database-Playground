@@ -6,7 +6,9 @@ import { SchemaTab } from "./SchemaTab";
 
 export function SchemaPanel() {
   const { schemas } = schemasStore();
-  const [activeSchema, setActiveSchema] = useState(schemas[0] || null);
+  const [activeSchema, setActiveSchema] = useState(
+    schemas[0] ? schemas[0] : null
+  );
 
   useEffect(() => {
     if (!activeSchema || !schemas.includes(activeSchema)) {
