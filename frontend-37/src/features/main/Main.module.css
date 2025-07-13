@@ -83,12 +83,14 @@
 
 /* New */
 
-body {
+.pageContainerOuter {
   padding: 0;
   margin: 0;
 
-  width: 100vh;
-  height: 100vh;
+  min-width: 100vh;
+  min-height: 100vh;
+
+  width: 100%;
 
   background:
     radial-gradient(
@@ -106,7 +108,7 @@ body {
   color: white;
 }
 
-.pageContainer {
+.pageContainerInner {
   position: absolute;
 
   top: 0;

@@ -53,34 +53,36 @@ export function Main() {
   };
 
   return (
-    <div className={styles.pageContainer}>
-      <MainTopBar onClick={onClick} />
-      <div className={styles.mainDiv}>
-        <div className={styles.bigTitle}>Learn databases</div>
-        <div className={styles.description}>
-          Complete assignments, experiment in playground and become expert!
+    <div className={styles.pageContainerOuter}>
+      <div className={styles.pageContainerInner}>
+        <MainTopBar onClick={onClick} />
+        <div className={styles.mainDiv}>
+          <div className={styles.bigTitle}>Learn databases</div>
+          <div className={styles.description}>
+            Complete assignments, experiment in playground and become expert!
+          </div>
         </div>
-      </div>
-      <div className={styles.footer}>
-        <p>Software Project Team 37</p>
-        <img src={deltaImg} />
-        <p>Delta-Software-Innopolis</p>
-      </div>
-      <button onClick={() => setShowLogin(true)}>sign in</button>
+        <div className={styles.footer}>
+          <p>Software Project Team 37</p>
+          <img src={deltaImg} />
+          <p>Delta-Software-Innopolis</p>
+        </div>
+        <button onClick={() => setShowLogin(true)}>sign in</button>
 
-      <ModalWindow isOpen={showLogin} setIsOpen={setShowLogin}>
-        <Login
-          onClose={() => setShowLogin(false)}
-          onSwitch={() => setShowRegister(true)}
-        />
-      </ModalWindow>
+        <ModalWindow isOpen={showLogin} setIsOpen={setShowLogin}>
+          <Login
+            onClose={() => setShowLogin(false)}
+            onSwitch={() => setShowRegister(true)}
+          />
+        </ModalWindow>
 
-      <ModalWindow isOpen={showRegister} setIsOpen={setShowRegister}>
-        <Register
-          onClose={() => setShowRegister(false)}
-          onSwitch={() => setShowLogin(true)}
-        />
-      </ModalWindow>
+        <ModalWindow isOpen={showRegister} setIsOpen={setShowRegister}>
+          <Register
+            onClose={() => setShowRegister(false)}
+            onSwitch={() => setShowLogin(true)}
+          />
+        </ModalWindow>
+      </div>
     </div>
   );
 }
