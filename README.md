@@ -65,3 +65,35 @@ $ docker compose up --build
 ```
 
 5. Working version should be available at http://localhost:5173
+
+Thanks! Based on the structure you provided from the `dev` branch, here's a properly formatted **Documentation** section for your `README.md`:
+
+---
+
+## Documentation
+
+### Architecture
+
+- [Architecture Overview](docs/architecture/architecture.md)
+
+### Build and deployment automation
+
+- [Continuous Integration](docs/automation/continuous-integration.md)
+- [Continuous Delivery](docs/automation/continuous-delivery.md)
+
+### Quality Assurance
+
+- [Automated Tests](docs/quality-assurance/automated-tests.md)
+- [User Acceptance Tests](docs/quality-assurance/user-acceptance-tests.md)
+- [Quality Attribute Scenarios (QA)](docs/quality-assurance/quality-attribute-scenarios.md)
+
+### Quality Attributes
+
+- [Quality Attribute Scenarios](docs/quality-attributes/quality-attribute-scenarios.md)
+
+---
+
+### Project Files
+
+- [Changelog](CHANGELOG.md)
+- [Contributing Guidelines](CONTRIBUTING.md)
