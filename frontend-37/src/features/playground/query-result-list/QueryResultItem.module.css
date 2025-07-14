@@ -27,7 +27,7 @@
   align-items: center;
   height: 24px;
   padding-top: 4px;
-  color: #C1C1C1;
+  color: #c1c1c1;
 }
 
 summary {
@@ -41,7 +41,7 @@ summary {
 }
 
 details {
-  border-bottom: 1px solid #F1F1F1;
+  border-bottom: 1px solid #f1f1f1;
 }
 
 details > summary {
@@ -53,6 +53,7 @@ details > summary::-webkit-details-marker {
 }
 
 details > summary::before {
+  transition: 0.2s;
   content: url("@/assets/queryTriangleClosed.svg");
 }
 

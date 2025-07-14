@@ -10,8 +10,6 @@ export function SelectQueryResult({ queryData }: SelectQueryResultProps) {
     return <pre>{JSON.stringify(queryData, null, 2)}</pre>;
   }
 
-  console.log(queryData);
-
   const nums = [];
   for (let i = 0; i < queryData.data[queryData.columns[0]].length; i++) {
     nums.push(i);
