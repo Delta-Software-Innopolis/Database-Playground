@@ -23,11 +23,12 @@ export function QueryResultItem({ result, queryNum }: QueryResultItemProps) {
   );
 
   return (
-    <div>
+    <div style={{ position: "relative" }}>
+      <span className={styles.queryNumber}>{queryNum}</span>
       <details open>
         <summary>
           <span className={styles.queryTitle}>
-            {queryNum}. {result.query}
+            {result.query}
           </span>
           <span className={styles.execTime}>
             {(result.execution_time * 1000).toFixed(3)}ms

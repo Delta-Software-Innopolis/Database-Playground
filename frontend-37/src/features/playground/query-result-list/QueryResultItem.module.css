@@ -1,17 +1,13 @@
-.clockImg {
-  width: 32px;
-  height: 28px;
-  margin-right: 10px;
-}
-
 .affectedRows {
   margin-top: 10px;
   color: rgba(0, 0, 0, 0.7);
+  font-size: 16px;
+  margin-bottom: 10px;
 }
 
 .queryTitle {
   margin-right: auto;
-  margin-left: 10px;
+  margin-left: 5px;
   color: rgba(102, 102, 102, 1);
   font-size: 16px;
 }
@@ -24,19 +20,28 @@
   font-size: 16px;
 }
 
+.queryNumber {
+  position: absolute;
+  margin-left: 10px;
+  font-size: 16px;
+  align-items: center;
+  height: 24px;
+  padding-top: 4px;
+  color: #C1C1C1;
+}
+
 summary {
-  margin: 0 10px 0 10px;
+  margin: 10px 10px 10px 25px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 0;
   cursor: pointer;
-  margin-bottom: 5px;
+  position: relative;
 }
 
 details {
   border-bottom: 1px solid #F1F1F1;
-  margin-bottom: 10px;
 }
 
 details > summary {

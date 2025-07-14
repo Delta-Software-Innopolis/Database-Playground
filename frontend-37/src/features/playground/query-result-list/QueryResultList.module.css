@@ -1,5 +1,19 @@
-.resultsListWrapper {
-  width: 100%;
+.listHeader {
+  height: 40px;
+  background-color: #F1F1F1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 16px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-bottom: 1px solid #C1C1C1;
+}
+
+.tableContainer {
+  overflow: auto;
+  max-height: 100%;
+  height: 100%;
 }
 
 /* .resTable {
