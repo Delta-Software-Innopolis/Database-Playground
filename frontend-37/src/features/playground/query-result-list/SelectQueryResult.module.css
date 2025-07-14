@@ -12,7 +12,7 @@ table thead {
 }
 
 table tbody tr {
-  border-bottom: 1px solid var(--Darken-White, rgba(241, 241, 241, 1))
+  border-bottom: 1px solid var(--Darken-White, rgba(241, 241, 241, 1));
 }
 
 table tbody tr:last-child {

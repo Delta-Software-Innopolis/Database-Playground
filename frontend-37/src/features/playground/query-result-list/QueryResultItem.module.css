@@ -48,7 +48,6 @@ details > summary::-webkit-details-marker {
 }
 
 details > summary::before {
-  
   content: url("@/assets/queryTriangleClosed.svg");
 }
 

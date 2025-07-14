@@ -1,11 +1,7 @@
 interface QueryErrorProps {
-	error: string;
+  error: string;
 }
 
 export function QueryError({ error }: QueryErrorProps) {
-	return (
-		<div>
-			{error}
-		</div>
-	)
+  return <div>{error}</div>;
 }
