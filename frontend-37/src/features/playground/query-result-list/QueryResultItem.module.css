@@ -58,5 +58,5 @@ details > summary::before {
 }
 
 details[open] > summary::before {
-  content: url("@/assets/queryTriangleOpened.svg");
+  transform: rotate(90deg); /* например, поворот вправо */
 }
