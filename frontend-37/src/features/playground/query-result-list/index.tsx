@@ -24,7 +24,7 @@ export function QueryResultList() {
         <div>Total <span style={{ color: "#6968FF" }}>{results === undefined ? 0 : results.length}</span> queries executed</div>
         <div>Total time: <span style={{ color: "#6968FF"}}>{a.toPrecision(4)}ms</span></div>
       </div>
-      <div>
+      <div className={styles.tablesContainer}>
         {results!.map((result, index) => (
           <QueryResultItem result={result} queryNum={index + 1} key={index} />
         ))}
