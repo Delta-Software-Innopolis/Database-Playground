@@ -22,11 +22,14 @@ export function QueryResultItem({ result, queryNum }: QueryResultItemProps) {
     </p>
   );
 
+
+  const paddingForSummary = 15 + queryNum.toString().length * 10.4
+
   return (
     <div style={{ position: "relative" }}>
       <span className={styles.queryNumber}>{queryNum}</span>
       <details open>
-        <summary>
+        <summary style={{ marginLeft: `${paddingForSummary}px` }}>
           <span className={styles.queryTitle}>
             {result.query}
           </span>

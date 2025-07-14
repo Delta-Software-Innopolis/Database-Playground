@@ -10,10 +10,23 @@
   border-bottom: 1px solid #C1C1C1;
 }
 
-.tableContainer {
-  max-height: 100%;
+.superContainer {
   height: 100%;
-  overflow: scroll;
+}
+
+.tablesContainer {
+  flex-grow: 1;
+  overflow: auto;
+  min-height: 0;
+  height: 100%;
+  padding-bottom: 42px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
 }
 
 /* .resTable {
