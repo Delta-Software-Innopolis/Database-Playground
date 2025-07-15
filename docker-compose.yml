@@ -43,16 +43,6 @@ services:
     volumes:
       - ./mongo_data:/data/db
 
-  # frontend:
-  #   build:
-  #     context: ./frontend
-  #     dockerfile: Dockerfile
-  #     target: build
-  #     args:
-  #       REACT_APP_API_URL: http://localhost:8000
-  #   ports:
-  #     - "3000:3000"
-
   # mysql:
   #   image: mysql:8.0
   #   ports:

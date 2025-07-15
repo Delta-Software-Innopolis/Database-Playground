@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
-
+from datetime import timedelta
 from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / d'subdir'.
@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
+    "rest_framework_simplejwt.token_blacklist",
     "drf_yasg",
     "corsheaders",
 
@@ -177,7 +178,18 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # Custom user config
 AUTH_USER_MODEL = "account.User"
 
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
+    "ROTATE_REFRESH_TOKENS": True,
+    "AUTH_HEADER_TYPES": ("Bearer",),
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': []
+}
+
 SWAGGER_SETTINGS = {
-    "DEFAULT_API_URL": "https://dbpg.ru/api",
+    "DEFAULT_API_URL": "https://api.dbpg.ru",
     # Other Swagger settings...
 }

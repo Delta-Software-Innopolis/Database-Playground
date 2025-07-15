@@ -15,7 +15,7 @@ from .docs import (
 )
 from .models import Session, SessionInfo
 from .serializers import SessionInfoSerializer, SessionSerializer
-from .shortcuts import resolve_session_id
+from .shortcuts import extract_session_id
 
 
 class SessionView(APIView):
@@ -23,49 +23,36 @@ class SessionView(APIView):
     queryset = Session.objects.all()
 
     def get(self, request: Request):
-        session_id, _ = resolve_session_id(request)
+        session_id = extract_session_id(request)
 
         if not session_id:
             session = Session.objects.create()
         else:
-            session, _ = Session.objects.get_or_create(id=uuid.UUID(session_id))
+            session = Session.objects.get_or_create(id=uuid.UUID(session_id))
 
         db_name = session.get_unauth_dbname()
         if not db_exists(postgres_engine, db_name):
             postgres_engine.create_db(db_name, "")
 
-        response = Response(self.serializer_class(session).data)
-        # response.set_cookie("session_id", session.id.hex)
-        # response.set_cookie(
-        #     key='session_id',
-        #     value=session.id.hex,
-        #     httponly=True,
-        #     secure=True,
-        #     samesite='None',         # чтобы работало между доменами
-        #     domain='.dbpg.ru'      # чтобы фронт dbpg.ru видел куку
-        # )
-
-        return response
+        return Response(self.serializer_class(session).data)
 
 
 class SessionInfoView(APIView):
 
     @get_db_schema_info_doc
     def get(self, request: Request):
-        session_id, err_response = resolve_session_id(request)
-        if err_response:
-            return err_response
-
+        session_id = extract_session_id(request)
+        if not session_id:
+            return Response("Unauthorized", status=401)
         session = Session.objects.get(id=session_id)
-        return Response(
-            SessionInfoSerializer(SessionInfo.objects.get(session=session)).data
-        )
+        session_info = SessionInfo.objects.get(session=session)
+        return Response(SessionInfoSerializer(session_info).data)
 
     @patch_session_info_doc
     def patch(self, request: Request):
-        session_id, err_response = resolve_session_id(request)
-        if err_response:
-            return err_response
+        session_id = extract_session_id(request)
+        if not session_id:
+            return Response("Unauthorized", status=401)
 
         try:
             session = Session.objects.get(id=session_id)
@@ -76,7 +63,9 @@ class SessionInfoView(APIView):
             return Response({"detail": "SessionInfo not found."}, status=404)
 
         data = JSONParser().parse(request)
-        serializer = SessionInfoSerializer(session_info, data=data, partial=True)
+        serializer = SessionInfoSerializer(
+            session_info, data=data, partial=True
+        )
 
         if serializer.is_valid():
             serializer.save()
@@ -89,7 +78,9 @@ class SessionValidView(APIView):
 
     @get_db_schema_valid_doc
     def get(self, request: Request):
-        session_id, _ = resolve_session_id(request)
+        session_id = extract_session_id(request)
+        if not session_id:
+            return Response("Unauthorized", status=401)
 
         valid = True
         try:
