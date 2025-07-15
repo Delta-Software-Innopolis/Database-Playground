@@ -1,8 +1,10 @@
 .affectedRows {
-  margin-top: 10px;
+  margin-top: -5px;
   color: rgba(0, 0, 0, 0.7);
   font-size: 16px;
-  margin-bottom: 10px;
+  margin-bottom: 0;
+  margin-left: 38px;
+  color: rgba(105, 104, 255, 1);
 }
 
 .queryTitle {

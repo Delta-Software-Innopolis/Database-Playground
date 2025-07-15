@@ -6,7 +6,24 @@ import { QueryResultItem } from "./QueryResultItem";
 export function QueryResultList() {
   const { results, error } = queryResultsStore();
   if (error) {
-    return <QueryError error={error} />;
+    return (
+      <div>
+        <div className={styles.listHeader}>
+          <div>
+            Total{" "}
+            <span style={{ color: "#6968FF" }}>
+              0
+            </span>{" "}
+            queries executed
+          </div>
+          <div>
+            Total time:{" "}
+            <span style={{ color: "#6968FF" }}>0ms</span>
+          </div>
+        </div>
+        <QueryError error={error} />
+      </div>
+    )
   }
 
   let a = 0;
@@ -29,7 +46,7 @@ export function QueryResultList() {
         </div>
         <div>
           Total time:{" "}
-          <span style={{ color: "#6968FF" }}>{a.toPrecision(4)}ms</span>
+          <span style={{ color: "#6968FF" }}>{a === 0 ? 0 : a.toPrecision(5)}ms</span>
         </div>
       </div>
       <div className={styles.wrapper}>
