@@ -15,33 +15,33 @@ export function Register({ onClose, onSwitch }: RegisterProps) {
           <img src={crossImg} onClick={onClose} style={{ cursor: "pointer" }} />
         </div>
       </div>
-      <div className={styles.rest2}>
+      <div className={styles.rest}>
         <input
-          className={styles.inputField2}
+          className={styles.inputField}
           type="text"
           placeholder="Username"
           required
         />
         <input
-          className={styles.inputField2}
+          className={styles.inputField}
           type="email"
           placeholder="Email"
           required
         />
         <p className={styles.comeUpPassword}>Come up with a password</p>
         <input
-          className={styles.inputField2}
+          className={styles.inputField}
           type="password"
           placeholder="Password"
           required
         />
         <input
-          className={styles.inputField2}
+          className={styles.inputField}
           type="password"
           placeholder="Repeat Password"
           required
         />
-        <button className={styles.continueButton2}>Continue</button>
+        <button className={styles.continueButton}>Continue</button>
         <div
           className={styles.alreadyHaveAcc}
           onClick={() => {

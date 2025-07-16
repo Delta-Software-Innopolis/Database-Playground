@@ -11,7 +11,7 @@ interface LoginProps {
 
 export function Login({ onClose, onSwitch }: LoginProps) {
   return (
-    <div className={styles.loginWrapper}>
+    <div className={styles.wrapper}>
       <div className={styles.modalHeader} style={{ position: "relative" }}>
         Log in to unlock full functionality!
         <div style={{ position: "absolute", right: 10 }}>
