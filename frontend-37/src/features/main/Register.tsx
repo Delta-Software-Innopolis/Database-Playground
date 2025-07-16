@@ -42,16 +42,16 @@ export function Register({ onClose, onSwitch }: RegisterProps) {
           <img src={crossImg} onClick={onClose} style={{ cursor: "pointer" }} />
         </div>
       </div>
-      <div className={styles.rest2}>
+      <div className={styles.rest}>
         <input
-          className={styles.inputField2}
+          className={styles.inputField}
           type="text"
           placeholder="Username"
           onChange={(e) => setUsername(e.target.value)}
           required
         />
         <input
-          className={styles.inputField2}
+          className={styles.inputField}
           type="email"
           placeholder="Email"
           onChange={(e) => setEmail(e.target.value)}
@@ -59,22 +59,20 @@ export function Register({ onClose, onSwitch }: RegisterProps) {
         />
         <p className={styles.comeUpPassword}>Come up with a password</p>
         <input
-          className={styles.inputField2}
+          className={styles.inputField}
           type="password"
           placeholder="Password"
           onChange={(e) => setPassword(e.target.value)}
           required
         />
         <input
-          className={styles.inputField2}
+          className={styles.inputField}
           type="password"
           placeholder="Repeat Password"
           onChange={(e) => setRepeatPassword(e.target.value)}
           required
         />
-        <button className={styles.continueButton2} onClick={onRegister}>
-          Continue
-        </button>
+        <button className={styles.continueButton}>Continue</button>
         <div
           className={styles.alreadyHaveAcc}
           onClick={() => {

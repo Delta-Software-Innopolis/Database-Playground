@@ -1,4 +1,4 @@
-.registerWrapper {
+.wrapper {
   width: 416px;
   height: 420px;
   background-color: #ffffff;
@@ -21,7 +21,7 @@
   font-size: 16px;
 }
 
-.inputField2 {
+.inputField {
   width: 344px;
   height: 36px;
   background-color: rgba(241, 241, 241, 1);
@@ -33,7 +33,7 @@
   padding-right: 15px;
 }
 
-.inputField2::placeholder {
+.inputField::placeholder {
   color: rgba(193, 193, 193, 1);
 }
 
@@ -48,7 +48,7 @@
   margin-bottom: 10px;
 }
 
-.continueButton2 {
+.continueButton {
   width: 376px;
   height: 40px;
   background-color: rgba(169, 169, 255, 1);
@@ -61,12 +61,12 @@
   transition: 0.1s;
 }
 
-.continueButton2:hover {
+.continueButton:hover {
   cursor: pointer;
   background-color: #6968ff;
 }
 
-.continueButton2:active {
+.continueButton:active {
   background-color: #5756a5;
   cursor: pointer;
 }
@@ -81,7 +81,7 @@
   cursor: pointer;
 }
 
-.rest2 {
+.rest {
   padding-left: 20px;
   width: 100%;
   height: 100%;
