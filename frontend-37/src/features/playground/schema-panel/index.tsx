@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import styles from "./SchemaPanel.module.css";
 import { schemasStore } from "../schemasStore";
-import { Schema } from "./Schema";
 import { SchemaTab } from "./SchemaTab";
+import { SchemaTable } from "./SchemaTable";
 
 export function SchemaPanel() {
   const { schemas } = schemasStore();
@@ -40,7 +40,7 @@ export function SchemaPanel() {
         ))}
       </div>
       <div className={styles.schema}>
-        <Schema schema={activeSchema} />
+        {activeSchema && <SchemaTable schema={activeSchema} />}
       </div>
     </div>
   );
