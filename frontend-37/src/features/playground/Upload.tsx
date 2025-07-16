@@ -1,5 +1,4 @@
 import { Button } from "@/shared/ui/Button";
-import styles from "./Upload.module.css";
 import { schemasStore } from "./schemasStore";
 
 export function Upload() {
@@ -8,10 +7,8 @@ export function Upload() {
   const onClick = () => {};
 
   return (
-    <div className={styles.container}>
-      <div className={styles.titleContainer}>
-        <div className={styles.title}>Upload data from CSV</div>
-      </div>
+    <div style={{ marginBottom: 20 }}>
+      <div>Upload data from CSV</div>
       <div>
         <input type="file" />
         <select>

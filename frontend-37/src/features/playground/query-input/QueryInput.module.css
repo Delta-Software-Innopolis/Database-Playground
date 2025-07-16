@@ -7,13 +7,6 @@
   height: 100%;
 
   position: relative;
-
-  font-size: 16px;
-  font-weight: 400;
-
-  line-height: 19px;
-
-  background-color: white;
 }
 
 .wrapper {
@@ -37,7 +30,7 @@
   flex-direction: column;
 
   flex-basis: 42px;
-  color: #c1c1c1;
+  color: #d4d4d4;
   margin-top: 10px;
 
   max-height: 100%;
@@ -48,12 +41,11 @@
   overflow: hidden;
 
   user-select: none;
-
-  background: transparent;
 }
 
 .rowcounter div {
   text-align: right;
+  line-height: 25px;
 }
 
 .textarea {
@@ -64,7 +56,7 @@
   font-family: inherit;
   font-size: inherit;
   font-weight: inherit;
-  line-height: inherit !important;
+  line-height: inherit;
   color: inherit;
 
   /* Ensure it grows and scrolls correctly */
@@ -85,42 +77,8 @@
   z-index: 1;
 
   scrollbar-width: thin;
-
-  color: #1f1f1f;
-
-  background: transparent;
 }
 
 .textarea::selection {
-  background-color: rgba(169, 169, 255, 0.3);
-}
-
-.bgImg {
-  width: 100%;
-  height: 100%;
-}
-
-.bgMongo {
-  position: absolute;
-  top: 148px;
-  width: 410px;
-  height: 704px;
-}
-
-.bgPSQL {
-  position: absolute;
-  top: 49;
-  width: 736px;
-  height: 862px;
-}
-
-.buttonsWrapper {
-  position: absolute;
-  right: 15px;
-  bottom: 15px;
-
-  display: flex;
-  flex-direction: row;
-
-  gap: 10px;
+  background-color: #dedeff;
 }

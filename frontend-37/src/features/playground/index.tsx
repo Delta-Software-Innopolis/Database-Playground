@@ -1,12 +1,9 @@
-import { ModalWindow } from "@/shared/ui/ModalWindow";
-import { DBType } from "@/types/DBType";
 import { useEffect, useState } from "react";
 import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
 import styles from "./Playground.module.css";
 import { API_URL } from "../../config/env";
 import { templateStore } from "../../shared/store/templateStore";
 import { PlaygroundTopBar } from "./TopBar";
-import { Upload } from "./Upload";
 import { QueryInput } from "./query-input";
 import { QueryResultList } from "./query-result-list";
 import { SchemaPanel } from "./schema-panel";
@@ -16,9 +13,8 @@ import { schemasStore } from "./schemasStore";
 export function Playground() {
   const session_id = localStorage.getItem("session_id");
   const { updateSchemas } = schemasStore();
-  const [templateType, setTemplateType] = useState("" as DBType);
+  const [templateType, setTemplateType] = useState("");
   const { updateTemplate } = templateStore();
-  const [showUpload, setShowUpload] = useState(false);
 
   useEffect(() => {
     const run = async () => {
@@ -40,7 +36,7 @@ export function Playground() {
       const res3 = await fetch(`${API_URL}/template/${json2.template}/`);
       const json3 = await res3.json();
       updateTemplate(json3.name);
-      setTemplateType(json3.type as DBType);
+      setTemplateType(json3.type);
     };
     run();
   }, []);
@@ -49,12 +45,9 @@ export function Playground() {
     <>
       {templateType == "PSQL" ? (
         <div className={styles.pageContainer}>
-          <PlaygroundTopBar
-            handleUpload={() => setShowUpload(true)}
-            handleSave={() => {}}
-          />
+          <PlaygroundTopBar />
 
-          <div className={`fira ${styles.contentContainer}`}>
+          <div className={`mono ${styles.contentContainer}`}>
             <PanelGroup
               direction="vertical"
               style={{
@@ -70,7 +63,7 @@ export function Playground() {
                   }}
                 >
                   <Panel className={styles.topContentPanel}>
-                    <QueryInput templateType={templateType} />
+                    <QueryInput />
                   </Panel>
 
                   <PanelResizeHandle className={styles.verticalResizeHandle} />
@@ -92,15 +85,12 @@ export function Playground() {
       ) : (
         <div className={styles.pageContainer}>
           <div>
-            <PlaygroundTopBar
-              handleUpload={() => setShowUpload(true)}
-              handleSave={() => {}}
-            />
+            <PlaygroundTopBar />
             <div className={styles.mongoSchemaWrapper}>
               <MongoSchema />
             </div>
           </div>
-          <div className={`fira ${styles.contentContainer}`}>
+          <div className={`mono ${styles.contentContainer}`}>
             <PanelGroup
               direction="horizontal"
               style={{
@@ -109,7 +99,7 @@ export function Playground() {
               }}
             >
               <Panel className={styles.topContentPanel}>
-                <QueryInput templateType={templateType} />
+                <QueryInput />
               </Panel>
 
               <PanelResizeHandle className={styles.verticalResizeHandle} />
@@ -121,10 +111,6 @@ export function Playground() {
           </div>
         </div>
       )}
-
-      <ModalWindow isOpen={showUpload} setIsOpen={setShowUpload}>
-        <Upload />
-      </ModalWindow>
     </>
   );
 }

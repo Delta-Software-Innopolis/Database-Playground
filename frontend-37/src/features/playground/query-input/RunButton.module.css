@@ -1,21 +1,22 @@
 .button {
-  width: 87px;
-  height: 40px;
-  border-radius: 5px;
-  border: 1px transparent;
-  background-color: #a9a9ff;
-  padding-top: 10px;
-  padding-right: 15px;
-  padding-bottom: 10px;
-  padding-left: 15px;
+  width: 111px;
+  height: 53px;
+  border-radius: 10px;
+  border: 1px solid #c1c1c1;
+  background-color: white;
+  padding-top: 6px;
+  padding-right: 9px;
+  padding-bottom: 6px;
+  padding-left: 9px;
   display: flex;
   justify-content: center;
   align-items: center;
 
-  z-index: 2;
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
 
-  font-family: "Onest", sans-serif;
-  font-size: inherit !important;
+  z-index: 2;
 }
 
 .button:hover {
@@ -23,15 +24,14 @@
 }
 
 .button img {
-  width: 12px;
-  height: 16px;
-  padding-left: 8px;
+  width: 36px;
+  height: 36px;
+  padding-left: 5px;
 }
 
 .button p {
+  font-size: 24px;
   width: 52px;
   height: 28px;
-  margin: auto;
-
-  color: white;
+  margin-bottom: 32px;
 }
