@@ -45,7 +45,10 @@ export function PlaygroundTopBar() {
         isOpen={showTemplateChoice}
         setIsOpen={setShowTemplateChoice}
       >
-        <TemplateChoice onClose={() => setShowTemplateChoice(false)} />
+        <TemplateChoice
+          onClose={() => setShowTemplateChoice(false)}
+          isPlayground={true}
+        />
       </ModalWindow>
     </TopBar>
   );
