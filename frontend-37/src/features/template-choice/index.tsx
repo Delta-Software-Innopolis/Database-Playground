@@ -52,11 +52,6 @@ export function TemplateChoice({ onClose }: TemplateChoiceProps) {
     navigate("/playground");
   };
 
-  const handleClick = () => {
-    onChoice;
-    onClose;
-  };
-
   return (
     <div>
       <div className={styles.buttonsWrapper}>

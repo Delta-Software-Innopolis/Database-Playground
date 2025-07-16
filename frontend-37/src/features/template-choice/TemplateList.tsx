@@ -12,7 +12,6 @@ export function TemplateList({
   data,
   templateChoice,
   onTemplateChoiceChange,
-  onClose,
 }: TemplateListProps) {
   const list = data.map((template) => {
     return (

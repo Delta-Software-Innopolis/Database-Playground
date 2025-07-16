@@ -6,7 +6,6 @@ import { ModalWindow } from "@/shared/ui/ModalWindow";
 import { TopBar } from "@/shared/ui/TopBar";
 import { TopBarElement } from "@/shared/ui/TopBarElement";
 import { useState } from "react";
-import { NavLink } from "react-router";
 import styles from "./TopBar.module.css";
 import { TemplateChoice } from "../template-choice";
 import { Upload } from "./Upload";

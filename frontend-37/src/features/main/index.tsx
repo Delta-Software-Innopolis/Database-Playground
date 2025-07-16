@@ -1,20 +1,17 @@
+import { TemplateChoice } from "@/features/template-choice/index";
 import { ModalWindow } from "@/shared/ui/ModalWindow";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
 import styles from "./Main.module.css";
 import deltaImg from "../../assets/delta.svg";
 import { API_URL } from "../../config/env";
 import { Login } from "./Login";
 import { Register } from "./Register";
 import { MainTopBar } from "./TopBar";
-import { TemplateChoice } from "@/features/template-choice/index";
 
 export function Main() {
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
   const [showTemplateChoice, setShowTemplateChoice] = useState(false);
-
-  const navigate = useNavigate();
 
   useEffect(() => {
     const run = async () => {
@@ -40,16 +37,6 @@ export function Main() {
     run();
   }, []);
 
-  const onClick = async () => {
-    await fetch(
-      `${API_URL}/session/info/?session_id=${localStorage.getItem("session_id")}`,
-      {
-        credentials: "include",
-      }
-    );
-    navigate("/template");
-  };
-
   return (
     <div className={styles.pageContainerOuter}>
       <div className={styles.pageContainerInner}>
@@ -73,7 +60,10 @@ export function Main() {
           <p>Delta-Software-Innopolis</p>
         </div>
 
-        <ModalWindow isOpen={showTemplateChoice} setIsOpen={setShowTemplateChoice}>
+        <ModalWindow
+          isOpen={showTemplateChoice}
+          setIsOpen={setShowTemplateChoice}
+        >
           <TemplateChoice onClose={() => setShowTemplateChoice(false)} />
         </ModalWindow>
 
