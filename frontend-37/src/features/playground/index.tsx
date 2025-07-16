@@ -5,6 +5,7 @@ import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
 import styles from "./Playground.module.css";
 import { API_URL } from "../../config/env";
 import { templateStore } from "../../shared/store/templateStore";
+import { TemplateChoice } from "../template-choice";
 import { PlaygroundTopBar } from "./TopBar";
 import { Upload } from "./Upload";
 import { QueryInput } from "./query-input";
@@ -19,6 +20,7 @@ export function Playground() {
   const [templateType, setTemplateType] = useState("" as DBType);
   const { updateTemplate } = templateStore();
   const [showUpload, setShowUpload] = useState(false);
+  const [showTemplateChoice, setShowTemplateChoice] = useState(false);
 
   useEffect(() => {
     const run = async () => {
@@ -51,6 +53,7 @@ export function Playground() {
           <PlaygroundTopBar
             handleUpload={() => setShowUpload(true)}
             handleSave={() => {}}
+            handleTemplateChoice={() => setShowTemplateChoice(true)}
           />
 
           <div className={`fira ${styles.contentContainer}`}>
@@ -94,6 +97,7 @@ export function Playground() {
             <PlaygroundTopBar
               handleUpload={() => setShowUpload(true)}
               handleSave={() => {}}
+              handleTemplateChoice={() => setShowTemplateChoice(true)}
             />
             <div className={styles.mongoSchemaWrapper}>
               <MongoSchema />
@@ -123,6 +127,15 @@ export function Playground() {
 
       <ModalWindow isOpen={showUpload} setIsOpen={setShowUpload}>
         <Upload />
+      </ModalWindow>
+      <ModalWindow
+        isOpen={showTemplateChoice}
+        setIsOpen={setShowTemplateChoice}
+      >
+        <TemplateChoice
+          onClose={() => setShowTemplateChoice(false)}
+          isPlayground={true}
+        />
       </ModalWindow>
     </>
   );
