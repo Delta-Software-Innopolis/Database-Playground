@@ -9,7 +9,7 @@ interface QueryResultItemProps {
 
 export function QueryResultItem({ result, queryNum }: QueryResultItemProps) {
   const rowsAffected = Math.max(0, result.rowcount | 0);
-  console.log(result);
+
   const content = result.data ? (
     <div className={styles.resultTable}>
       <SelectQueryResult queryData={result.data} />

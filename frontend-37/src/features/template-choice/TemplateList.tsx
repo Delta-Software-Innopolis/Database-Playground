@@ -5,6 +5,7 @@ interface TemplateListProps {
   data: Template[];
   templateChoice: Template | undefined;
   onTemplateChoiceChange: (choice: Template) => void;
+  onClose: () => void;
 }
 
 export function TemplateList({
@@ -22,7 +23,7 @@ export function TemplateList({
         }}
         style={
           template.id == templateChoice?.id
-            ? { backgroundColor: "#009E00" }
+            ? { backgroundColor: "rgba(232, 232, 255, 1)" }
             : undefined
         }
       >
@@ -34,17 +35,14 @@ export function TemplateList({
   });
 
   return (
-    <>
-      <div className={styles.container}>
-        <div className={styles.title}>Choose Database Template</div>
-        <div className={styles.header}>
-          <div className={styles.headerCol}>DBMS</div>
-          <div className={styles.headerCol}>Template Name</div>
-          <div className={styles.headerCol}>Author</div>
-        </div>
-        <ul className={styles.listWrapper}>{list}</ul>
+    <div className={styles.templateChoiceWrapper}>
+      <div className={styles.header}>
+        <div className={styles.headerCol}>DBMS</div>
+        <div className={styles.headerCol}>Template Name</div>
+        <div className={styles.headerCol}>Author</div>
       </div>
-    </>
+      <ul className={styles.listWrapper}>{list}</ul>
+    </div>
   );
 }
 

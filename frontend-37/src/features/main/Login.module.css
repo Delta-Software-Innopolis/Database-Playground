@@ -1,9 +1,10 @@
-.loginWrapper {
+.wrapper {
   background-color: #ffffff;
   width: 416px;
   height: 520px;
   border: 1px solid #c1c1c1;
   border-radius: 5px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
 }
 
 .modalHeader {

@@ -2,6 +2,7 @@ import crossImg from "@/assets/cross.svg";
 import googleImg from "@/assets/google.jpg";
 import iuImg from "@/assets/iu.jpg";
 import vkImg from "@/assets/vk.jpg";
+import { useState } from "react";
 import styles from "./Login.module.css";
 
 interface LoginProps {
@@ -10,8 +11,14 @@ interface LoginProps {
 }
 
 export function Login({ onClose, onSwitch }: LoginProps) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const onLogin = () => {
+    console.log(email, password);
+  };
+
   return (
-    <div className={styles.loginWrapper}>
+    <div className={styles.wrapper}>
       <div className={styles.modalHeader} style={{ position: "relative" }}>
         Log in to unlock full functionality!
         <div style={{ position: "absolute", right: 10 }}>
@@ -37,15 +44,19 @@ export function Login({ onClose, onSwitch }: LoginProps) {
           className={styles.inputField}
           type="email"
           placeholder="Email"
+          onChange={(e) => setEmail(e.target.value)}
           required
         />
         <input
           className={styles.inputField}
           type="password"
           placeholder="Password"
+          onChange={(e) => setPassword(e.target.value)}
           required
         />
-        <button className={styles.continueButton}>Continue</button>
+        <button className={styles.continueButton} onClick={onLogin}>
+          Continue
+        </button>
         <div
           onClick={() => {
             onClose();

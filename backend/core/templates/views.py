@@ -5,7 +5,7 @@ from rest_framework.response import Response
 
 from engines import postgres_engine
 from session.models import Session
-from session.shortcuts import resolve_session_id
+from session.shortcuts import extract_session_id
 
 from .docs import post_template_schema
 from .models import Template
@@ -22,9 +22,9 @@ class TemplateListCreateView(mixins.ListModelMixin,
 
     @post_template_schema
     def post(self, request: Request):
-        session_id, err_response = resolve_session_id(request)
-        if err_response:
-            return err_response
+        session_id = extract_session_id(request)
+        if not session_id:
+            return Response("Unauthorized", status=401)
 
         session = Session.objects.get(id=session_id)
         db_name = session.get_unauth_dbname()

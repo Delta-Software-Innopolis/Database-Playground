@@ -43,6 +43,7 @@ urlpatterns = [
     path("template/", include("templates.urls")),
     path("session/", include("session.urls")),
     path("db/", include("db.urls")),
+    path("account/", include("account.urls"))
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,3 +1,4 @@
+from rest_framework.permissions import AllowAny
 from rest_framework.parsers import BaseParser
 from rest_framework.request import Request
 from rest_framework.response import Response
@@ -6,7 +7,10 @@ from rest_framework.views import APIView
 from engines.exceptions import QueryError, ParsingError
 from engines.shortcuts import db_exists
 from session.models import Session, SessionInfo
-from session.shortcuts import resolve_session_id
+from session.shortcuts import extract_session_id
+
+from authentication.utility import auth_func
+from account.models import User
 
 from .docs import get_db_schema_doc, post_db_query_doc, put_db_schema_doc
 from .shortcuts import get_db_engine
@@ -20,16 +24,27 @@ class PlainTextParser(BaseParser):
 
 
 class PutView(APIView):
+    permission_classes = [AllowAny]
+
     @put_db_schema_doc
     def put(self, request: Request):
-        session_id, err_response = resolve_session_id(request)
-        if err_response:
-            return err_response
+        auth = auth_func(request)
 
-        session_info = SessionInfo.objects.get(session=session_id)
-        db_name = session_info.db_name
+        if auth.type == "jwt":
+            user: User = auth.user
+            db_name = f"db_{user.id.hex}"
+            return Response("Jwt is not yet supported", status=200)
 
-        if not session_info.template:
+        elif auth.type == "session":
+            session: Session = auth.session
+            db_name = session.get_unauth_dbname()
+            session_info = SessionInfo.objects.get(session=session.id)
+            template = session_info.template
+
+        else:
+            return Response("Unauthorized", status=401)
+
+        if not template:
             return Response({"detail": "Template not chosen"}, status=400)
 
         engine = get_db_engine(session_info.template.type)
@@ -39,9 +54,7 @@ class PutView(APIView):
 
         if db_exists(engine, db_name):
             engine.drop_db(db_name)
-
-        dump = session_info.template.dump
-        engine.create_db(db_name, dump)
+        engine.create_db(db_name, template.dump)
 
         return Response({"detail": "Database was set up"}, status=214)
 
@@ -49,9 +62,9 @@ class PutView(APIView):
 class SchemaView(APIView):
     @get_db_schema_doc
     def get(self, request: Request):
-        session_id, err_response = resolve_session_id(request)
-        if err_response:
-            return err_response
+        session_id = extract_session_id(request)
+        if not session_id:
+            return Response("Unauthorized", status=401)
 
         session = Session.objects.get(id=session_id)
         session_info = SessionInfo.objects.get(session=session_id)
@@ -72,13 +85,22 @@ class SchemaView(APIView):
 
 class QueryView(APIView):
 
+    permission_classes = [AllowAny]
     parser_classes = [PlainTextParser]
 
     @post_db_query_doc
     def post(self, request: Request):
-        session_id, err_response = resolve_session_id(request)
-        if err_response:
-            return err_response
+        auth = auth_func(request)
+
+        if auth.type == 'jwt':
+            return Response(
+                f"User {auth.user}, JWT is not working yet",
+                status=200
+            )
+
+        session_id = extract_session_id(request)
+        if not session_id:
+            return Response("Unauthorized", status=401)
 
         session = Session.objects.get(id=session_id)
         session_info = SessionInfo.objects.get(session=session_id)

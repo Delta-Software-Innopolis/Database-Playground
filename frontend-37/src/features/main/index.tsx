@@ -1,6 +1,6 @@
+import { TemplateChoice } from "@/features/template-choice/index";
 import { ModalWindow } from "@/shared/ui/ModalWindow";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
 import styles from "./Main.module.css";
 import deltaImg from "../../assets/delta.svg";
 import { API_URL } from "../../config/env";
@@ -11,8 +11,7 @@ import { MainTopBar } from "./TopBar";
 export function Main() {
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
-
-  const navigate = useNavigate();
+  const [showTemplateChoice, setShowTemplateChoice] = useState(false);
 
   useEffect(() => {
     const run = async () => {
@@ -38,21 +37,11 @@ export function Main() {
     run();
   }, []);
 
-  const onClick = async () => {
-    await fetch(
-      `${API_URL}/session/info/?session_id=${localStorage.getItem("session_id")}`,
-      {
-        credentials: "include",
-      }
-    );
-    navigate("/template");
-  };
-
   return (
     <div className={styles.pageContainerOuter}>
       <div className={styles.pageContainerInner}>
         <MainTopBar
-          onPlaygroundClick={onClick}
+          onPlaygroundClick={() => setShowTemplateChoice(true)}
           onLoginClick={() => setShowLogin(true)}
           onClassroomClick={() => {}}
         />
@@ -70,6 +59,13 @@ export function Main() {
           <img src={deltaImg} />
           <p>Delta-Software-Innopolis</p>
         </div>
+
+        <ModalWindow
+          isOpen={showTemplateChoice}
+          setIsOpen={setShowTemplateChoice}
+        >
+          <TemplateChoice onClose={() => setShowTemplateChoice(false)} />
+        </ModalWindow>
 
         <ModalWindow isOpen={showLogin} setIsOpen={setShowLogin}>
           <Login
