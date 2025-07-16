@@ -1,13 +1,14 @@
 .button {
-  width: 87px;
+  width: 76.5px;
   height: 40px;
   border-radius: 5px;
-  border: 1px transparent;
-  background-color: #a9a9ff;
+  border: none;
+  border: 1px solid #c1c1c1;
+  background-color: white;
   padding-top: 10px;
-  padding-right: 15px;
+  padding-right: 10px;
   padding-bottom: 10px;
-  padding-left: 15px;
+  padding-left: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -23,15 +24,15 @@
 }
 
 .button img {
-  width: 12px;
-  height: 16px;
+  width: 16.5px;
+  height: 16.5px;
   padding-left: 8px;
 }
 
 .button p {
-  width: 52px;
-  height: 28px;
+  width: 37px;
+  height: 20px;
   margin: auto;
 
-  color: white;
+  color: #666666;
 }

@@ -1,9 +1,13 @@
+import mongoImg from "@/assets/inputBgMongo.png";
+import psqlImg from "@/assets/inputBgPGSQL.png";
 import { API_URL } from "@/config/env";
+import { DBType } from "@/types/DBType";
 import { useRef, useState, useEffect } from "react";
 import styles from "./QueryInput.module.css";
 import { queryResultsStore } from "../queryResultsStore";
 import { schemasStore } from "../schemasStore";
 import { QueryResult, DBSchema } from "../types";
+import { HelpButton } from "./HelpButton";
 import { RunButton } from "./RunButton";
 
 export interface QueryResultsResponse {
@@ -15,7 +19,11 @@ export interface QueryResultsResponse {
   };
 }
 
-export function QueryInput() {
+interface QueryInputProps {
+  templateType: DBType;
+}
+
+export function QueryInput({ templateType }: QueryInputProps) {
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const numbersColumnRef = useRef<HTMLDivElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -94,11 +102,18 @@ export function QueryInput() {
 
   return (
     <div className={styles.container} ref={containerRef}>
+      <div className={styles.bgMongo} hidden={templateType != "MGDB"}>
+        <img className={styles.bgImg} src={mongoImg}></img>
+      </div>
+      <div className={styles.bgPSQL} hidden={templateType != "PSQL"}>
+        <img className={styles.bgImg} src={psqlImg}></img>
+      </div>
       <div className={styles.wrapper}>
         <div className={styles.rowcounter} ref={numbersColumnRef}>
           {getNumberRows()}
         </div>
         <textarea
+          spellCheck={false}
           className={styles.textarea}
           onChange={(e) => {
             const rows = e.target.value.split("\n");
@@ -176,7 +191,10 @@ export function QueryInput() {
           ref={textareaRef}
         ></textarea>
       </div>
-      <RunButton handleClick={onRunClicked} />
+      <div className={styles.buttonsWrapper}>
+        <HelpButton handleClick={() => {}} />
+        <RunButton handleClick={onRunClicked} />
+      </div>
     </div>
   );
 }
