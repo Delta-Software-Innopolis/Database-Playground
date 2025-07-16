@@ -31,12 +31,11 @@ export function Register({ onClose, onSwitch }: RegisterProps) {
     });
 
     const json = await res.json();
-    console.log(json, "я че ебу че он возвращает свагера блять нет");
   };
 
   return (
-    <div className={styles.registerWrapper}>
-      <div className={styles.registerHeader} style={{ position: "relative" }}>
+    <div className={styles.wrapper}>
+      <div className={styles.header} style={{ position: "relative" }}>
         Register, we want to know you!
         <div style={{ position: "absolute", right: 10 }}>
           <img src={crossImg} onClick={onClose} style={{ cursor: "pointer" }} />
