@@ -18,21 +18,22 @@ export function Playground() {
 
   useEffect(() => {
     const run = async () => {
-      const res1 = await fetch(
-        `${API_URL}/db/schema/?session_id=${session_id}`,
-        {
-          credentials: "include",
-        }
-      );
+      const res1 = await fetch(`${API_URL}/db/schema/`, {
+        headers: {
+          Session: session_id!,
+        },
+      });
       const json1 = await res1.json();
       updateSchemas(json1.tables);
 
-      const res2 = await fetch(
-        `${API_URL}/session/info/?session_id=${session_id}`
-      );
+      const res2 = await fetch(`${API_URL}/session/info/`, {
+        headers: {
+          Session: session_id!,
+        },
+      });
       const json2 = await res2.json();
 
-      const res3 = await fetch(`${API_URL}/template/${json2.template}`);
+      const res3 = await fetch(`${API_URL}/template/${json2.template}/`);
       const json3 = await res3.json();
       updateTemplate(json3.name);
       setTemplateType(json3.type);

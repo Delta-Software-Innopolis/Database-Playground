@@ -31,6 +31,7 @@ export function Register({ onClose, onSwitch }: RegisterProps) {
     });
 
     const json = await res.json();
+    console.log(json);
   };
 
   return (

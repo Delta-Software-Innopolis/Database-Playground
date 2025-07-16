@@ -1,7 +1,6 @@
 import startTriangleImg from "@/assets/startTriangle.svg";
 import { API_URL } from "@/config/env";
 import { templateStore } from "@/shared/store/templateStore";
-import { styleText } from "node:util";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import styles from "./TemplateChoice.module.css";
@@ -27,9 +26,7 @@ export function TemplateChoice({
 
   useEffect(() => {
     const run = async () => {
-      const res = await fetch(API_URL + "/template/", {
-        credentials: "include",
-      });
+      const res = await fetch(API_URL + "/template/");
       const json = (await res.json()) as Template[];
       setTemplates(json);
     };
@@ -39,17 +36,21 @@ export function TemplateChoice({
 
   const onChoice = async () => {
     if (!choice) return;
-    await fetch(`${API_URL}/session/info/?session_id=${session_id}`, {
+    await fetch(`${API_URL}/session/info/`, {
       method: "PATCH",
       body: JSON.stringify({
         template: choice.id,
       }),
-      credentials: "include",
+      headers: {
+        Session: session_id!,
+      },
     });
 
-    await fetch(`${API_URL}/db/?session_id=${session_id}`, {
+    await fetch(`${API_URL}/db/`, {
       method: "PUT",
-      credentials: "include",
+      headers: {
+        Session: session_id!,
+      },
     });
 
     updateTemplate(choice.name);

@@ -54,15 +54,19 @@ export function QueryInput() {
   }
 
   const onRunClicked = async () => {
-    const res = await fetch(`${API_URL}/db/query/?session_id=${session_id}`, {
+    const res = await fetch(`${API_URL}/db/query/`, {
       method: "POST",
       body: query,
-      credentials: "include",
+      headers: {
+        Session: session_id!,
+      },
     });
 
     const json = (await res.json()) as QueryResultsResponse;
+
     if (json.results) updateResults(json.results);
     else updateError(json.detail!);
+
     if (json.schema) updateSchemas(json.schema.tables);
   };
 

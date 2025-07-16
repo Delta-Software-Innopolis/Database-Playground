@@ -16,20 +16,20 @@ export function Main() {
   useEffect(() => {
     const run = async () => {
       if (!localStorage.getItem("session_id")) {
-        const res = await fetch(API_URL + "/session", {
-          credentials: "include",
-        });
+        const res = await fetch(API_URL + "/session/");
         const { session_id } = await res.json();
         localStorage.setItem("session_id", session_id);
       } else {
-        const res = await fetch(API_URL + "/session/valid", {
-          credentials: "include",
+        const res = await fetch(API_URL + "/session/valid/", {
+          headers: {
+            Session: localStorage.getItem("session_id")!,
+          },
         });
         const { valid } = await res.json();
         console.log(valid);
         if (!valid) {
           localStorage.removeItem("session_id");
-          run();
+          await run();
         }
       }
     };
