@@ -1,16 +1,23 @@
+import startTriangleImg from "@/assets/startTriangle.svg";
 import { API_URL } from "@/config/env";
 import { templateStore } from "@/shared/store/templateStore";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import styles from "./TemplateChoice.module.css";
 import { TemplateList } from "./TemplateList";
-import { TemplateChoiceTopBar } from "./TopBar";
 import { Template } from "./types";
 
-export function TemplateChoice() {
+interface TemplateChoiceProps {
+  onClose: () => void;
+}
+
+export function TemplateChoice({ onClose }: TemplateChoiceProps) {
   const [choice, setChoice] = useState<Template | undefined>(undefined);
   const [templates, setTemplates] = useState<Template[]>([]);
+
   const session_id = localStorage.getItem("session_id");
   const navigate = useNavigate();
+
   const { updateTemplate } = templateStore();
 
   useEffect(() => {
@@ -25,7 +32,8 @@ export function TemplateChoice() {
     run();
   }, []);
 
-  const onChoice = async (choice: Template) => {
+  const onChoice = async () => {
+    if (!choice) return;
     await fetch(`${API_URL}/session/info/?session_id=${session_id}`, {
       method: "PATCH",
       body: JSON.stringify({
@@ -46,16 +54,28 @@ export function TemplateChoice() {
 
   return (
     <div>
-      <TemplateChoiceTopBar
-        onTemplateChoose={async (e: React.MouseEvent<HTMLElement>) => {
-          if (!choice) return e.preventDefault();
-          await onChoice(choice);
-        }}
-      />
+      <div className={styles.buttonsWrapper}>
+        <button className={styles.backButton} onClick={onClose}>
+          Back
+        </button>
+        {choice ? (
+          <button className={styles.startButton} onClick={onChoice}>
+            Start{" "}
+            <img
+              className={styles.startTriangle}
+              src={startTriangleImg}
+              alt="start triangle"
+            />
+          </button>
+        ) : (
+          <div></div>
+        )}
+      </div>
       <TemplateList
         data={templates}
         templateChoice={choice}
         onTemplateChoiceChange={setChoice}
+        onClose={onClose}
       />
     </div>
   );

@@ -1,0 +1,12 @@
+.errorElement {
+  color: rgba(210, 0, 0, 1);
+  font-size: 16px;
+  margin: 10px 0 10px 0;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(241, 241, 241, 1);
+}
+
+.wrapper {
+  margin-left: 10px;
+  margin-right: 10px;
+}

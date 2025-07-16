@@ -1,0 +1,22 @@
+.head {
+  padding-left: 16px;
+  background-color: #f1f1f1;
+  font-family: "Onest", sans-serif;
+}
+
+.head th {
+  font-weight: normal;
+}
+
+.body {
+  font-family: "Fira Mono", monospace;
+}
+
+th,
+td {
+  text-align: left;
+}
+
+.item {
+  margin-left: 16px;
+}

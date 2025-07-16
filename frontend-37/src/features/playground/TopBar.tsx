@@ -6,13 +6,14 @@ import { ModalWindow } from "@/shared/ui/ModalWindow";
 import { TopBar } from "@/shared/ui/TopBar";
 import { TopBarElement } from "@/shared/ui/TopBarElement";
 import { useState } from "react";
-import { NavLink } from "react-router";
 import styles from "./TopBar.module.css";
+import { TemplateChoice } from "../template-choice";
 import { Upload } from "./Upload";
 
 export function PlaygroundTopBar() {
   const { template } = templateStore();
   const [showUpload, setShowUpload] = useState(false);
+  const [showTemplateChoice, setShowTemplateChoice] = useState(false);
 
   return (
     <TopBar className={styles.topbar} contentClassName={styles.topbarContent}>
@@ -30,12 +31,21 @@ export function PlaygroundTopBar() {
         </Button>
       </TopBarElement>
       <TopBarElement>
-        <NavLink to="/template" end>
-          <Button className={styles.templateButton}>{template}</Button>
-        </NavLink>
+        <Button
+          className={styles.templateButton}
+          onClick={() => setShowTemplateChoice(true)}
+        >
+          {template}
+        </Button>
       </TopBarElement>
       <ModalWindow isOpen={showUpload} setIsOpen={setShowUpload}>
         <Upload onClose={() => setShowUpload(false)} />
+      </ModalWindow>
+      <ModalWindow
+        isOpen={showTemplateChoice}
+        setIsOpen={setShowTemplateChoice}
+      >
+        <TemplateChoice onClose={() => setShowTemplateChoice(false)} />
       </ModalWindow>
     </TopBar>
   );
