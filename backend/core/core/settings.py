@@ -125,9 +125,10 @@ CORS_ALLOW_HEADERS = [
     "x-requested-with",
     "data",
     "code",
+    "session",
 ]
 
-CORS_ALLOW_ALL_ORIGINS = True  # Temporary for debugging
+CORS_ALLOW_ALL_ORIGINS = True  # Temporary for debugging"
 CORS_DEBUG = True  # Show CORS errors in console
 
 # Password validation
