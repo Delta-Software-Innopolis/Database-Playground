@@ -7,10 +7,12 @@ import { API_URL } from "../../config/env";
 import { Login } from "./Login";
 import { Register } from "./Register";
 import { MainTopBar } from "./TopBar";
+import { TemplateChoice } from "@/features/template-choice/index";
 
 export function Main() {
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
+  const [showTemplateChoice, setShowTemplateChoice] = useState(false);
 
   const navigate = useNavigate();
 
@@ -52,7 +54,7 @@ export function Main() {
     <div className={styles.pageContainerOuter}>
       <div className={styles.pageContainerInner}>
         <MainTopBar
-          onPlaygroundClick={onClick}
+          onPlaygroundClick={() => setShowTemplateChoice(true)}
           onLoginClick={() => setShowLogin(true)}
           onClassroomClick={() => {}}
         />
@@ -70,6 +72,10 @@ export function Main() {
           <img src={deltaImg} />
           <p>Delta-Software-Innopolis</p>
         </div>
+
+        <ModalWindow isOpen={showTemplateChoice} setIsOpen={setShowTemplateChoice}>
+          <TemplateChoice onClose={() => setShowTemplateChoice(false)} />
+        </ModalWindow>
 
         <ModalWindow isOpen={showLogin} setIsOpen={setShowLogin}>
           <Login
