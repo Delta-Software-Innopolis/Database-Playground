@@ -10,6 +10,7 @@ from session.models import Session, SessionInfo
 from session.shortcuts import extract_session_id
 
 from authentication.utility import auth_func
+from authentication import SessionAuthentication
 from account.models import User
 
 from .docs import get_db_schema_doc, post_db_query_doc, put_db_schema_doc
@@ -24,25 +25,16 @@ class PlainTextParser(BaseParser):
 
 
 class PutView(APIView):
-    permission_classes = [AllowAny]
+
+    authentication_classes = [SessionAuthentication]
 
     @put_db_schema_doc
     def put(self, request: Request):
-        auth = auth_func(request)
 
-        if auth.type == "jwt":
-            user: User = auth.user
-            db_name = f"db_{user.id.hex}"
-            return Response("Jwt is not yet supported", status=200)
-
-        elif auth.type == "session":
-            session: Session = auth.session
-            db_name = session.get_unauth_dbname()
-            session_info = SessionInfo.objects.get(session=session.id)
-            template = session_info.template
-
-        else:
-            return Response("Unauthorized", status=401)
+        session: Session = request.auth
+        db_name = session.get_unauth_dbname()
+        session_info = SessionInfo.objects.get(session=session.id)
+        template = session_info.template
 
         if not template:
             return Response({"detail": "Template not chosen"}, status=400)
@@ -62,9 +54,7 @@ class PutView(APIView):
 class SchemaView(APIView):
     @get_db_schema_doc
     def get(self, request: Request):
-        session_id = extract_session_id(request)
-        if not session_id:
-            return Response("Unauthorized", status=401)
+        session
 
         session = Session.objects.get(id=session_id)
         session_info = SessionInfo.objects.get(session=session_id)

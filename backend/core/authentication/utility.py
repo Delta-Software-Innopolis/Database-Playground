@@ -1,13 +1,17 @@
-from typing import Literal, Optional
 from dataclasses import dataclass
+from typing import Literal, Optional
 from rest_framework.request import Request
-from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework_simplejwt.tokens import Token
+from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.exceptions import AuthenticationFailed, ValidationError
 
-from session.models import Session
 from account.models import User
+from session.models import Session
 from session.shortcuts import extract_session_id
+from .exceptions import (
+    InvalidSessionError, InvalidTokenError,
+    UnauthorizedError, JWTRequiredError
+)
 
 
 def not_None(*args) -> bool:
@@ -33,7 +37,7 @@ class AuthData:
             return "fail"
 
 
-def auth_func(request: Request) -> AuthData:
+def auth_func(request: Request, require_jwt: bool = False) -> AuthData:
     jwt_auth = JWTAuthentication()
 
     try:
@@ -41,13 +45,23 @@ def auth_func(request: Request) -> AuthData:
         if auth:
             user, token = auth
             return AuthData(user=user, token=token)
-    except (AuthenticationFailed, ValidationError):
-        # JWT was invalid or not present — fall through to session
-        print("JWT failed")
-        pass
+    except AuthenticationFailed:
+        # JWT was present but invalid
+        raise InvalidTokenError("Invalid token")
+    except ValidationError:
+        raise InvalidTokenError("Token validation failed")
 
-    if session_id := extract_session_id(request):
+    # JWT not present → try session
+    session_id = extract_session_id(request)
+    if not session_id:
+        raise UnauthorizedError("Session ID not provided")
+
+    try:
         session = Session.objects.get(id=session_id)
-        return AuthData(session=session)
+    except Session.DoesNotExist:
+        raise InvalidSessionError("Session does not exist or is invalid")
 
-    return AuthData()
+    if require_jwt:
+        raise JWTRequiredError("JWT token required for this action")
+
+    return AuthData(session=session)
