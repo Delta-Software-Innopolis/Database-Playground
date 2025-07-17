@@ -5,6 +5,15 @@ from session.models import Session
 from session.shortcuts import extract_session_id
 
 
+class SessionUser:
+    is_authenticated = True  # fool DRF's permission classes
+
+    def __init__(self, session):
+        self.session = session
+        self.id = session.id
+        self.is_session_user = True
+
+
 class SessionAuthentication(BaseAuthentication):
     def authenticate(self, request):
         session_id = extract_session_id(request)
@@ -17,4 +26,4 @@ class SessionAuthentication(BaseAuthentication):
         except Session.DoesNotExist:
             raise AuthenticationFailed("Invalid session")
 
-        return (None, session)
+        return (SessionUser(session), session)

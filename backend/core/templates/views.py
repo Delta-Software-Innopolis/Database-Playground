@@ -8,6 +8,7 @@ from session.models import Session, SessionInfo
 from session.shortcuts import extract_session_id
 
 from authentication import SessionAuthentication
+from rest_framework.permissions import IsAuthenticated
 
 from .docs import post_template_schema
 from .models import Template
@@ -20,17 +21,15 @@ class TemplateListCreateView(mixins.ListModelMixin,
     serializer_class = MinTemplateSerializer
 
     authentication_classes = [SessionAuthentication]
+    permission_classes = [IsAuthenticated]
 
     def get(self, request: Request):
         return self.list(request)
 
     @post_template_schema
     def post(self, request: Request):
-
         session: Session = request.auth
         db_name = session.get_unauth_dbname()
-        session_info = SessionInfo.objects.get(session=session.id)
-        template = session_info.template
 
         data = JSONParser().parse(request)
         data['dump'] = postgres_engine.get_dump(db_name)
