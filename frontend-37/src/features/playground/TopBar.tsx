@@ -4,21 +4,20 @@ import { templateStore } from "@/shared/store/templateStore";
 import { Button } from "@/shared/ui/Button";
 import { TopBar } from "@/shared/ui/TopBar";
 import { TopBarElement } from "@/shared/ui/TopBarElement";
-import { useState } from "react";
 import styles from "./TopBar.module.css";
-import { TemplateChoice } from "../template-choice";
 
 interface PlaygroundTopBarProps {
   handleUpload: () => void;
   handleSave: () => void;
+  handleTemplateChoice: () => void;
 }
 
 export function PlaygroundTopBar({
   handleUpload,
   handleSave,
+  handleTemplateChoice,
 }: PlaygroundTopBarProps) {
   const { template } = templateStore();
-  const [showTemplateChoice, setShowTemplateChoice] = useState(false);
 
   return (
     <TopBar className={styles.topbar} contentClassName={styles.topbarContent}>
@@ -35,20 +34,11 @@ export function PlaygroundTopBar({
       <TopBarElement>
         <Button
           className={styles.templateButton}
-          onClick={() => setShowTemplateChoice(true)}
+          onClick={handleTemplateChoice}
         >
           {template}
         </Button>
       </TopBarElement>
-      <ModalWindow
-        isOpen={showTemplateChoice}
-        setIsOpen={setShowTemplateChoice}
-      >
-        <TemplateChoice
-          onClose={() => setShowTemplateChoice(false)}
-          isPlayground={true}
-        />
-      </ModalWindow>
     </TopBar>
   );
 }
