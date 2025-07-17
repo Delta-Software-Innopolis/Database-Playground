@@ -1,7 +1,12 @@
 import crossImg from "@/assets/cross.svg";
-import { API_URL } from "@/config/env";
+import { api } from "@/shared/utils/api";
 import { useState } from "react";
 import styles from "./Register.module.css";
+
+interface RegisterResponse {
+  refresh: string;
+  access: string;
+}
 
 interface RegisterProps {
   onClose: () => void;
@@ -15,22 +20,26 @@ export function Register({ onClose, onSwitch }: RegisterProps) {
   const [repeatPassword, setRepeatPassword] = useState("");
 
   const onRegister = async () => {
-    console.log(username, email, password, repeatPassword);
     if (password != repeatPassword) {
       alert("passwords do not match");
       return;
     }
 
-    const res = await fetch(API_URL + "/account/register", {
+    const json = await api<RegisterResponse>({
+      path: "account/register",
       method: "POST",
-      body: JSON.stringify({
+      body: {
         email,
         password,
         username,
-      }),
+      },
+      useSession: false,
+      useJwt: false,
     });
 
-    const json = await res.json();
+    localStorage.setItem("refresh_token", json.refresh);
+    localStorage.setItem("access_token", json.access);
+    console.log(json, "register json");
   };
 
   return (
@@ -71,7 +80,9 @@ export function Register({ onClose, onSwitch }: RegisterProps) {
           onChange={(e) => setRepeatPassword(e.target.value)}
           required
         />
-        <button className={styles.continueButton}>Continue</button>
+        <button className={styles.continueButton} onClick={onRegister}>
+          Continue
+        </button>
         <div
           className={styles.alreadyHaveAcc}
           onClick={() => {

@@ -1,10 +1,11 @@
 import startTriangleImg from "@/assets/startTriangle.svg";
-import { API_URL } from "@/config/env";
 import { templateStore } from "@/shared/store/templateStore";
-import { styleText } from "node:util";
+import { api } from "@/shared/utils/api";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import styles from "./TemplateChoice.module.css";
+import { queryResultsStore } from "../playground/queryResultsStore";
+import { schemasStore } from "../playground/schemasStore";
 import { TemplateList } from "./TemplateList";
 import { Template } from "./types";
 
@@ -20,18 +21,18 @@ export function TemplateChoice({
   const [choice, setChoice] = useState<Template | undefined>(undefined);
   const [templates, setTemplates] = useState<Template[]>([]);
 
-  const session_id = localStorage.getItem("session_id");
   const navigate = useNavigate();
 
   const { template, updateTemplate } = templateStore();
+  const { updateError, updateResults } = queryResultsStore();
+  const { updateSchemas } = schemasStore();
 
   useEffect(() => {
+    console.log("fetching templates from server...");
     const run = async () => {
-      const res = await fetch(API_URL + "/template/", {
-        credentials: "include",
-      });
-      const json = (await res.json()) as Template[];
+      const json = await api<Template[]>({ path: "template/" });
       setTemplates(json);
+      console.log(json, "templates json");
     };
 
     run();
@@ -39,22 +40,26 @@ export function TemplateChoice({
 
   const onChoice = async () => {
     if (!choice) return;
-    await fetch(`${API_URL}/session/info/?session_id=${session_id}`, {
+
+    await api({
+      path: "session/info/",
       method: "PATCH",
-      body: JSON.stringify({
-        template: choice.id,
-      }),
-      credentials: "include",
+      body: { template: choice.id },
     });
 
-    await fetch(`${API_URL}/db/?session_id=${session_id}`, {
+    await api({
+      path: "db/",
       method: "PUT",
-      credentials: "include",
     });
+
+    updateError("");
+    updateResults([]);
+    updateSchemas([]);
 
     updateTemplate(choice.name);
-
     navigate("/playground");
+
+    onClose();
   };
 
   return (
