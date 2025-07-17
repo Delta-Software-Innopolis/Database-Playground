@@ -1,6 +1,10 @@
 from django.db import models
 
-from account.models import Profile
+from account.models import Profile, User
+
+class UserRole(models.IntegerChoices):
+    STUDENT = 1
+    TEACHER = 2
 
 
 class Topic(models.Model):
@@ -20,3 +24,16 @@ class Classroom(models.Model):
 
     def __str__(self) -> str:
         return self.title
+
+
+class Enrollment(models.Model):
+    classroom = models.ForeignKey(to=Classroom, on_delete=models.CASCADE)
+    user = models.ForeignKey(to=User, on_delete=models.CASCADE)
+    role = models.IntegerField(
+        choices=UserRole.choices,
+        default=UserRole.STUDENT
+    )
+
+
+
+

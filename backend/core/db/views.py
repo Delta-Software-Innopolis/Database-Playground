@@ -52,14 +52,18 @@ class PutView(APIView):
 
 
 class SchemaView(APIView):
+
+    authentication_classes = [SessionAuthentication]
+
     @get_db_schema_doc
     def get(self, request: Request):
-        session
 
-        session = Session.objects.get(id=session_id)
-        session_info = SessionInfo.objects.get(session=session_id)
+        session: Session = request.auth
+        db_name = session.get_unauth_dbname()
+        session_info = SessionInfo.objects.get(session=session.id)
+        template = session_info.template
 
-        if not session_info.template:
+        if not template:
             return Response({"detail": "Template not chosen"}, status=400)
 
         engine = get_db_engine(session_info.template.type)
@@ -67,7 +71,6 @@ class SchemaView(APIView):
         if not engine:
             return Response({"detail": "Unknown engine type"}, status=418)
 
-        db_name = session.get_unauth_dbname()
         schema = engine.get_db(db_name)
 
         return Response(schema.to_json())
@@ -77,6 +80,7 @@ class QueryView(APIView):
 
     permission_classes = [AllowAny]
     parser_classes = [PlainTextParser]
+    authentication_classes = [SessionAuthentication]
 
     @post_db_query_doc
     def post(self, request: Request):
@@ -88,14 +92,12 @@ class QueryView(APIView):
                 status=200
             )
 
-        session_id = extract_session_id(request)
-        if not session_id:
-            return Response("Unauthorized", status=401)
+        session: Session = request.auth
+        db_name = session.get_unauth_dbname()
+        session_info = SessionInfo.objects.get(session=session.id)
+        template = session_info.template
 
-        session = Session.objects.get(id=session_id)
-        session_info = SessionInfo.objects.get(session=session_id)
-
-        if not session_info.template:
+        if not template:
             return Response({"detail": "Template not chosen"}, status=400)
 
         engine = get_db_engine(session_info.template.type)
@@ -103,7 +105,6 @@ class QueryView(APIView):
         if not engine:
             return Response({"detail": "Unknown engine type"}, status=418)
 
-        db_name = session.get_unauth_dbname()
 
         query = request.data
 
