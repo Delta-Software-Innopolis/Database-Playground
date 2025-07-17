@@ -1,11 +1,12 @@
 import { ModalWindow } from "@/shared/ui/ModalWindow";
+import { api } from "@/shared/utils/api";
 import { DBType } from "@/types/DBType";
 import { useEffect, useState } from "react";
 import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
 import styles from "./Playground.module.css";
-import { API_URL } from "../../config/env";
 import { templateStore } from "../../shared/store/templateStore";
 import { TemplateChoice } from "../template-choice";
+import { Template } from "../template-choice/types";
 import { PlaygroundTopBar } from "./TopBar";
 import { Upload } from "./Upload";
 import { QueryInput } from "./query-input";
@@ -13,39 +14,46 @@ import { QueryResultList } from "./query-result-list";
 import { SchemaPanel } from "./schema-panel";
 import { MongoSchema } from "./schema-panel/MongoSchema";
 import { schemasStore } from "./schemasStore";
+import { DBSchema } from "./types";
+
+interface SchemaResponse {
+  tables: DBSchema[];
+}
+
+interface SessionResponse {
+  id: number;
+  session: string;
+  db_name: string;
+  template: number;
+}
 
 export function Playground() {
-  const session_id = localStorage.getItem("session_id");
-  const { updateSchemas } = schemasStore();
   const [templateType, setTemplateType] = useState("" as DBType);
-  const { updateTemplate } = templateStore();
   const [showUpload, setShowUpload] = useState(false);
   const [showTemplateChoice, setShowTemplateChoice] = useState(false);
 
+  const { updateSchemas } = schemasStore();
+  const { template, updateTemplate } = templateStore();
+
   useEffect(() => {
     const run = async () => {
-      const res1 = await fetch(`${API_URL}/db/schema/`, {
-        headers: {
-          Session: session_id!,
-        },
-      });
-      const json1 = await res1.json();
-      updateSchemas(json1.tables);
+      const schema = await api<SchemaResponse>({ path: "db/schema/" });
+      console.log(schema, "schema json");
+      updateSchemas(schema.tables);
 
-      const res2 = await fetch(`${API_URL}/session/info/`, {
-        headers: {
-          Session: session_id!,
-        },
-      });
-      const json2 = await res2.json();
+      const sessionInfo = await api<SessionResponse>({ path: "session/info/" });
+      console.log(sessionInfo, "session info");
 
-      const res3 = await fetch(`${API_URL}/template/${json2.template}/`);
-      const json3 = await res3.json();
-      updateTemplate(json3.name);
-      setTemplateType(json3.type as DBType);
+      const template = await api<Template>({
+        path: `template/${sessionInfo.template}`,
+      });
+      console.log(template, "template info");
+
+      updateTemplate(template.name);
+      setTemplateType(template.type);
     };
     run();
-  }, []);
+  }, [template]);
 
   return (
     <>

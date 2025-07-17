@@ -2,8 +2,14 @@ import crossImg from "@/assets/cross.svg";
 import googleImg from "@/assets/google.jpg";
 import iuImg from "@/assets/iu.jpg";
 import vkImg from "@/assets/vk.jpg";
+import { api } from "@/shared/utils/api";
 import { useState } from "react";
 import styles from "./Login.module.css";
+
+interface LoginResponse {
+  refresh: string;
+  access: string;
+}
 
 interface LoginProps {
   onClose: () => void;
@@ -13,8 +19,19 @@ interface LoginProps {
 export function Login({ onClose, onSwitch }: LoginProps) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const onLogin = () => {
-    console.log(email, password);
+
+  const onLogin = async () => {
+    const json = await api<LoginResponse>({
+      path: "account/login",
+      method: "POST",
+      body: { email, password },
+      useSession: false,
+      useJwt: false,
+    });
+
+    localStorage.setItem("refresh_token", json.refresh);
+    localStorage.setItem("access_token", json.access);
+    console.log(json, "login json");
   };
 
   return (

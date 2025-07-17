@@ -1,12 +1,20 @@
 import { TemplateChoice } from "@/features/template-choice/index";
 import { ModalWindow } from "@/shared/ui/ModalWindow";
+import { api } from "@/shared/utils/api";
 import { useEffect, useState } from "react";
 import styles from "./Main.module.css";
 import deltaImg from "../../assets/delta.svg";
-import { API_URL } from "../../config/env";
 import { Login } from "./Login";
 import { Register } from "./Register";
 import { MainTopBar } from "./TopBar";
+
+interface SessionResponse {
+  session_id: string;
+}
+
+interface ValidResponse {
+  valid: boolean;
+}
 
 export function Main() {
   const [showLogin, setShowLogin] = useState(false);
@@ -16,18 +24,28 @@ export function Main() {
   useEffect(() => {
     const run = async () => {
       if (!localStorage.getItem("session_id")) {
-        const res = await fetch(API_URL + "/session/");
-        const { session_id } = await res.json();
-        localStorage.setItem("session_id", session_id);
-      } else {
-        const res = await fetch(API_URL + "/session/valid/", {
-          headers: {
-            Session: localStorage.getItem("session_id")!,
-          },
+        console.log("no session_id");
+
+        const { session_id } = await api<SessionResponse>({
+          path: "session/",
+          useSession: false,
+          useJwt: false,
         });
-        const { valid } = await res.json();
-        console.log(valid);
+
+        localStorage.setItem("session_id", session_id);
+        console.log("new session_id:", session_id);
+      } else {
+        console.log("session_id already present");
+        console.log("session_id:", localStorage.getItem("session_id"));
+
+        const { valid } = await api<ValidResponse>({
+          path: "session/valid/",
+          useJwt: false,
+        });
+
+        console.log("session_id is valid?", valid);
         if (!valid) {
+          console.log("invalid session_id, regenerating");
           localStorage.removeItem("session_id");
           await run();
         }
