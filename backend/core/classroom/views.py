@@ -11,7 +11,7 @@ from .models import Classroom
 from .serializers import ClassSerializer, ClassroomCreateSerializer
 
 from account.models import User
-from classroom.models import Enrollment
+from classroom.models import Enrollment, UserRole
 from classroom.serializers import EnrollmentSerializer
 
 
@@ -29,8 +29,7 @@ class ClassroomView(views.APIView):
     def post(self, request, *args, **kwargs):
         create_ser = ClassroomCreateSerializer(data=request.data)
         if not create_ser.is_valid():
-            return Response(create_ser.errors, status=status.HTTP_400_BAD_REQUEST)
-
+            return Response(create_ser.errors, status=400)
 
         data = create_ser.validated_data
 
@@ -41,14 +40,15 @@ class ClassroomView(views.APIView):
             teacher=request.user,
         )
 
-
         raw = f"{request.user.id}.{classroom.id}"
         invite_hash = hashlib.md5(raw.encode('utf-8')).hexdigest()
-
 
         classroom.invite = invite_hash
         classroom.save(update_fields=['invite'])
 
+        Enrollment.objects.create(
+            classroom=classroom, user=request.user, role=UserRole.TEACHER
+        )
 
         out_ser = ClassSerializer(classroom)
         return Response(out_ser.data, status=status.HTTP_201_CREATED)
