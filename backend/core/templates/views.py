@@ -28,7 +28,7 @@ class TemplateListCreateView(mixins.ListModelMixin,
     @post_template_schema
     def post(self, request: Request):
         user: SessionUser = request.user
-        session = Session.objects.get(id=user.session)
+        session = user.session
         db_name = session.get_unauth_dbname()
 
         data = JSONParser().parse(request)

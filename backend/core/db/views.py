@@ -6,7 +6,7 @@ from rest_framework.permissions import IsAuthenticated
 
 from engines.exceptions import QueryError, ParsingError
 from engines.shortcuts import db_exists
-from session.models import Session, SessionInfo
+from session.models import SessionInfo
 from authentication import SessionAuthentication, SessionUser
 
 from .docs import get_db_schema_doc, post_db_query_doc, put_db_schema_doc
@@ -28,7 +28,7 @@ class PutView(APIView):
     @put_db_schema_doc
     def put(self, request: Request):
         user: SessionUser = request.user
-        session = Session.objects.get(id=user.session)
+        session = user.session
         db_name = session.get_unauth_dbname()
         session_info = SessionInfo.objects.get(session=session.id)
         template = session_info.template
@@ -57,7 +57,7 @@ class SchemaView(APIView):
     def get(self, request: Request):
 
         user: SessionUser = request.user
-        session = Session.objects.get(id=user.session)
+        session = user.session
         db_name = session.get_unauth_dbname()
         session_info = SessionInfo.objects.get(session=session.id)
         template = session_info.template
@@ -84,7 +84,7 @@ class QueryView(APIView):
     @post_db_query_doc
     def post(self, request: Request):
         user: SessionUser = request.user
-        session = Session.objects.get(id=user.session)
+        session = user.session
         db_name = session.get_unauth_dbname()
         session_info = SessionInfo.objects.get(session=session.id)
         template = session_info.template

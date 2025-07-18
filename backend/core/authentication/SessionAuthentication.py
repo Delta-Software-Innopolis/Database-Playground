@@ -1,3 +1,5 @@
+import uuid
+
 from rest_framework.authentication import BaseAuthentication
 from rest_framework.exceptions import AuthenticationFailed
 
@@ -8,7 +10,11 @@ from session.shortcuts import extract_session_id
 class SessionUser:
     is_authenticated = True  # fool DRF's permission classes
 
-    def __init__(self, session):
+    session: Session
+    id: uuid.UUID
+    is_session_user: bool
+
+    def __init__(self, session: Session):
         self.session = session
         self.id = session.id
         self.is_session_user = True
