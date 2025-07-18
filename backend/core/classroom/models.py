@@ -17,7 +17,7 @@ class Topic(models.Model):
 class Classroom(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
-    teacher = models.ForeignKey(to=Profile, on_delete=models.CASCADE)
+    teacher = models.ForeignKey(to=User, on_delete=models.CASCADE)
     topic = models.ForeignKey(to=Topic, on_delete=models.DO_NOTHING, null=True)
     created_date = models.DateTimeField(auto_now_add=True)
     capacity = models.IntegerField()
