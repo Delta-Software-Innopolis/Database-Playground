@@ -7,18 +7,11 @@ class UserRole(models.IntegerChoices):
     TEACHER = 2
 
 
-class Topic(models.Model):
-    title = models.CharField(max_length=50)
-
-    def __str__(self) -> str:
-        return self.title
-
 
 class Classroom(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
-    teacher = models.ForeignKey(to=Profile, on_delete=models.CASCADE)
-    topic = models.ForeignKey(to=Topic, on_delete=models.DO_NOTHING, null=True)
+    teacher = models.ForeignKey(to=User, on_delete=models.CASCADE)
     created_date = models.DateTimeField(auto_now_add=True)
     capacity = models.IntegerField()
     invite = models.TextField(null=False, default="")
