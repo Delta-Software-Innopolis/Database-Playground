@@ -3,6 +3,7 @@ from rest_framework.parsers import BaseParser
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated
 
 from engines.exceptions import QueryError, ParsingError
 from engines.shortcuts import db_exists
@@ -27,6 +28,7 @@ class PlainTextParser(BaseParser):
 class PutView(APIView):
 
     authentication_classes = [SessionAuthentication]
+    permission_classes = [IsAuthenticated]
 
     @put_db_schema_doc
     def put(self, request: Request):
@@ -54,6 +56,7 @@ class PutView(APIView):
 class SchemaView(APIView):
 
     authentication_classes = [SessionAuthentication]
+    permission_classes = [IsAuthenticated]
 
     @get_db_schema_doc
     def get(self, request: Request):
@@ -78,9 +81,9 @@ class SchemaView(APIView):
 
 class QueryView(APIView):
 
-    permission_classes = [AllowAny]
     parser_classes = [PlainTextParser]
     authentication_classes = [SessionAuthentication]
+    permission_classes = [IsAuthenticated]
 
     @post_db_query_doc
     def post(self, request: Request):
