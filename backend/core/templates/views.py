@@ -4,10 +4,9 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 
 from engines import postgres_engine
-from session.models import Session, SessionInfo
-from session.shortcuts import extract_session_id
+from session.models import Session
 
-from authentication import SessionAuthentication
+from authentication import SessionAuthentication, SessionUser
 from rest_framework.permissions import IsAuthenticated
 
 from .docs import post_template_schema
@@ -28,7 +27,8 @@ class TemplateListCreateView(mixins.ListModelMixin,
 
     @post_template_schema
     def post(self, request: Request):
-        session: Session = request.auth
+        user: SessionUser = request.user
+        session = Session.objects.get(id=user.session)
         db_name = session.get_unauth_dbname()
 
         data = JSONParser().parse(request)

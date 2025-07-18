@@ -1,4 +1,3 @@
-from rest_framework.permissions import AllowAny
 from rest_framework.parsers import BaseParser
 from rest_framework.request import Request
 from rest_framework.response import Response
@@ -8,11 +7,7 @@ from rest_framework.permissions import IsAuthenticated
 from engines.exceptions import QueryError, ParsingError
 from engines.shortcuts import db_exists
 from session.models import Session, SessionInfo
-from session.shortcuts import extract_session_id
-
-from authentication.utility import auth_func
-from authentication import SessionAuthentication
-from account.models import User
+from authentication import SessionAuthentication, SessionUser
 
 from .docs import get_db_schema_doc, post_db_query_doc, put_db_schema_doc
 from .shortcuts import get_db_engine
@@ -32,8 +27,8 @@ class PutView(APIView):
 
     @put_db_schema_doc
     def put(self, request: Request):
-
-        session: Session = request.auth
+        user: SessionUser = request.user
+        session = Session.objects.get(id=user.session)
         db_name = session.get_unauth_dbname()
         session_info = SessionInfo.objects.get(session=session.id)
         template = session_info.template
@@ -61,7 +56,8 @@ class SchemaView(APIView):
     @get_db_schema_doc
     def get(self, request: Request):
 
-        session: Session = request.auth
+        user: SessionUser = request.user
+        session = Session.objects.get(id=user.session)
         db_name = session.get_unauth_dbname()
         session_info = SessionInfo.objects.get(session=session.id)
         template = session_info.template
@@ -87,15 +83,8 @@ class QueryView(APIView):
 
     @post_db_query_doc
     def post(self, request: Request):
-        auth = auth_func(request)
-
-        if auth.type == 'jwt':
-            return Response(
-                f"User {auth.user}, JWT is not working yet",
-                status=200
-            )
-
-        session: Session = request.auth
+        user: SessionUser = request.user
+        session = Session.objects.get(id=user.session)
         db_name = session.get_unauth_dbname()
         session_info = SessionInfo.objects.get(session=session.id)
         template = session_info.template
@@ -107,7 +96,6 @@ class QueryView(APIView):
 
         if not engine:
             return Response({"detail": "Unknown engine type"}, status=418)
-
 
         query = request.data
 
