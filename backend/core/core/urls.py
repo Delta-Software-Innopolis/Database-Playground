@@ -23,8 +23,6 @@ schema_view = get_schema_view(
 )
 
 
-router = routers.SimpleRouter()
-router.register(r"classroom", ClassroomViewSet)
 # from engines.views import chroma_query
 
 urlpatterns = [
@@ -43,7 +41,8 @@ urlpatterns = [
     path("template/", include("templates.urls")),
     path("session/", include("session.urls")),
     path("db/", include("db.urls")),
-    path("account/", include("account.urls"))
+    path("account/", include("account.urls")),
+    path("classroom/", include("classroom.urls"))
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

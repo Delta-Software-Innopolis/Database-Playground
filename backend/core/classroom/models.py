@@ -21,7 +21,7 @@ class Classroom(models.Model):
     topic = models.ForeignKey(to=Topic, on_delete=models.DO_NOTHING, null=True)
     created_date = models.DateTimeField(auto_now_add=True)
     capacity = models.IntegerField()
-    invite = models.TextField()
+    invite = models.TextField(null=False, default="")
 
     def __str__(self) -> str:
         return self.title
