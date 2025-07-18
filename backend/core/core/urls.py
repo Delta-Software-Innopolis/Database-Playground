@@ -6,7 +6,7 @@ from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from rest_framework import permissions, routers
 
-from classroom.views import ClassroomModelViewSet
+from classroom.views import ClassroomViewSet
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -24,7 +24,7 @@ schema_view = get_schema_view(
 
 
 router = routers.SimpleRouter()
-router.register(r"classroom", ClassroomModelViewSet)
+router.register(r"classroom", ClassroomViewSet)
 # from engines.views import chroma_query
 
 urlpatterns = [
