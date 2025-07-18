@@ -26,10 +26,28 @@ class ClassroomView(views.APIView):
     permission_classes = [IsAuthenticated]
     authentication_classes = [JWTAuthentication]
 
+    def get(self, request, *args, **kwargs):
+        class_id = kwargs.get("id")
+
+        if class_id is None:
+            qs = Classroom.objects.filter(teacher=request.user)
+            ser = ClassSerializer(qs, many=True)
+            return Response({"classrooms": ser.data}, status=200)
+        else:
+            try:
+                classroom = Classroom.objects.get(id=class_id, teacher=request.user)
+            except Classroom.DoesNotExist:
+                return Response(
+                    {"detail": "Classroom not found."},
+                    status=status.HTTP_404_NOT_FOUND
+                )
+            ser = ClassSerializer(classroom)
+            return Response(ser.data, status=200)
+
     def post(self, request, *args, **kwargs):
         create_ser = ClassroomCreateSerializer(data=request.data)
         if not create_ser.is_valid():
-            return Response(create_ser.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response(create_ser.errors, status=400)
 
 
         data = create_ser.validated_data
@@ -51,7 +69,58 @@ class ClassroomView(views.APIView):
 
 
         out_ser = ClassSerializer(classroom)
-        return Response(out_ser.data, status=status.HTTP_201_CREATED)
+        return Response(out_ser.data, status=201)
+
+    def delete(self, request, *args, **kwargs):
+        class_id = kwargs.get("id")
+
+        if class_id is None:
+            return Response(
+                {"detail": "Method \"DELETE\" not allowed on list."},
+                status=status.HTTP_405_METHOD_NOT_ALLOWED
+            )
+
+
+        try:
+            classroom = Classroom.objects.get(id=class_id, teacher=request.user)
+        except Classroom.DoesNotExist:
+            return Response({"detail": "Classroom not found."},
+                            status=404)
+
+        classroom.delete()
+        return Response(status=204)
+
+    def patch(self, request, *args, **kwargs):
+        class_id = kwargs.get("id")
+
+        if class_id is None:
+            return Response(
+                {"detail": "Method \"PATCH\" not allowed on list."},
+                status=405
+            )
+
+
+        try:
+            classroom = Classroom.objects.get(id=class_id, teacher=request.user)
+        except Classroom.DoesNotExist:
+            return Response({"detail": "Classroom not found."},
+                            status=404)
+
+
+        serializer = ClassroomCreateSerializer(
+            classroom,
+            data=request.data,
+            partial=True
+        )
+
+        if not serializer.is_valid():
+            return Response(serializer.errors, status=400)
+
+        serializer.save()
+
+        out_ser = ClassSerializer(classroom)
+        return Response(out_ser.data, status=200)
+
 
 
 class ClassroomEnroll(views.APIView):
