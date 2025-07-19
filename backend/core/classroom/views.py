@@ -30,16 +30,24 @@ class ClassroomView(views.APIView):
         class_id = kwargs.get("id")
 
         if class_id is None:
-            qs = Classroom.objects.filter(teacher=request.user)
+            enrollments = Enrollment.objects.filter(user=request.user)
+            qs = [e.classroom for e in enrollments.all()]
             ser = ClassSerializer(qs, many=True)
             return Response({"classrooms": ser.data}, status=200)
         else:
             try:
-                classroom = Classroom.objects.get(id=class_id, teacher=request.user)
+                classroom = Classroom.objects.get(id=class_id)
+                Enrollment.objects.get(
+                    classroom=classroom, user=request.user)
             except Classroom.DoesNotExist:
                 return Response(
                     {"detail": "Classroom not found."},
                     status=status.HTTP_404_NOT_FOUND
+                )
+            except Enrollment.DoesNotExist:
+                return Response(
+                    {"detail": "Not Enrolled."},
+                    status=status.HTTP_403_FORBIDDEN
                 )
             ser = ClassSerializer(classroom)
             return Response(ser.data, status=200)
