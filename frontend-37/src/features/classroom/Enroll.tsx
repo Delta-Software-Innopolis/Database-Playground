@@ -1,23 +1,29 @@
-import { Button } from "@/shared/ui/Button";
 import { api } from "@/shared/utils/api";
+import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router";
-import { Classroom } from "./types";
+
+interface EnrollResponse {
+  id: number;
+  role: number;
+  classroom: number;
+  user: string;
+}
 
 export function Enroll() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const onAccept = async () => {
-    const json = await api<Classroom>({ path: `classroom/enroll/${id}` });
-    navigate(`/classroom/${json.id}`);
+  useEffect(() => {
+    const run = async () => {
+      const json = await api<EnrollResponse>({
+        path: `classroom/enroll/${id}`,
+      });
 
-    console.log(json, "enroll json");
-  };
+      navigate(`/classroom/${json.classroom}`);
+    };
 
-  return (
-    <div>
-      enroll into this classroom?
-      <Button onClick={onAccept}>ye bro</Button>
-    </div>
-  );
+    run();
+  }, []);
+
+  return <></>;
 }

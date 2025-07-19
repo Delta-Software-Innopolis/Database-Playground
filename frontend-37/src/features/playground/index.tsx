@@ -62,7 +62,9 @@ export function Playground() {
 
   return (
     <>
-      {templateType == "PSQL" ? (
+      {templateType == "PSQL" ||
+      templateType == "SQLT" ||
+      templateType == "MSQL" ? (
         <div className={styles.pageContainer}>
           <PlaygroundTopBar
             handleUpload={() => setShowUpload(true)}

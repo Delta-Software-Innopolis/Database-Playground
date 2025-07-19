@@ -59,6 +59,9 @@ function typeToName(type: string) {
     case "MSQL":
       result = "MySQL";
       break;
+    case "SQLT":
+      result = "SQLite";
+      break;
     case "MGDB":
       result = "MongoDB";
       break;
