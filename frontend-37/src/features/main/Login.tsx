@@ -34,6 +34,7 @@ export function Login({ onClose, onSwitch }: LoginProps) {
       localStorage.setItem("refresh_token", json.refresh);
       localStorage.setItem("access_token", json.access);
       toast.success("Logged in successfully!");
+      onClose();
     } else {
       toast.error(Object.values(json)[0]);
     }
