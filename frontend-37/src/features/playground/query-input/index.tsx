@@ -32,7 +32,12 @@ export function QueryInput({ templateType }: QueryInputProps) {
   const shiftDown = useRef(false);
 
   const [query, setQuery] = useState("");
+  const [selected, setSelected] = useState("");
   const [numberColumnValues, changeNumberColumnValues] = useState(["1"]);
+
+  useEffect(() => {
+    console.log(query);
+  }, [query]);
 
   const { updateError, updateResults } = queryResultsStore();
   const { updateSchemas } = schemasStore();
@@ -56,7 +61,7 @@ export function QueryInput({ templateType }: QueryInputProps) {
     const target = e.target as HTMLTextAreaElement;
     const { selectionStart, selectionEnd } = target;
 
-    onQueryChange(
+    setSelected(
       selectionEnd > selectionStart
         ? target.value.substring(selectionStart, selectionEnd)
         : target.value
@@ -67,7 +72,7 @@ export function QueryInput({ templateType }: QueryInputProps) {
     const json = await api<QueryResponse>({
       path: "db/query/",
       method: "POST",
-      body: query,
+      body: selected ? selected : query,
       useJson: false,
     });
 
