@@ -1,11 +1,12 @@
 import crossImg from "@/assets/cross.svg";
 import { api } from "@/shared/utils/api";
 import { useState } from "react";
+import toast from "react-hot-toast";
 import styles from "./Register.module.css";
 
 interface RegisterResponse {
-  refresh: string;
-  access: string;
+  refresh?: string;
+  access?: string;
 }
 
 interface RegisterProps {
@@ -37,8 +38,14 @@ export function Register({ onClose, onSwitch }: RegisterProps) {
       useJwt: false,
     });
 
-    localStorage.setItem("refresh_token", json.refresh);
-    localStorage.setItem("access_token", json.access);
+    if (json.access && json.refresh) {
+      localStorage.setItem("refresh_token", json.refresh);
+      localStorage.setItem("access_token", json.access);
+      toast.success("Registered successfully!");
+    } else {
+      toast.error(Object.values(json)[0]);
+    }
+
     console.log(json, "register json");
   };
 
