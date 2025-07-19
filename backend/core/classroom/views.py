@@ -88,7 +88,6 @@ class ClassroomView(views.APIView):
                 status=status.HTTP_405_METHOD_NOT_ALLOWED
             )
 
-
         try:
             classroom = Classroom.objects.get(id=class_id, teacher=request.user)
         except Classroom.DoesNotExist:
@@ -107,13 +106,11 @@ class ClassroomView(views.APIView):
                 status=405
             )
 
-
         try:
             classroom = Classroom.objects.get(id=class_id, teacher=request.user)
         except Classroom.DoesNotExist:
             return Response({"detail": "Classroom not found."},
                             status=404)
-
 
         serializer = ClassroomCreateSerializer(
             classroom,
@@ -128,7 +125,6 @@ class ClassroomView(views.APIView):
 
         out_ser = ClassSerializer(classroom)
         return Response(out_ser.data, status=200)
-
 
 
 class ClassroomEnroll(views.APIView):

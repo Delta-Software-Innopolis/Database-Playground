@@ -31,12 +31,14 @@ export function Playground() {
   const [templateType, setTemplateType] = useState("" as DBType);
   const [showUpload, setShowUpload] = useState(false);
   const [showTemplateChoice, setShowTemplateChoice] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const { updateSchemas } = schemasStore();
   const { template, updateTemplate } = templateStore();
 
   useEffect(() => {
     const run = async () => {
+      setLoading(true);
       const schema = await api<SchemaResponse>({ path: "db/schema/" });
       console.log(schema, "schema json");
       updateSchemas(schema.tables);
@@ -51,9 +53,12 @@ export function Playground() {
 
       updateTemplate(template.name);
       setTemplateType(template.type);
+      setLoading(false);
     };
     run();
   }, [template]);
+
+  if (loading) return;
 
   return (
     <>
@@ -108,9 +113,6 @@ export function Playground() {
               handleSave={() => {}}
               handleTemplateChoice={() => setShowTemplateChoice(true)}
             />
-            <div className={styles.mongoSchemaWrapper}>
-              <MongoSchema />
-            </div>
           </div>
           <div className={`fira ${styles.contentContainer}`}>
             <PanelGroup
@@ -126,8 +128,18 @@ export function Playground() {
 
               <PanelResizeHandle className={styles.verticalResizeHandle} />
 
-              <Panel className={styles.topContentPanel}>
-                <QueryResultList />
+              <Panel
+                className={styles.topContentPanel}
+                style={{ border: "none" }}
+              >
+                <PanelGroup direction="vertical" style={{ marginBottom: 0 }}>
+                  <div className={styles.mongoSchemaWrapper}>
+                    <MongoSchema />
+                  </div>
+                  <div className={styles.mongoQueryResult}>
+                    <QueryResultList />
+                  </div>
+                </PanelGroup>
               </Panel>
             </PanelGroup>
           </div>

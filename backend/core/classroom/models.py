@@ -2,10 +2,10 @@ from django.db import models
 
 from account.models import Profile, User
 
+
 class UserRole(models.IntegerChoices):
     STUDENT = 1
     TEACHER = 2
-
 
 
 class Classroom(models.Model):
@@ -27,7 +27,3 @@ class Enrollment(models.Model):
         choices=UserRole.choices,
         default=UserRole.STUDENT
     )
-
-
-
-

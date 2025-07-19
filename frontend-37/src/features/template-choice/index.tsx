@@ -125,7 +125,6 @@ export function TemplateChoice({
         data={templates}
         templateChoice={choice}
         onTemplateChoiceChange={setChoice}
-        onClose={onClose}
       />
     </div>
   );

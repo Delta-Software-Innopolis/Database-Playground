@@ -4,6 +4,8 @@ import { api } from "@/shared/utils/api";
 import { useEffect, useState } from "react";
 import styles from "./Main.module.css";
 import deltaImg from "../../assets/delta.svg";
+import { ClassroomList } from "../classroom/ClassroomList";
+import { CreateClassroom } from "../classroom/CreateClassroom";
 import { Login } from "./Login";
 import { Register } from "./Register";
 import { MainTopBar } from "./TopBar";
@@ -20,6 +22,8 @@ export function Main() {
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
   const [showTemplateChoice, setShowTemplateChoice] = useState(false);
+  const [showClassrooms, setShowClassrooms] = useState(false);
+  const [showCreateClassroom, setShowCreateClassroom] = useState(false);
 
   useEffect(() => {
     const run = async () => {
@@ -61,7 +65,7 @@ export function Main() {
         <MainTopBar
           onPlaygroundClick={() => setShowTemplateChoice(true)}
           onLoginClick={() => setShowLogin(true)}
-          onClassroomClick={() => {}}
+          onClassroomClick={() => setShowClassrooms(true)}
         />
         <div className={styles.mainDivContainer}>
           <div className={styles.mainDiv}>
@@ -97,6 +101,23 @@ export function Main() {
             onClose={() => setShowRegister(false)}
             onSwitch={() => setShowLogin(true)}
           />
+        </ModalWindow>
+
+        <ModalWindow isOpen={showClassrooms} setIsOpen={setShowClassrooms}>
+          <ClassroomList
+            onCreateClassroom={() => {
+              setShowClassrooms(false);
+              setShowCreateClassroom(true);
+            }}
+            onClose={() => setShowClassrooms(false)}
+          />
+        </ModalWindow>
+
+        <ModalWindow
+          isOpen={showCreateClassroom}
+          setIsOpen={setShowCreateClassroom}
+        >
+          <CreateClassroom />
         </ModalWindow>
       </div>
     </div>
