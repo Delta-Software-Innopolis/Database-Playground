@@ -19,7 +19,11 @@ export function TemplateList({
         className={styles.item}
         key={template.id}
         onClick={() => {
-          onTemplateChoiceChange(template);
+          if (template.id === templateChoice?.id) {
+            onTemplateChoiceChange(undefined as unknown as Template);
+          } else {
+            onTemplateChoiceChange(template);
+          }
         }}
         style={
           template.id == templateChoice?.id

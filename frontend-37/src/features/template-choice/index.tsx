@@ -130,3 +130,26 @@ export function TemplateChoice({
     </div>
   );
 }
+
+function animatedButton() {
+  const [visible, setVisible] = useState(true);
+  const [isFadingOut, setIsFadingOut] = useState(false);
+
+  const handleRemove = () => {
+    setIsFadingOut(true);
+    setTimeout(() => {
+      setVisible(false);
+    }, 200);
+  };
+
+  if (!visible) return null;
+
+  return (
+    <button
+      className={`${styles.startButton} ${isFadingOut ? styles.fadeOut : ""}`}
+      onClick={handleRemove}
+    >
+      Start
+    </button>
+  );
+}
