@@ -30,7 +30,7 @@ export function QueryResultList() {
   a *= 1000;
 
   return (
-    <div className={styles.wrapper}>
+    <div className={`onest ${styles.wrapper}`}>
       <div className={styles.listHeader}>
         <div>
           Total{" "}

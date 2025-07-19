@@ -7,7 +7,19 @@ interface SelectQueryResultProps {
 
 export function SelectQueryResult({ queryData }: SelectQueryResultProps) {
   if (!queryData.columns) {
-    return <pre>{JSON.stringify(queryData, null, 2)}</pre>;
+    return (
+      <pre
+        style={{
+          color: "rgba(105, 104, 255, 1)",
+          fontSize: 16,
+          marginLeft: 38,
+          marginTop: -10,
+          marginBottom: 0,
+        }}
+      >
+        {JSON.stringify(queryData, null, 2)}
+      </pre>
+    );
   }
 
   const nums = [];

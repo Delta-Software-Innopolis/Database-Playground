@@ -108,9 +108,6 @@ export function Playground() {
               handleSave={() => {}}
               handleTemplateChoice={() => setShowTemplateChoice(true)}
             />
-            <div className={styles.mongoSchemaWrapper}>
-              <MongoSchema />
-            </div>
           </div>
           <div className={`fira ${styles.contentContainer}`}>
             <PanelGroup
@@ -126,8 +123,18 @@ export function Playground() {
 
               <PanelResizeHandle className={styles.verticalResizeHandle} />
 
-              <Panel className={styles.topContentPanel}>
-                <QueryResultList />
+              <Panel
+                className={styles.topContentPanel}
+                style={{ border: "none" }}
+              >
+                <PanelGroup direction="vertical" style={{ marginBottom: 0 }}>
+                  <div className={styles.mongoSchemaWrapper}>
+                    <MongoSchema />
+                  </div>
+                  <div className={styles.mongoQueryResult}>
+                    <QueryResultList />
+                  </div>
+                </PanelGroup>
               </Panel>
             </PanelGroup>
           </div>
