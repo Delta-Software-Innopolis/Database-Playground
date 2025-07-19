@@ -5,7 +5,6 @@ interface TemplateListProps {
   data: Template[];
   templateChoice: Template | undefined;
   onTemplateChoiceChange: (choice: Template) => void;
-  onClose: () => void;
 }
 
 export function TemplateList({

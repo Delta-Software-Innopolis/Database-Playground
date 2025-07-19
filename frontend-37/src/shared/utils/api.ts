@@ -65,6 +65,9 @@ export async function api<T>({
   const res = await fetch(`${API_URL}/${path}`, options);
 
   if (res.status === 401) {
+    if (!access_token) {
+      throw new Error("Unauthorized.");
+    }
     console.log("API request got 401 response, generating new tokens");
     const ok = await refreshTokens();
     if (ok) {

@@ -4,11 +4,12 @@ import iuImg from "@/assets/iu.jpg";
 import vkImg from "@/assets/vk.jpg";
 import { api } from "@/shared/utils/api";
 import { useState } from "react";
+import toast from "react-hot-toast";
 import styles from "./Login.module.css";
 
 interface LoginResponse {
-  refresh: string;
-  access: string;
+  refresh?: string;
+  access?: string;
 }
 
 interface LoginProps {
@@ -29,8 +30,14 @@ export function Login({ onClose, onSwitch }: LoginProps) {
       useJwt: false,
     });
 
-    localStorage.setItem("refresh_token", json.refresh);
-    localStorage.setItem("access_token", json.access);
+    if (json.access && json.refresh) {
+      localStorage.setItem("refresh_token", json.refresh);
+      localStorage.setItem("access_token", json.access);
+      toast.success("Logged in successfully!");
+      onClose();
+    } else {
+      toast.error(Object.values(json)[0]);
+    }
     console.log(json, "login json");
   };
 
