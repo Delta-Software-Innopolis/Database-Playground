@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
-from .models import Classroom, Topic
-
+from .models import Classroom
+from .models import Enrollment
 
 class ClassSerializer(serializers.ModelSerializer):
     class Meta:
@@ -9,7 +9,14 @@ class ClassSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class TopicSerializer(serializers.ModelSerializer):
+class ClassroomCreateSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Topic
+        model = Classroom
+        fields = ('title', 'description', 'capacity')
+
+
+
+class EnrollmentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Enrollment
         fields = "__all__"

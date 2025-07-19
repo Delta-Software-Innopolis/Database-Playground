@@ -1,16 +1,13 @@
-from rest_framework.permissions import AllowAny
 from rest_framework.parsers import BaseParser
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated
 
 from engines.exceptions import QueryError, ParsingError
 from engines.shortcuts import db_exists
-from session.models import Session, SessionInfo
-from session.shortcuts import extract_session_id
-
-from authentication.utility import auth_func
-from account.models import User
+from session.models import SessionInfo
+from authentication import SessionAuthentication, SessionUser
 
 from .docs import get_db_schema_doc, post_db_query_doc, put_db_schema_doc
 from .shortcuts import get_db_engine
@@ -24,25 +21,17 @@ class PlainTextParser(BaseParser):
 
 
 class PutView(APIView):
-    permission_classes = [AllowAny]
+
+    authentication_classes = [SessionAuthentication]
+    permission_classes = [IsAuthenticated]
 
     @put_db_schema_doc
     def put(self, request: Request):
-        auth = auth_func(request)
-
-        if auth.type == "jwt":
-            user: User = auth.user
-            db_name = f"db_{user.id.hex}"
-            return Response("Jwt is not yet supported", status=200)
-
-        elif auth.type == "session":
-            session: Session = auth.session
-            db_name = session.get_unauth_dbname()
-            session_info = SessionInfo.objects.get(session=session.id)
-            template = session_info.template
-
-        else:
-            return Response("Unauthorized", status=401)
+        user: SessionUser = request.user
+        session = user.session
+        db_name = session.get_unauth_dbname()
+        session_info = SessionInfo.objects.get(session=session.id)
+        template = session_info.template
 
         if not template:
             return Response({"detail": "Template not chosen"}, status=400)
@@ -60,16 +49,20 @@ class PutView(APIView):
 
 
 class SchemaView(APIView):
+
+    authentication_classes = [SessionAuthentication]
+    permission_classes = [IsAuthenticated]
+
     @get_db_schema_doc
     def get(self, request: Request):
-        session_id = extract_session_id(request)
-        if not session_id:
-            return Response("Unauthorized", status=401)
 
-        session = Session.objects.get(id=session_id)
-        session_info = SessionInfo.objects.get(session=session_id)
+        user: SessionUser = request.user
+        session = user.session
+        db_name = session.get_unauth_dbname()
+        session_info = SessionInfo.objects.get(session=session.id)
+        template = session_info.template
 
-        if not session_info.template:
+        if not template:
             return Response({"detail": "Template not chosen"}, status=400)
 
         engine = get_db_engine(session_info.template.type)
@@ -77,7 +70,6 @@ class SchemaView(APIView):
         if not engine:
             return Response({"detail": "Unknown engine type"}, status=418)
 
-        db_name = session.get_unauth_dbname()
         schema = engine.get_db(db_name)
 
         return Response(schema.to_json())
@@ -85,35 +77,25 @@ class SchemaView(APIView):
 
 class QueryView(APIView):
 
-    permission_classes = [AllowAny]
     parser_classes = [PlainTextParser]
+    authentication_classes = [SessionAuthentication]
+    permission_classes = [IsAuthenticated]
 
     @post_db_query_doc
     def post(self, request: Request):
-        auth = auth_func(request)
+        user: SessionUser = request.user
+        session = user.session
+        db_name = session.get_unauth_dbname()
+        session_info = SessionInfo.objects.get(session=session.id)
+        template = session_info.template
 
-        if auth.type == 'jwt':
-            return Response(
-                f"User {auth.user}, JWT is not working yet",
-                status=200
-            )
-
-        session_id = extract_session_id(request)
-        if not session_id:
-            return Response("Unauthorized", status=401)
-
-        session = Session.objects.get(id=session_id)
-        session_info = SessionInfo.objects.get(session=session_id)
-
-        if not session_info.template:
+        if not template:
             return Response({"detail": "Template not chosen"}, status=400)
 
         engine = get_db_engine(session_info.template.type)
 
         if not engine:
             return Response({"detail": "Unknown engine type"}, status=418)
-
-        db_name = session.get_unauth_dbname()
 
         query = request.data
 

@@ -15,6 +15,9 @@ def get_tokens_for_user(user):
 
 
 class RegisterView(APIView):
+
+    skip_auth = True
+
     def post(self, request):
         serializer = RegisterSerializer(data=request.data)
         if serializer.is_valid():
@@ -25,6 +28,9 @@ class RegisterView(APIView):
 
 
 class LoginView(APIView):
+
+    skip_auth = True
+
     def post(self, request):
         serializer = LoginSerializer(data=request.data)
         if serializer.is_valid():

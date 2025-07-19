@@ -1,8 +1,11 @@
-from .JWTOrSessionAuthentication import JWTOrSessionAuthentication
+from .SessionAuthentication import SessionAuthentication, SessionUser
+from .middleware import AuthMiddleware
 from .utility import AuthData, auth_func
 
 __all__ = [
-    "JWTOrSessionAuthentication",
+    "SessionAuthentication",
+    "SessionUser",
+    "AuthMiddleware",
     "AuthData",
     "auth_func"
 ]
