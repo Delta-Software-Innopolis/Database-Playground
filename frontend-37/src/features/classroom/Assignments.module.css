@@ -1,0 +1,33 @@
+.wrapper {
+  border: 1px solid rgba(193, 193, 193, 1);
+  border-radius: 5px;
+  margin-left: 20px;
+  height: 91.5vh;
+}
+
+.header {
+  background-color: rgba(193, 193, 193, 0.25);
+  border-bottom: 1px solid rgba(193, 193, 193, 1);
+  display: flex;
+  justify-content: space-evenly;
+  font-size: 16px;
+  padding: 9px 0;
+}
+
+.headerCol {
+  flex-basis: 333px;
+  text-align: center;
+}
+
+.assignment {
+  display: flex;
+  justify-content: space-evenly;
+  border-bottom: 1px solid rgba(193, 193, 193, 1);
+  padding: 9px 0;
+  font-size: 16px;
+}
+
+.assignmentCol {
+  flex-basis: 333px;
+  text-align: center;
+}

@@ -24,7 +24,7 @@ export function ClassroomPage() {
   if (!classroom) return;
 
   return (
-    <div>
+    <div style={{ height: "75vh" }}>
       <TopBar className={styles.topbar} />
       <div className={styles.content}>
         <div className={styles.classroom}>

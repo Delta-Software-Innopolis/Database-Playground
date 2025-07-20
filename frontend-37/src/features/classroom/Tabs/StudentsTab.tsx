@@ -37,7 +37,7 @@ export function StudentsTab() {
   };
 
   return (
-    <div>
+    <div style={{ height: "100%" }}>
       <div className={styles.top}>
         <div className={styles.capacity}>
           <span style={{ color: "#666666" }}>Capacity: </span>

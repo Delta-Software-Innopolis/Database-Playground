@@ -1,3 +1,6 @@
+import goToImg from "@/assets/chooseClassroom.svg";
+import styles from "./Assignments.module.css";
+
 type Status = "Solved" | "In Progress";
 
 interface Assignment {
@@ -21,9 +24,29 @@ export function Assignments() {
   ];
 
   return (
-    <div>
+    <div className={styles.wrapper}>
+      <div className={styles.header}>
+        <div className={styles.headerCol}>Assignment</div>
+        <div className={styles.headerCol}>Status</div>
+      </div>
       {assignments.map((assignment) => (
-        <div key={assignment.id}>{assignment.name}</div>
+        <div className={styles.assignment} key={assignment.id}>
+          <div
+            className={styles.assignmentCol}
+            style={{ color: "rgba(102, 102, 102, 1)" }}
+          >
+            {assignment.name}
+          </div>
+          <div
+            className={styles.assignmentCol}
+            style={{
+              color: `${assignment.status === "Solved" ? "rgba(0, 188, 50, 1)" : "rgba(102, 102, 102, 1)"}`,
+            }}
+          >
+            {assignment.status}
+          </div>
+          <img src={goToImg} style={{ position: "absolute", right: 25 }} />
+        </div>
       ))}
     </div>
   );

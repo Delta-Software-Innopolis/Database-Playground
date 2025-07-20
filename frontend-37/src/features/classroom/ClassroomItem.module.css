@@ -9,6 +9,10 @@
   padding-top: 9px;
 }
 
+.item:hover {
+  cursor: pointer;
+}
+
 .itemCol {
   flex-basis: 506.5px;
   text-align: center;
