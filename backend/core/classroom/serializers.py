@@ -2,9 +2,13 @@ from rest_framework import serializers
 
 from .models import Classroom
 from .models import Enrollment
+from account.serializers import TeacherSerializer
 
 
 class ClassSerializer(serializers.ModelSerializer):
+
+    teacher = TeacherSerializer()
+
     class Meta:
         model = Classroom
         fields = "__all__"
