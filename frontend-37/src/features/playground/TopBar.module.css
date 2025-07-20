@@ -1,24 +1,29 @@
 .topbar {
-  background-color: #6968ff;
-  color: white;
+  color: rgba(102, 102, 102, 1);
   border-radius: 22px 22px 0px 0px;
+  box-shadow: none;
 }
 
 .topbarContent {
-  flex-basis: 600px;
+  justify-content: right;
+  gap: 10px;
 }
 
 .saveButton {
-  width: 52px;
-  height: 51.15px;
-  border-radius: 11px;
+  width: 40px;
+  height: 40px;
+  border-radius: 5px;
+  border: 1px solid rgba(193, 193, 193, 1);
   background-color: white;
+  padding: 5px;
 }
 
 .templateButton {
-  width: 459px;
-  height: 51.15px;
-  border-radius: 11px;
-  color: black;
+  width: 247px;
+  height: 40px;
+  border-radius: 5px;
+  color: rgba(102, 102, 102, 1);
   background-color: white;
+  border: 1px solid rgba(193, 193, 193, 1);
+  font-size: 16px;
 }

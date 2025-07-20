@@ -1,12 +1,17 @@
-import { API_URL } from "@/config/env";
+import mongoImg from "@/assets/inputBgMongo.png";
+import psqlImg from "@/assets/inputBgPGSQL.png";
+import { templateStore } from "@/shared/store/templateStore";
+import { api } from "@/shared/utils/api";
+import { DBType } from "@/types/DBType";
 import { useRef, useState, useEffect } from "react";
 import styles from "./QueryInput.module.css";
 import { queryResultsStore } from "../queryResultsStore";
 import { schemasStore } from "../schemasStore";
 import { QueryResult, DBSchema } from "../types";
+import { HelpButton } from "./HelpButton";
 import { RunButton } from "./RunButton";
 
-export interface QueryResultsResponse {
+export interface QueryResponse {
   detail?: string; // error
   results?: QueryResult[];
   schema?: {
@@ -15,60 +20,72 @@ export interface QueryResultsResponse {
   };
 }
 
-export function QueryInput() {
+interface QueryInputProps {
+  templateType: DBType;
+}
+
+export function QueryInput({ templateType }: QueryInputProps) {
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const numbersColumnRef = useRef<HTMLDivElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
-
-  const [query, setQuery] = useState("");
-  const { updateError, updateResults } = queryResultsStore();
-  const { updateSchemas } = schemasStore();
-
-  const session_id = localStorage.getItem("session_id");
-
+  const isSelectionChangeHandlerAdded = useRef(false);
   const shiftDown = useRef(false);
 
+  const [query, setQuery] = useState("");
+  const [selected, setSelected] = useState("");
   const [numberColumnValues, changeNumberColumnValues] = useState(["1"]);
 
-  const containerResizeObserver = new ResizeObserver(adjustSizes);
+  useEffect(() => {
+    console.log(query);
+  }, [query]);
+
+  const { updateError, updateResults } = queryResultsStore();
+  const { updateSchemas } = schemasStore();
+  const { template } = templateStore();
+
+  const onQueryChange = setQuery;
   let observerObserving = false;
 
-  function getNumberRows() {
-    return numberColumnValues.map((val, ind) => <div key={ind}>{val}</div>);
-  }
-
-  function adjustSizes() {
+  const adjustSizes = () => {
     if (!numbersColumnRef.current || !textareaRef.current) return;
     numbersColumnRef.current.style.height = `${textareaRef.current.clientHeight}px`;
-  }
+  };
 
-  function selectionChangeHandler(e: Event) {
+  const containerResizeObserver = new ResizeObserver(adjustSizes);
+
+  const getNumberRows = () => {
+    return numberColumnValues.map((val, ind) => <div key={ind}>{val}</div>);
+  };
+
+  const selectionChangeHandler = (e: Event) => {
     const target = e.target as HTMLTextAreaElement;
     const { selectionStart, selectionEnd } = target;
 
-    onQueryChange(
+    setSelected(
       selectionEnd > selectionStart
         ? target.value.substring(selectionStart, selectionEnd)
         : target.value
     );
-  }
-
-  const onRunClicked = async () => {
-    const res = await fetch(`${API_URL}/db/query/?session_id=${session_id}`, {
-      method: "POST",
-      body: query,
-      credentials: "include",
-    });
-
-    const json = (await res.json()) as QueryResultsResponse;
-    if (json.results) updateResults(json.results);
-    else updateError(json.detail!);
-    if (json.schema) updateSchemas(json.schema.tables);
   };
 
-  const onQueryChange = setQuery;
+  const onRunClicked = async () => {
+    const json = await api<QueryResponse>({
+      path: "db/query/",
+      method: "POST",
+      body: selected ? selected : query,
+      useJson: false,
+    });
 
-  const isSelectionChangeHandlerAdded = useRef(false);
+    if (json.results) {
+      console.log("succesful, results:", json.results);
+      updateResults(json.results);
+    } else {
+      console.log("unsuccessful, error:", json["detail"]);
+      updateError(json.detail!);
+    }
+
+    if (json.schema) updateSchemas(json.schema.tables);
+  };
 
   useEffect(() => {
     const input = textareaRef.current;
@@ -88,15 +105,28 @@ export function QueryInput() {
     };
   }, []);
 
+  useEffect(() => {
+    setQuery("");
+  }, [template]);
+
   return (
     <div className={styles.container} ref={containerRef}>
+      <div className={styles.bgMongo} hidden={templateType != "MGDB"}>
+        <img className={styles.bgImg} src={mongoImg}></img>
+      </div>
+      <div className={styles.bgPSQL} hidden={templateType != "PSQL"}>
+        <img className={styles.bgImg} src={psqlImg}></img>
+      </div>
       <div className={styles.wrapper}>
         <div className={styles.rowcounter} ref={numbersColumnRef}>
           {getNumberRows()}
         </div>
         <textarea
+          value={query}
+          spellCheck={false}
           className={styles.textarea}
           onChange={(e) => {
+            onQueryChange(e.target.value);
             const rows = e.target.value.split("\n");
             const columnValues = rows.map((_, i) => `${i + 1}`);
 
@@ -172,7 +202,10 @@ export function QueryInput() {
           ref={textareaRef}
         ></textarea>
       </div>
-      <RunButton handleClick={onRunClicked} />
+      <div className={styles.buttonsWrapper}>
+        <HelpButton handleClick={() => {}} />
+        <RunButton handleClick={onRunClicked} />
+      </div>
     </div>
   );
 }

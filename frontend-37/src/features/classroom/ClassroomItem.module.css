@@ -1,0 +1,29 @@
+.item {
+  width: 1057px;
+  font-size: 16px;
+  color: rgba(102, 102, 102, 1);
+  border-bottom: 1px solid rgba(193, 193, 193, 1);
+  display: flex;
+  justify-content: space-evenly;
+  padding-bottom: 9px;
+  padding-top: 9px;
+}
+
+.item:hover {
+  cursor: pointer;
+}
+
+.itemCol {
+  flex-basis: 506.5px;
+  text-align: center;
+}
+
+.chooseButton {
+  width: 23px;
+  height: 23px;
+  border: none;
+  background-color: white;
+  margin: 0;
+  padding: 0;
+  margin-right: 7px;
+}

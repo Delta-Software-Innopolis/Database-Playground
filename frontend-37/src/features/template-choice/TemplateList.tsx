@@ -18,11 +18,15 @@ export function TemplateList({
         className={styles.item}
         key={template.id}
         onClick={() => {
-          onTemplateChoiceChange(template);
+          if (template.id === templateChoice?.id) {
+            onTemplateChoiceChange(undefined as unknown as Template);
+          } else {
+            onTemplateChoiceChange(template);
+          }
         }}
         style={
           template.id == templateChoice?.id
-            ? { backgroundColor: "#009E00" }
+            ? { backgroundColor: "rgba(232, 232, 255, 1)" }
             : undefined
         }
       >
@@ -34,17 +38,14 @@ export function TemplateList({
   });
 
   return (
-    <>
-      <div className={styles.container}>
-        <div className={styles.title}>Choose Database Template</div>
-        <div className={styles.header}>
-          <div className={styles.headerCol}>DBMS</div>
-          <div className={styles.headerCol}>Template Name</div>
-          <div className={styles.headerCol}>Author</div>
-        </div>
-        <ul className={styles.listWrapper}>{list}</ul>
+    <div className={styles.templateChoiceWrapper}>
+      <div className={styles.header}>
+        <div className={styles.headerCol}>DBMS</div>
+        <div className={styles.headerCol}>Template Name</div>
+        <div className={styles.headerCol}>Author</div>
       </div>
-    </>
+      <ul className={styles.listWrapper}>{list}</ul>
+    </div>
   );
 }
 
@@ -57,6 +58,9 @@ function typeToName(type: string) {
       break;
     case "MSQL":
       result = "MySQL";
+      break;
+    case "SQLT":
+      result = "SQLite";
       break;
     case "MGDB":
       result = "MongoDB";

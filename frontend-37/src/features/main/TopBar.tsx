@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import styles from "./TopBar.module.css";
 import dropdownImg from "../../assets/topbarDropdown.svg";
 import { Button } from "../../shared/ui/Button";
@@ -15,24 +17,58 @@ export function MainTopBar({
   onClassroomClick,
   onLoginClick,
 }: MainTopBarProps) {
+  const [access, setAccess] = useState(!!localStorage.getItem("access_token"));
+
+  useEffect(() => {
+    setAccess(!!localStorage.getItem("access_token"));
+  }, [localStorage.getItem("access_token")]);
+
+  const onLogoutClick = () => {
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("refresh_token");
+    setAccess(false);
+    toast.success("Logged out successfully!");
+  };
+
   return (
     <TopBar className={styles.topbar} contentClassName={styles.content}>
       <TopBarElement className={styles.dropdownButton}>
         <img src={dropdownImg} />
       </TopBarElement>
       <div className={styles.dropdownContent}>
-        <Button className={styles.button} onClick={onPlaygroundClick}>
+        <Button
+          className={[styles.button, styles.buttonAnim].join(" ")}
+          onClick={onPlaygroundClick}
+        >
           Playground
         </Button>
-        <Button className={styles.button} onClick={onClassroomClick}>
+        <Button
+          className={[styles.button, styles.buttonAnim].join(" ")}
+          onClick={onClassroomClick}
+        >
           Classrooms
         </Button>
-        <Button
-          className={[styles.button, styles.buttonAccent].join(" ")}
-          onClick={onLoginClick}
-        >
-          Login
-        </Button>
+        {access ? (
+          <div className={styles.buttonAnim}>
+            <Button
+              className={[styles.button, styles.buttonAccent].join(" ")}
+              onClick={onLogoutClick}
+            >
+              Logout
+            </Button>
+          </div>
+        ) : (
+          <div
+            className={[styles.buttonAnim, styles.loginButtonWrapper].join(" ")}
+          >
+            <Button
+              className={[styles.button, styles.buttonAccent].join(" ")}
+              onClick={onLoginClick}
+            >
+              Login
+            </Button>
+          </div>
+        )}
       </div>
     </TopBar>
   );

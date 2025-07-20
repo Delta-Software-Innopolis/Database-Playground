@@ -1,0 +1,68 @@
+.wrapper {
+  background-color: rgba(255, 255, 255, 1);
+  border: 1px solid rgba(193, 193, 193, 1);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  width: 416px;
+  height: 350px;
+  border-radius: 5px;
+}
+
+.header {
+  background-color: rgba(193, 193, 193, 0.25);
+  color: rgba(0, 0, 0, 1);
+  font-size: 16px;
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(193, 193, 193, 1);
+}
+
+.titleInput {
+  width: 357px;
+  height: 40px;
+  background-color: rgba(241, 241, 241, 1);
+  border: 1px solid rgba(193, 193, 193, 1);
+  border-radius: 3px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-size: 16px;
+  padding-left: 15px;
+}
+
+input::placeholder {
+  color: rgba(193, 193, 193, 1);
+}
+
+textarea::placeholder {
+  color: rgba(193, 193, 193, 1);
+}
+
+.descriptionInput {
+  width: 357px;
+  height: 120px;
+  background-color: rgba(241, 241, 241, 1);
+  border: 1px solid rgba(193, 193, 193, 1);
+  border-radius: 3px;
+  resize: none;
+  font-family: "Onest";
+  padding-left: 15px;
+  font-size: 16px;
+  padding-top: 10px;
+}
+
+.createButton {
+  width: 376px;
+  height: 40px;
+  background-color: rgba(193, 193, 193, 1);
+  border: none;
+  color: rgba(255, 255, 255, 1);
+  font-size: 16px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.capacity::inner-spin-button,
+.capacity::outer-spin-button {
+  appearance: none;
+  margin: 0;
+}

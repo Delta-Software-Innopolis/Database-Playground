@@ -1,57 +1,126 @@
-import { API_URL } from "@/config/env";
+import startTriangleImg from "@/assets/startTriangle.svg";
 import { templateStore } from "@/shared/store/templateStore";
+import { api } from "@/shared/utils/api";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import styles from "./TemplateChoice.module.css";
+import { queryResultsStore } from "../playground/queryResultsStore";
+import { schemasStore } from "../playground/schemasStore";
 import { TemplateList } from "./TemplateList";
-import { TemplateChoiceTopBar } from "./TopBar";
 import { Template } from "./types";
 
-export function TemplateChoice() {
+interface TemplateChoiceProps {
+  onClose: () => void;
+  isPlayground?: boolean;
+}
+
+export function TemplateChoice({
+  onClose,
+  isPlayground = false,
+}: TemplateChoiceProps) {
   const [choice, setChoice] = useState<Template | undefined>(undefined);
   const [templates, setTemplates] = useState<Template[]>([]);
-  const session_id = localStorage.getItem("session_id");
+
   const navigate = useNavigate();
-  const { updateTemplate } = templateStore();
+
+  const { template, updateTemplate } = templateStore();
+  const { updateError, updateResults } = queryResultsStore();
+  const { updateSchemas } = schemasStore();
 
   useEffect(() => {
+    console.log("fetching templates from server...");
     const run = async () => {
-      const res = await fetch(API_URL + "/template/", {
-        credentials: "include",
-      });
-      const json = (await res.json()) as Template[];
+      const json = await api<Template[]>({ path: "template/" });
       setTemplates(json);
+      console.log(json, "templates json");
     };
 
     run();
   }, []);
 
-  const onChoice = async (choice: Template) => {
-    await fetch(`${API_URL}/session/info/?session_id=${session_id}`, {
+  const onChoice = async () => {
+    if (!choice) return;
+
+    await api({
+      path: "session/info/",
       method: "PATCH",
-      body: JSON.stringify({
-        template: choice.id,
-      }),
-      credentials: "include",
+      body: { template: choice.id },
     });
 
-    await fetch(`${API_URL}/db/?session_id=${session_id}`, {
+    await api({
+      path: "db/",
       method: "PUT",
-      credentials: "include",
     });
+
+    updateError("");
+    updateResults([]);
+    updateSchemas([]);
 
     updateTemplate(choice.name);
-
     navigate("/playground");
+
+    onClose();
   };
 
   return (
     <div>
-      <TemplateChoiceTopBar
-        onTemplateChoose={async (e: React.MouseEvent<HTMLElement>) => {
-          if (!choice) return e.preventDefault();
-          await onChoice(choice);
-        }}
-      />
+      {isPlayground ? (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "end",
+            width: 1057,
+            height: 40,
+            marginBottom: 10,
+          }}
+        >
+          {choice ? (
+            choice?.name === template ? (
+              <button className={styles.continueButton} onClick={onClose}>
+                Continue
+                <img
+                  className={styles.startTriangle}
+                  src={startTriangleImg}
+                  alt="continue triangle"
+                />
+              </button>
+            ) : (
+              <button
+                className={styles.startButton}
+                style={{ marginBottom: 10 }}
+                onClick={onChoice}
+              >
+                Start
+                <img
+                  className={styles.startTriangle}
+                  src={startTriangleImg}
+                  alt="start triangle"
+                />
+              </button>
+            )
+          ) : (
+            <div></div>
+          )}
+        </div>
+      ) : (
+        <div className={styles.buttonsWrapper}>
+          <button className={styles.backButton} onClick={onClose}>
+            Back
+          </button>
+          {choice ? (
+            <button className={styles.startButton} onClick={onChoice}>
+              Start{" "}
+              <img
+                className={styles.startTriangle}
+                src={startTriangleImg}
+                alt="start triangle"
+              />
+            </button>
+          ) : (
+            <div></div>
+          )}
+        </div>
+      )}
       <TemplateList
         data={templates}
         templateChoice={choice}

@@ -16,7 +16,6 @@
 }
 
 .dropdownContent {
-  visibility: hidden;
   overflow: hidden;
 
   position: absolute;
@@ -34,13 +33,12 @@
   gap: 10px;
 }
 
-.dropdownButton:hover ~ .dropdownContent {
-  visibility: visible;
-}
-
+/*
+.dropdownButton:hover ~ .dropdownContent,
 .dropdownContent:hover {
   visibility: visible;
 }
+  */
 
 .button {
   border-radius: 5px !important;
@@ -58,6 +56,39 @@
   height: fit-content !important;
 
   line-height: 200% !important;
+}
+
+.buttonAnim {
+  width: 100%;
+
+  transform: translateX(150%);
+
+  transition: transform 0.9s ease-in-out;
+}
+
+.buttonAnim:nth-child(2) {
+  transition: transform 0.7s ease-in-out;
+}
+
+.buttonAnim:nth-child(3) {
+  transition: transform 0.5s ease-in-out;
+}
+
+.dropdownButton:hover ~ .dropdownContent .buttonAnim,
+.dropdownContent:hover .buttonAnim {
+  transform: translateX(0);
+
+  transition: transform 0.3s ease-in-out;
+}
+
+.dropdownButton:hover ~ .dropdownContent .buttonAnim:nth-child(2),
+.dropdownContent:hover .buttonAnim:nth-child(2) {
+  transition: transform 0.4s ease-in-out;
+}
+
+.dropdownButton:hover ~ .dropdownContent .buttonAnim:nth-child(3),
+.dropdownContent:hover .buttonAnim:nth-child(3) {
+  transition: transform 0.5s ease-in-out;
 }
 
 .button:hover {
@@ -79,4 +110,9 @@
 
 .buttonAccent:active {
   background-color: #5756a5 !important;
+}
+
+.loginButtonWrapper {
+  display: flex;
+  justify-content: flex-end;
 }

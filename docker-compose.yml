@@ -19,7 +19,7 @@ services:
       - "5173:5173"
     volumes:
       - ./frontend-37:/app
-      - /app/node_modules
+      # - /app/node_modules
     environment:
       VITE_PROD: ${PROD}
 
@@ -42,16 +42,6 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
     volumes:
       - ./mongo_data:/data/db
-
-  # frontend:
-  #   build:
-  #     context: ./frontend
-  #     dockerfile: Dockerfile
-  #     target: build
-  #     args:
-  #       REACT_APP_API_URL: http://localhost:8000
-  #   ports:
-  #     - "3000:3000"
 
   # mysql:
   #   image: mysql:8.0

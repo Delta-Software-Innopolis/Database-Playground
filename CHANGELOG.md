@@ -64,7 +64,6 @@ It encorparates main changes of Team 37 for **MVP 2**
 - Migrated to new feature-sliced-like architecture
 - Changed naming of components and stores
 
-
 ## [0.1.0] MVP 1 - 2025-06-23
 The first version with some kind of functionality
 

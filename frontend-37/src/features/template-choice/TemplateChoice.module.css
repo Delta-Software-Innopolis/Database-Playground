@@ -1,0 +1,82 @@
+.buttonsWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.backButton {
+  width: 69px;
+  height: 40px;
+  margin-bottom: 10px;
+  color: rgba(31, 31, 31, 1);
+  font-size: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(241, 241, 241, 1);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.startButton {
+  width: 96px;
+  height: 40px;
+  background-color: rgba(169, 169, 255, 1);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  color: rgba(241, 241, 241, 1);
+  border: 0;
+  border-radius: 5px;
+  font-size: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  padding: 0 15px;
+  animation: fadeInUp 0.2s ease-out;
+}
+
+.startTriangle {
+  width: 20px;
+  height: 20px;
+  margin-left: 10px;
+}
+
+.continueButton {
+  width: 128px;
+  height: 40px;
+  background-color: rgba(169, 169, 255, 1);
+  color: rgba(241, 241, 241, 1);
+  border-radius: 5px;
+  font-size: 16px;
+  border: 0;
+  margin-bottom: 10px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 15px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  animation: fadeInUp 0.2s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOutDown {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+}
+
+.startButton.fadeOut {
+  animation: fadeOutDown 0.2s ease-in forwards;
+}

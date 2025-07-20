@@ -1,18 +1,17 @@
-.clockImg {
-  width: 32px;
-  height: 28px;
-  margin-right: 10px;
-}
-
 .affectedRows {
-  margin-top: 10px;
+  margin-top: -5px;
   color: rgba(0, 0, 0, 0.7);
+  font-size: 16px;
+  margin-bottom: 0;
+  margin-left: 38px;
+  color: rgba(105, 104, 255, 1);
 }
 
 .queryTitle {
   margin-right: auto;
-  margin-left: 10px;
+  margin-left: 5px;
   color: rgba(102, 102, 102, 1);
+  font-family: "Fira Mono", monospace;
   font-size: 16px;
 }
 
@@ -21,15 +20,31 @@
   align-items: center;
   justify-content: space-around;
   color: rgba(169, 169, 255, 1);
+  font-size: 16px;
+}
+
+.queryNumber {
+  position: absolute;
+  margin-left: 10px;
+  font-size: 16px;
+  align-items: center;
+  height: 24px;
+  padding-top: 4px;
+  color: #c1c1c1;
 }
 
 summary {
+  margin: 10px 10px 10px 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 4px 0;
+  padding: 0 0;
   cursor: pointer;
-  margin-bottom: 16px;
+  position: relative;
+}
+
+details {
+  border-bottom: 1px solid #f1f1f1;
 }
 
 details > summary {
@@ -41,9 +56,10 @@ details > summary::-webkit-details-marker {
 }
 
 details > summary::before {
+  transition: 0.2s;
   content: url("@/assets/queryTriangleClosed.svg");
 }
 
 details[open] > summary::before {
-  content: url("@/assets/queryTriangleOpened.svg");
+  transform: rotate(90deg); /* например, поворот вправо */
 }

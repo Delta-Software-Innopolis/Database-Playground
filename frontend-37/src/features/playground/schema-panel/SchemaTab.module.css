@@ -1,12 +1,14 @@
 .tab {
-  font-weight: bold;
-  padding: 10px;
+  padding: 8.5px 10px;
   cursor: pointer;
-  background-color: #e9e9ff;
+  background-color: #fcfcfc;
+  border-right: 1px solid #f1f1f1;
+  overflow: hidden;
+  font-size: 16px;
 }
 
 .selected {
-  background-color: #6968ff;
+  background-color: #a9a9ff;
   cursor: default;
   color: white;
 }

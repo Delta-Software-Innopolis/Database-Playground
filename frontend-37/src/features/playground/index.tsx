@@ -1,52 +1,78 @@
+import { ModalWindow } from "@/shared/ui/ModalWindow";
+import { api } from "@/shared/utils/api";
+import { DBType } from "@/types/DBType";
 import { useEffect, useState } from "react";
 import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
 import styles from "./Playground.module.css";
-import { API_URL } from "../../config/env";
 import { templateStore } from "../../shared/store/templateStore";
+import { TemplateChoice } from "../template-choice";
+import { Template } from "../template-choice/types";
 import { PlaygroundTopBar } from "./TopBar";
+import { Upload } from "./Upload";
 import { QueryInput } from "./query-input";
 import { QueryResultList } from "./query-result-list";
 import { SchemaPanel } from "./schema-panel";
 import { MongoSchema } from "./schema-panel/MongoSchema";
 import { schemasStore } from "./schemasStore";
+import { DBSchema } from "./types";
+
+interface SchemaResponse {
+  tables: DBSchema[];
+}
+
+interface SessionResponse {
+  id: number;
+  session: string;
+  db_name: string;
+  template: number;
+}
 
 export function Playground() {
-  const session_id = localStorage.getItem("session_id");
+  const [templateType, setTemplateType] = useState("" as DBType);
+  const [showUpload, setShowUpload] = useState(false);
+  const [showTemplateChoice, setShowTemplateChoice] = useState(false);
+  const [loading, setLoading] = useState(true);
+
   const { updateSchemas } = schemasStore();
-  const [templateType, setTemplateType] = useState("");
-  const { updateTemplate } = templateStore();
+  const { template, updateTemplate } = templateStore();
 
   useEffect(() => {
     const run = async () => {
-      const res1 = await fetch(
-        `${API_URL}/db/schema/?session_id=${session_id}`,
-        {
-          credentials: "include",
-        }
-      );
-      const json1 = await res1.json();
-      updateSchemas(json1.tables);
+      setLoading(true);
+      const schema = await api<SchemaResponse>({ path: "db/schema/" });
+      console.log(schema, "schema json");
+      updateSchemas(schema.tables);
 
-      const res2 = await fetch(
-        `${API_URL}/session/info/?session_id=${session_id}`
-      );
-      const json2 = await res2.json();
+      const sessionInfo = await api<SessionResponse>({ path: "session/info/" });
+      console.log(sessionInfo, "session info");
 
-      const res3 = await fetch(`${API_URL}/template/${json2.template}`);
-      const json3 = await res3.json();
-      updateTemplate(json3.name);
-      setTemplateType(json3.type);
+      const template = await api<Template>({
+        path: `template/${sessionInfo.template}`,
+      });
+      console.log(template, "template info");
+
+      updateTemplate(template.name);
+      setTemplateType(template.type);
+      setLoading(false);
     };
     run();
-  }, []);
+  }, [template]);
+
+  if (loading) return;
 
   return (
     <>
-      {templateType == "PSQL" ? (
+      {templateType == "PSQL" ||
+      templateType == "SQLT" ||
+      templateType == "MSQL" ? (
         <div className={styles.pageContainer}>
-          <PlaygroundTopBar />
+          <PlaygroundTopBar
+            handleUpload={() => setShowUpload(true)}
+            handleSave={() => {}}
+            handleTemplateChoice={() => setShowTemplateChoice(true)}
+          />
 
-          <div className={`mono ${styles.contentContainer}`}>
+          <div className={`fira ${styles.contentContainer}`}>
             <PanelGroup
               direction="vertical"
               style={{
@@ -62,7 +88,7 @@ export function Playground() {
                   }}
                 >
                   <Panel className={styles.topContentPanel}>
-                    <QueryInput />
+                    <QueryInput templateType={templateType} />
                   </Panel>
 
                   <PanelResizeHandle className={styles.verticalResizeHandle} />
@@ -84,12 +110,14 @@ export function Playground() {
       ) : (
         <div className={styles.pageContainer}>
           <div>
-            <PlaygroundTopBar />
-            <div className={styles.mongoSchemaWrapper}>
-              <MongoSchema />
-            </div>
+            <PlaygroundTopBar
+              handleUpload={() => setShowUpload(true)}
+              handleSave={() => {}}
+              handleTemplateChoice={() => setShowTemplateChoice(true)}
+              showUpload={false}
+            />
           </div>
-          <div className={`mono ${styles.contentContainer}`}>
+          <div className={`fira ${styles.contentContainer}`}>
             <PanelGroup
               direction="horizontal"
               style={{
@@ -98,18 +126,46 @@ export function Playground() {
               }}
             >
               <Panel className={styles.topContentPanel}>
-                <QueryInput />
+                <QueryInput templateType={templateType} />
               </Panel>
 
               <PanelResizeHandle className={styles.verticalResizeHandle} />
 
-              <Panel className={styles.topContentPanel}>
-                <QueryResultList />
+              <Panel
+                className={styles.topContentPanel}
+                style={{ border: "none" }}
+              >
+                <PanelGroup direction="vertical" style={{ marginBottom: 0 }}>
+                  <div className={styles.mongoSchemaWrapper}>
+                    <MongoSchema />
+                  </div>
+                  <div className={styles.mongoQueryResult}>
+                    <QueryResultList />
+                  </div>
+                </PanelGroup>
               </Panel>
             </PanelGroup>
           </div>
         </div>
       )}
+
+      <ModalWindow isOpen={showUpload} setIsOpen={setShowUpload}>
+        <Upload
+          onUpload={(data) => {
+            setShowUpload(false);
+          }}
+          setShow={setShowUpload}
+        />
+      </ModalWindow>
+      <ModalWindow
+        isOpen={showTemplateChoice}
+        setIsOpen={setShowTemplateChoice}
+      >
+        <TemplateChoice
+          onClose={() => setShowTemplateChoice(false)}
+          isPlayground={true}
+        />
+      </ModalWindow>
     </>
   );
 }

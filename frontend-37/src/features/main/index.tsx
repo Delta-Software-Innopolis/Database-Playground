@@ -1,36 +1,57 @@
+import { TemplateChoice } from "@/features/template-choice/index";
 import { ModalWindow } from "@/shared/ui/ModalWindow";
+import { api } from "@/shared/utils/api";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
 import styles from "./Main.module.css";
 import deltaImg from "../../assets/delta.svg";
-import { API_URL } from "../../config/env";
+import { ClassroomList } from "../classroom/ClassroomList";
+import { CreateClassroom } from "../classroom/CreateClassroom";
 import { Login } from "./Login";
 import { Register } from "./Register";
 import { MainTopBar } from "./TopBar";
 
+interface SessionResponse {
+  session_id: string;
+}
+
+interface ValidResponse {
+  valid: boolean;
+}
+
 export function Main() {
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
-
-  const navigate = useNavigate();
+  const [showTemplateChoice, setShowTemplateChoice] = useState(false);
+  const [showClassrooms, setShowClassrooms] = useState(false);
+  const [showCreateClassroom, setShowCreateClassroom] = useState(false);
 
   useEffect(() => {
     const run = async () => {
       if (!localStorage.getItem("session_id")) {
-        const res = await fetch(API_URL + "/session", {
-          credentials: "include",
+        console.log("no session_id");
+
+        const { session_id } = await api<SessionResponse>({
+          path: "session/",
+          useSession: false,
+          useJwt: false,
         });
-        const { session_id } = await res.json();
+
         localStorage.setItem("session_id", session_id);
+        console.log("new session_id:", session_id);
       } else {
-        const res = await fetch(API_URL + "/session/valid", {
-          credentials: "include",
+        console.log("session_id already present");
+        console.log("session_id:", localStorage.getItem("session_id"));
+
+        const { valid } = await api<ValidResponse>({
+          path: "session/valid/",
+          useJwt: false,
         });
-        const { valid } = await res.json();
-        console.log(valid);
+
+        console.log("session_id is valid?", valid);
         if (!valid) {
+          console.log("invalid session_id, regenerating");
           localStorage.removeItem("session_id");
-          run();
+          await run();
         }
       }
     };
@@ -38,23 +59,13 @@ export function Main() {
     run();
   }, []);
 
-  const onClick = async () => {
-    await fetch(
-      `${API_URL}/session/info/?session_id=${localStorage.getItem("session_id")}`,
-      {
-        credentials: "include",
-      }
-    );
-    navigate("/template");
-  };
-
   return (
     <div className={styles.pageContainerOuter}>
       <div className={styles.pageContainerInner}>
         <MainTopBar
-          onPlaygroundClick={onClick}
+          onPlaygroundClick={() => setShowTemplateChoice(true)}
           onLoginClick={() => setShowLogin(true)}
-          onClassroomClick={() => {}}
+          onClassroomClick={() => setShowClassrooms(true)}
         />
         <div className={styles.mainDivContainer}>
           <div className={styles.mainDiv}>
@@ -71,6 +82,13 @@ export function Main() {
           <p>Delta-Software-Innopolis</p>
         </div>
 
+        <ModalWindow
+          isOpen={showTemplateChoice}
+          setIsOpen={setShowTemplateChoice}
+        >
+          <TemplateChoice onClose={() => setShowTemplateChoice(false)} />
+        </ModalWindow>
+
         <ModalWindow isOpen={showLogin} setIsOpen={setShowLogin}>
           <Login
             onClose={() => setShowLogin(false)}
@@ -83,6 +101,23 @@ export function Main() {
             onClose={() => setShowRegister(false)}
             onSwitch={() => setShowLogin(true)}
           />
+        </ModalWindow>
+
+        <ModalWindow isOpen={showClassrooms} setIsOpen={setShowClassrooms}>
+          <ClassroomList
+            onCreateClassroom={() => {
+              setShowClassrooms(false);
+              setShowCreateClassroom(true);
+            }}
+            onClose={() => setShowClassrooms(false)}
+          />
+        </ModalWindow>
+
+        <ModalWindow
+          isOpen={showCreateClassroom}
+          setIsOpen={setShowCreateClassroom}
+        >
+          <CreateClassroom onClose={() => setShowCreateClassroom(false)} />
         </ModalWindow>
       </div>
     </div>

@@ -26,17 +26,25 @@
 .topContentPanel {
   overflow: hidden;
   border: 1px solid #c1c1c1;
-  border-bottom-right-radius: 10px;
+  border-radius: 5px;
   min-width: 300px;
 }
 
 .bottomContentPanel {
-  overflow: hidden;
   border: 1px solid #c1c1c1;
   margin-bottom: 10px;
+  border-radius: 5px;
 }
 
 .mongoSchemaWrapper {
-  margin-left: 15px;
-  margin-top: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #c1c1c1;
+  border-radius: 5px;
+}
+
+.mongoQueryResult {
+  height: 100%;
+  border: 1px solid #c1c1c1;
+  border-radius: 5px;
+  overflow: auto;
 }

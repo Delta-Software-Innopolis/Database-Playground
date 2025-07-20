@@ -1,4 +1,4 @@
-import triangleJpg from "@/assets/triangle.jpg";
+import runImg from "@/assets/run.svg";
 import styles from "./RunButton.module.css";
 
 interface RunButtonProps {
@@ -9,8 +9,8 @@ export function RunButton({ handleClick }: RunButtonProps) {
   return (
     <>
       <button className={styles.button} onClick={handleClick}>
-        <img src={triangleJpg} />
-        <p>run</p>
+        <p>send</p>
+        <img src={runImg} />
       </button>
     </>
   );

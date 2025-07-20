@@ -1,0 +1,38 @@
+.button {
+  width: 76.5px;
+  height: 40px;
+  border-radius: 5px;
+  border: none;
+  border: 1px solid #c1c1c1;
+  background-color: white;
+  padding-top: 10px;
+  padding-right: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 2;
+
+  font-family: "Onest", sans-serif;
+  font-size: inherit !important;
+}
+
+.button:hover {
+  cursor: pointer;
+}
+
+.button img {
+  width: 16.5px;
+  height: 16.5px;
+  padding-left: 8px;
+}
+
+.button p {
+  width: 37px;
+  height: 20px;
+  margin: auto;
+
+  color: #666666;
+}

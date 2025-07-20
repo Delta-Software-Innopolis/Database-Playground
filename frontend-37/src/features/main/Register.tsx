@@ -1,5 +1,13 @@
 import crossImg from "@/assets/cross.svg";
+import { api } from "@/shared/utils/api";
+import { useState } from "react";
+import toast from "react-hot-toast";
 import styles from "./Register.module.css";
+
+interface RegisterResponse {
+  refresh?: string;
+  access?: string;
+}
 
 interface RegisterProps {
   onClose: () => void;
@@ -7,41 +15,80 @@ interface RegisterProps {
 }
 
 export function Register({ onClose, onSwitch }: RegisterProps) {
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [repeatPassword, setRepeatPassword] = useState("");
+
+  const onRegister = async () => {
+    const json = await api<RegisterResponse>({
+      path: "account/register",
+      method: "POST",
+      body: {
+        email,
+        password,
+        username,
+      },
+      useSession: false,
+      useJwt: false,
+    });
+
+    if (password != repeatPassword) {
+      toast.error("Passwords do not match");
+    } else if (json.access && json.refresh) {
+      localStorage.setItem("refresh_token", json.refresh);
+      localStorage.setItem("access_token", json.access);
+
+      toast.success("Registered successfully!");
+      onClose();
+    } else {
+      toast.error(Object.values(json)[0]);
+    }
+
+    console.log(json, "register json");
+  };
+
   return (
-    <div className={styles.registerWrapper}>
-      <div className={styles.registerHeader} style={{ position: "relative" }}>
+    <div className={styles.wrapper}>
+      <div className={styles.header} style={{ position: "relative" }}>
         Register, we want to know you!
         <div style={{ position: "absolute", right: 10 }}>
           <img src={crossImg} onClick={onClose} style={{ cursor: "pointer" }} />
         </div>
       </div>
-      <div className={styles.rest2}>
+      <div className={styles.rest}>
         <input
-          className={styles.inputField2}
+          className={styles.inputField}
           type="text"
           placeholder="Username"
+          onChange={(e) => setUsername(e.target.value)}
           required
         />
         <input
-          className={styles.inputField2}
+          className={styles.inputField}
           type="email"
           placeholder="Email"
+          onChange={(e) => setEmail(e.target.value)}
           required
         />
         <p className={styles.comeUpPassword}>Come up with a password</p>
         <input
-          className={styles.inputField2}
+          className={styles.inputField}
           type="password"
           placeholder="Password"
+          onChange={(e) => setPassword(e.target.value)}
           required
         />
         <input
-          className={styles.inputField2}
+          className={styles.inputField}
           type="password"
           placeholder="Repeat Password"
+          onChange={(e) => setRepeatPassword(e.target.value)}
           required
         />
-        <button className={styles.continueButton2}>Continue</button>
+        <button className={styles.continueButton} onClick={onRegister}>
+          Continue
+        </button>
         <div
           className={styles.alreadyHaveAcc}
           onClick={() => {
