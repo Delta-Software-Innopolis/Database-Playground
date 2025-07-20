@@ -23,6 +23,38 @@ Changes not yet assigned to any particular release
 ### Removed
 *...*
 
+## [0.3.0] MVP 3 - 2025-07-20
+The version finalizes the product adding the last core functionalities.
+
+### Added
+- New rewritten JWT logic on the backend
+- Full redesign implementation on the frontend
+- Integration of JWT to the frontend
+- New rewritten classrooms logic on the backend
+- Classroom design in the figma
+- Classrooms core logic and functionalities + UI on the frontend
+
+### Fixed
+- Frontend bug with old template being still displayed when new one is already selected
+- Frontend bug with weird behavior while loading
+
+## [0.2.0] MVP 2 (Pre Merge) - 2025-07-06
+The version is a save before the **Great Merge**  
+It encorparates main changes of Team 37 for **MVP 2**
+
+### Added
+- Support for MongoDB (via `MongoEngine`)
+- Frontend page for MongoDB
+
+### Changed 
+- Rename `SQLEngine` to `DBEngine`
+
+### Fixed
+- Frontend bugs with Results Panel
+- Frontend playground top bar not displaying current template name
+- Moved from `JavaScript` to `TypeScript`
+- Migrated to new feature-sliced-like architecture
+- Changed naming of components and stores
 
 ## [0.2.1] MVP 2.5 - 2025-07-13
 The version encorporates the consequences of the **Great Merge**  
