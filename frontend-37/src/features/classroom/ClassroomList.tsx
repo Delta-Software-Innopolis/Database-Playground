@@ -1,4 +1,3 @@
-import { Button } from "@/shared/ui/Button";
 import { api } from "@/shared/utils/api";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
