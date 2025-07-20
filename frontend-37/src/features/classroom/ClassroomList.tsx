@@ -27,7 +27,6 @@ export function ClassroomList({
       try {
         const json = await api<ClassroomListResponse>({ path: "classroom/" });
         setClassrooms(json.classrooms);
-        console.log(json, "classroom list json");
       } catch {
         toast.error("Please log in first.");
         onClose();

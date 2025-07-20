@@ -28,8 +28,6 @@ export function Main() {
   useEffect(() => {
     const run = async () => {
       if (!localStorage.getItem("session_id")) {
-        console.log("no session_id");
-
         const { session_id } = await api<SessionResponse>({
           path: "session/",
           useSession: false,
@@ -37,19 +35,13 @@ export function Main() {
         });
 
         localStorage.setItem("session_id", session_id);
-        console.log("new session_id:", session_id);
       } else {
-        console.log("session_id already present");
-        console.log("session_id:", localStorage.getItem("session_id"));
-
         const { valid } = await api<ValidResponse>({
           path: "session/valid/",
           useJwt: false,
         });
 
-        console.log("session_id is valid?", valid);
         if (!valid) {
-          console.log("invalid session_id, regenerating");
           localStorage.removeItem("session_id");
           await run();
         }

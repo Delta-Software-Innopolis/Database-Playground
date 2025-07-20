@@ -38,7 +38,6 @@ export function Login({ onClose, onSwitch }: LoginProps) {
     } else {
       toast.error(Object.values(json)[0]);
     }
-    console.log(json, "login json");
   };
 
   return (

@@ -4,7 +4,6 @@ import { templateStore } from "@/shared/store/templateStore";
 import { api } from "@/shared/utils/api";
 import { DBType } from "@/types/DBType";
 import { useRef, useState, useEffect } from "react";
-import { useNavigate } from "react-router";
 import styles from "./QueryInput.module.css";
 import { queryResultsStore } from "../queryResultsStore";
 import { schemasStore } from "../schemasStore";
@@ -35,12 +34,6 @@ export function QueryInput({ templateType }: QueryInputProps) {
   const [query, setQuery] = useState("");
   const [selected, setSelected] = useState("");
   const [numberColumnValues, changeNumberColumnValues] = useState(["1"]);
-
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    console.log(query);
-  }, [query]);
 
   const { updateError, updateResults } = queryResultsStore();
   const { updateSchemas } = schemasStore();
@@ -80,10 +73,8 @@ export function QueryInput({ templateType }: QueryInputProps) {
     });
 
     if (json.results) {
-      console.log("succesful, results:", json.results);
       updateResults(json.results);
     } else {
-      console.log("unsuccessful, error:", json["detail"]);
       updateError(json.detail!);
     }
 
@@ -201,7 +192,7 @@ export function QueryInput({ templateType }: QueryInputProps) {
               shiftDown.current = false;
             }
           }}
-          placeholder="WHITE YOUR QUERY HERE"
+          placeholder="Type your query here"
           ref={textareaRef}
         ></textarea>
       </div>

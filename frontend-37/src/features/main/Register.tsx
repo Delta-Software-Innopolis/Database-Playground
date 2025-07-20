@@ -44,8 +44,6 @@ export function Register({ onClose, onSwitch }: RegisterProps) {
     } else {
       toast.error(Object.values(json)[0]);
     }
-
-    console.log(json, "register json");
   };
 
   return (
