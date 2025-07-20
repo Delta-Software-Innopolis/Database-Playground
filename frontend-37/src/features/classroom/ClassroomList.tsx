@@ -1,4 +1,3 @@
-import { Button } from "@/shared/ui/Button";
 import { api } from "@/shared/utils/api";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -28,7 +27,6 @@ export function ClassroomList({
       try {
         const json = await api<ClassroomListResponse>({ path: "classroom/" });
         setClassrooms(json.classrooms);
-        console.log(json, "classroom list json");
       } catch {
         toast.error("Please log in first.");
         onClose();

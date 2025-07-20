@@ -35,10 +35,6 @@ export function QueryInput({ templateType }: QueryInputProps) {
   const [selected, setSelected] = useState("");
   const [numberColumnValues, changeNumberColumnValues] = useState(["1"]);
 
-  useEffect(() => {
-    console.log(query);
-  }, [query]);
-
   const { updateError, updateResults } = queryResultsStore();
   const { updateSchemas } = schemasStore();
   const { template } = templateStore();
@@ -77,10 +73,8 @@ export function QueryInput({ templateType }: QueryInputProps) {
     });
 
     if (json.results) {
-      console.log("succesful, results:", json.results);
       updateResults(json.results);
     } else {
-      console.log("unsuccessful, error:", json["detail"]);
       updateError(json.detail!);
     }
 
@@ -198,12 +192,23 @@ export function QueryInput({ templateType }: QueryInputProps) {
               shiftDown.current = false;
             }
           }}
-          placeholder="WHITE YOUR QUERY HERE"
+          placeholder="Type your query here"
           ref={textareaRef}
         ></textarea>
       </div>
       <div className={styles.buttonsWrapper}>
-        <HelpButton handleClick={() => {}} />
+        <HelpButton
+          handleClick={() => {
+            if (templateType == "MGDB") {
+              window.open(
+                "https://www.mongodb.com/docs/mongodb-shell/reference/methods/",
+                "_blank"
+              );
+            } else {
+              window.open("https://www.postgresql.org/docs/current/", "_blank");
+            }
+          }}
+        />
         <RunButton handleClick={onRunClicked} />
       </div>
     </div>

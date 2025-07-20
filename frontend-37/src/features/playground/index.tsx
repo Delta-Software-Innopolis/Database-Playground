@@ -40,16 +40,13 @@ export function Playground() {
     const run = async () => {
       setLoading(true);
       const schema = await api<SchemaResponse>({ path: "db/schema/" });
-      console.log(schema, "schema json");
       updateSchemas(schema.tables);
 
       const sessionInfo = await api<SessionResponse>({ path: "session/info/" });
-      console.log(sessionInfo, "session info");
 
       const template = await api<Template>({
         path: `template/${sessionInfo.template}`,
       });
-      console.log(template, "template info");
 
       updateTemplate(template.name);
       setTemplateType(template.type);
@@ -151,7 +148,7 @@ export function Playground() {
 
       <ModalWindow isOpen={showUpload} setIsOpen={setShowUpload}>
         <Upload
-          onUpload={(data) => {
+          onUpload={() => {
             setShowUpload(false);
           }}
           setShow={setShowUpload}

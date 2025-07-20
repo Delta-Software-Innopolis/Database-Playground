@@ -59,19 +59,14 @@ export async function api<T>({
     options.body = useJson ? JSON.stringify(body) : body;
   }
 
-  console.log(`New API request to ${API_URL}/${path}, options:`);
-  console.log(options);
-
   const res = await fetch(`${API_URL}/${path}`, options);
 
   if (res.status === 401) {
     if (!access_token) {
       throw new Error("Unauthorized.");
     }
-    console.log("API request got 401 response, generating new tokens");
     const ok = await refreshTokens();
     if (ok) {
-      console.log("Regenerated tokens successfully, trying again");
       return api({ path, method, body, useSession, useJwt });
     } else {
       throw new Error("Authentication failed: could not refresh token.");
@@ -83,6 +78,5 @@ export async function api<T>({
     return JSON.parse(err) as T;
   }
 
-  console.log("API request successful.");
   return res.json() as T;
 }

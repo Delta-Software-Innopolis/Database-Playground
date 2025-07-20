@@ -3,7 +3,7 @@
   border: 1px solid rgba(193, 193, 193, 1);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
   width: 416px;
-  height: 350px;
+  height: 370px;
   border-radius: 5px;
 }
 
@@ -61,8 +61,55 @@ textarea::placeholder {
   cursor: pointer;
 }
 
-.capacity::inner-spin-button,
-.capacity::outer-spin-button {
-  appearance: none;
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
   margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.capacityMegaWrapper {
+  display: flex;
+  align-items: center;
+}
+
+.capacityWrapper {
+  background-color: #f1f1f1;
+  border: 1px solid #c1c1c1;
+  border-radius: 5px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  overflow: hidden;
+  width: 190px;
+  height: 40px;
+}
+
+.capacity {
+  padding: 10px 15px;
+  width: 80px;
+  font-size: 16px;
+  color: #666666;
+  border: none;
+}
+
+.incBtn {
+  color: #666666;
+  border: none;
+  width: 40px;
+  height: 40px;
+  font-size: 24px;
+  border-left: 1px solid #c1c1c1;
+}
+
+.capacity:focus {
+  outline: none;
+}
+
+.capacityLabel {
+  margin: auto;
+  font-size: 16px;
+  color: #c1c1c1;
 }

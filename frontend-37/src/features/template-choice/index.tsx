@@ -28,11 +28,9 @@ export function TemplateChoice({
   const { updateSchemas } = schemasStore();
 
   useEffect(() => {
-    console.log("fetching templates from server...");
     const run = async () => {
       const json = await api<Template[]>({ path: "template/" });
       setTemplates(json);
-      console.log(json, "templates json");
     };
 
     run();
