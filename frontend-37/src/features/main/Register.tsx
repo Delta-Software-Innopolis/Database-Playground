@@ -21,11 +21,6 @@ export function Register({ onClose, onSwitch }: RegisterProps) {
   const [repeatPassword, setRepeatPassword] = useState("");
 
   const onRegister = async () => {
-    if (password != repeatPassword) {
-      alert("passwords do not match");
-      return;
-    }
-
     const json = await api<RegisterResponse>({
       path: "account/register",
       method: "POST",
@@ -38,10 +33,14 @@ export function Register({ onClose, onSwitch }: RegisterProps) {
       useJwt: false,
     });
 
-    if (json.access && json.refresh) {
+    if (password != repeatPassword) {
+      toast.error("Passwords do not match");
+    } else if (json.access && json.refresh) {
       localStorage.setItem("refresh_token", json.refresh);
       localStorage.setItem("access_token", json.access);
+
       toast.success("Registered successfully!");
+      onClose();
     } else {
       toast.error(Object.values(json)[0]);
     }

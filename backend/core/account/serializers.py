@@ -28,3 +28,17 @@ class LoginSerializer(serializers.Serializer):
             raise serializers.ValidationError("Invalid credentials")
         attrs["user"] = user
         return attrs
+
+
+class UserBriefSerializer(serializers.ModelSerializer):
+    username = serializers.SerializerMethodField()
+
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'email']
+
+    def get_username(self, obj):
+        profile = getattr(obj, 'profile_set', None)
+        if profile:
+            return profile.first().username if profile.exists() else None
+        return None
