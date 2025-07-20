@@ -38,8 +38,3 @@ class LoginView(APIView):
             tokens = get_tokens_for_user(user)
             return Response(tokens, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-class UserView(APIView):
-
-    
