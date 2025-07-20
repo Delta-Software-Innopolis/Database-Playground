@@ -1,4 +1,3 @@
-import chooseClassroomImg from "@/assets/chooseClassroom.svg";
 import styles from "./ClassroomItem.module.css";
 import { Classroom } from "./types";
 

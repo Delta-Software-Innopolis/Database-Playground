@@ -1,4 +1,3 @@
-import saveImg from "@/assets/save.svg";
 import uploadImg from "@/assets/upload.svg";
 import { templateStore } from "@/shared/store/templateStore";
 import { Button } from "@/shared/ui/Button";

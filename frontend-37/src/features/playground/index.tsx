@@ -148,7 +148,7 @@ export function Playground() {
 
       <ModalWindow isOpen={showUpload} setIsOpen={setShowUpload}>
         <Upload
-          onUpload={(data) => {
+          onUpload={() => {
             setShowUpload(false);
           }}
           setShow={setShowUpload}
