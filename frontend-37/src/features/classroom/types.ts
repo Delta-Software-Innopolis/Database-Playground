@@ -1,3 +1,9 @@
+export interface User {
+  id: string;
+  email: string;
+  username: string;
+}
+
 export interface Classroom {
   id: number;
   title: string;
@@ -5,5 +11,5 @@ export interface Classroom {
   capacity: number;
   created_date: string;
   invite: string;
-  teacher: string;
+  teacher: User;
 }
