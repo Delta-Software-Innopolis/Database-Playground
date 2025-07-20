@@ -36,26 +36,38 @@ export function MainTopBar({
         <img src={dropdownImg} />
       </TopBarElement>
       <div className={styles.dropdownContent}>
-        <Button className={styles.button} onClick={onPlaygroundClick}>
+        <Button
+          className={[styles.button, styles.buttonAnim].join(" ")}
+          onClick={onPlaygroundClick}
+        >
           Playground
         </Button>
-        <Button className={styles.button} onClick={onClassroomClick}>
+        <Button
+          className={[styles.button, styles.buttonAnim].join(" ")}
+          onClick={onClassroomClick}
+        >
           Classrooms
         </Button>
         {access ? (
-          <Button
-            className={[styles.button, styles.buttonAccent].join(" ")}
-            onClick={onLogoutClick}
-          >
-            Logout
-          </Button>
+          <div className={styles.buttonAnim}>
+            <Button
+              className={[styles.button, styles.buttonAccent].join(" ")}
+              onClick={onLogoutClick}
+            >
+              Logout
+            </Button>
+          </div>
         ) : (
-          <Button
-            className={[styles.button, styles.buttonAccent].join(" ")}
-            onClick={onLoginClick}
+          <div
+            className={[styles.buttonAnim, styles.loginButtonWrapper].join(" ")}
           >
-            Login
-          </Button>
+            <Button
+              className={[styles.button, styles.buttonAccent].join(" ")}
+              onClick={onLoginClick}
+            >
+              Login
+            </Button>
+          </div>
         )}
       </div>
     </TopBar>
