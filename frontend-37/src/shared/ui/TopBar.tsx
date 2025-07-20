@@ -3,7 +3,7 @@ import { NavLink } from "react-router";
 import styles from "./TopBar.module.css";
 
 interface TopBarProps extends HTMLAttributes<HTMLDivElement> {
-  children: ReactNode;
+  children?: ReactNode;
   contentClassName?: string | undefined;
   contentStyle?: CSSProperties;
 }
