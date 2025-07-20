@@ -3,6 +3,7 @@ import { api } from "@/shared/utils/api";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router";
+import styles from "./ClassroomList.module.css";
 import { ClassroomItem } from "./ClassroomItem";
 import { Classroom } from "./types";
 
@@ -43,17 +44,35 @@ export function ClassroomList({
 
   return (
     <div>
-      <div>CLASSROOM LIST BRO</div>
-      <div>
-        {classrooms.map((classroom) => (
-          <ClassroomItem
-            key={classroom.id}
-            classroom={classroom}
-            onClick={onClick}
-          />
-        ))}
+      <div className={styles.buttonsPanel}>
+        <div style={{ display: "flex", verticalAlign: "middle" }}>
+          <button className={styles.backButton} onClick={onClose}>
+            Back
+          </button>
+          <button
+            className={styles.createClassButton}
+            onClick={onCreateClassroom}
+          >
+            Create Classroom
+          </button>
+        </div>
+        <span style={{ paddingTop: 8 }}>Enter Classroom</span>
       </div>
-      <Button onClick={onCreateClassroom}>create classroom</Button>
+      <div className={styles.listWrapper}>
+        <div className={styles.header}>
+          <div className={styles.headerCol}>Classroom Title</div>
+          <div className={styles.headerCol}>Teacher</div>
+        </div>
+        <div style={{ height: 595, overflow: "auto" }}>
+          {classrooms.map((classroom) => (
+            <ClassroomItem
+              key={classroom.id}
+              classroom={classroom}
+              onClick={onClick}
+            />
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
