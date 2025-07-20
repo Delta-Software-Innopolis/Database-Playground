@@ -30,7 +30,7 @@ class LoginSerializer(serializers.Serializer):
         return attrs
 
 
-class TeacherSerializer(serializers.ModelSerializer):
+class UserBriefSerializer(serializers.ModelSerializer):
     username = serializers.SerializerMethodField()
 
     class Meta:
@@ -38,7 +38,6 @@ class TeacherSerializer(serializers.ModelSerializer):
         fields = ['id', 'username', 'email']
 
     def get_username(self, obj):
-        # Assumes one profile per user
         profile = getattr(obj, 'profile_set', None)
         if profile:
             return profile.first().username if profile.exists() else None
