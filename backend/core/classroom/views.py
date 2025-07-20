@@ -12,7 +12,9 @@ from .serializers import ClassSerializer, ClassroomCreateSerializer
 
 from account.models import User
 from classroom.models import Enrollment, UserRole
-from classroom.serializers import EnrollmentSerializer
+from classroom.serializers import (
+    EnrollmentSerializer, ClassroomStudentsSerializer
+)
 
 
 def serialize(model):
@@ -138,7 +140,7 @@ class ClassroomEnroll(views.APIView):
         try:
             classroom = Classroom.objects.get(invite=invite)
         except Classroom.DoesNotExist:
-            return Response({"detail": "Classroom Not Found"}, status=404)
+            return Response({"detail": "Classroom not found"}, status=404)
 
         enrollment, created = Enrollment.objects.get_or_create(
             classroom=classroom, user=user
@@ -149,3 +151,33 @@ class ClassroomEnroll(views.APIView):
 
         status = 201 if created else 200
         return Response(data=serialize(enrollment).data, status=status)
+
+
+class ClassroomStudents(views.APIView):
+
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request: Request, id: str):
+        user: User = request.user
+
+        try:
+            classroom = Classroom.objects.get(id=id)
+            Enrollment.objects.get(user=user, classroom=classroom)
+        except Classroom.DoesNotExist:
+            return Response({"detail": "Classroom not found"}, status=404)
+        except Enrollment.DoesNotExist:
+            return Response({"detail": "Not enrolled"}, status=403)
+
+        student_enrollments = Enrollment.objects.filter(
+            classroom=classroom,
+            role=UserRole.STUDENT
+        ).select_related('user')
+
+        students = [e.user for e in student_enrollments]
+        serializer = ClassroomStudentsSerializer({
+                "classroom": classroom.id,
+                "students": students
+            })
+
+        return Response(serializer.data)
