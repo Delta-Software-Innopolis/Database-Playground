@@ -1,0 +1,59 @@
+.buttonsPanel {
+  display: flex;
+  justify-content: space-between;
+  vertical-align: middle;
+  margin-bottom: 10px;
+}
+
+.backButton {
+  width: 69px;
+  height: 40px;
+  color: rgba(31, 31, 31, 1);
+  border: 1px solid rgba(241, 241, 241, 1);
+  border-radius: 5px;
+  font-size: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  background-color: rgba(255, 255, 255, 1);
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.createClassButton {
+  width: 165px;
+  height: 40px;
+  border: 1px solid rgba(241, 241, 241, 1);
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 1);
+  color: rgba(31, 31, 31, 1);
+  font-size: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+.header {
+  display: flex;
+  gap: 0;
+  justify-content: space-evenly;
+  gap: 0;
+  background-color: rgba(193, 193, 193, 0.25);
+  color: rgba(0, 0, 0, 1);
+  font-size: 16px;
+  border-bottom: 1px solid rgba(193, 193, 193, 1);
+  padding-top: 9px;
+  padding-bottom: 9px;
+  padding-right: 34px;
+}
+
+.headerCol {
+  flex-basis: 506.5px;
+  text-align: center;
+}
+
+.listWrapper {
+  background-color: rgba(252, 252, 252, 1);
+  width: 1057px;
+  height: 633px;
+  border-radius: 5px;
+  border: 1px solid;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
