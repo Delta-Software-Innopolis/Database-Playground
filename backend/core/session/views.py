@@ -1,13 +1,18 @@
 import uuid
 
-from engines import postgres_engine
-from engines.shortcuts import db_exists
 from rest_framework.parsers import JSONParser
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .docs import get_db_schema_info_doc, patch_session_info_doc
+from engines import postgres_engine
+from engines.shortcuts import db_exists
+
+from .docs import (
+    get_db_schema_info_doc,
+    get_db_schema_valid_doc,
+    patch_session_info_doc,
+)
 from .models import Session, SessionInfo
 from .serializers import SessionInfoSerializer, SessionSerializer
 from .shortcuts import resolve_session_id
@@ -78,3 +83,19 @@ class SessionInfoView(APIView):
             return Response(serializer.data)
 
         return Response(serializer.errors, status=400)
+
+
+class SessionValidView(APIView):
+
+    @get_db_schema_valid_doc
+    def get(self, request: Request):
+        session_id, _ = resolve_session_id(request)
+
+        valid = True
+        try:
+            Session.objects.get(id=session_id)
+        except Exception as e:
+            print(e)
+            valid = False
+
+        return Response({"valid": valid}, status=200)

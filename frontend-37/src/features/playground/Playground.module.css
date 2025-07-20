@@ -1,0 +1,42 @@
+.pageContainer {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.contentContainer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+  margin-left: 15px;
+  margin-right: 15px;
+  overflow: hidden;
+}
+
+.horizontalResizeHandle {
+  height: 10px;
+}
+
+.verticalResizeHandle {
+  width: 10px;
+}
+
+.topContentPanel {
+  overflow: hidden;
+  border: 1px solid #c1c1c1;
+  border-bottom-right-radius: 10px;
+  min-width: 300px;
+}
+
+.bottomContentPanel {
+  overflow: hidden;
+  border: 1px solid #c1c1c1;
+  margin-bottom: 10px;
+}
+
+.mongoSchemaWrapper {
+  margin-left: 15px;
+  margin-top: 10px;
+}

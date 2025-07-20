@@ -1,0 +1,115 @@
+.loginWrapper {
+  background-color: #ffffff;
+  width: 416px;
+  height: 520px;
+  border: 1px solid #c1c1c1;
+  border-radius: 5px;
+}
+
+.modalHeader {
+  background-color: rgba(193, 193, 193, 0.25);
+  color: black;
+  width: 416px;
+  font-size: 16px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-radius: 5px 5px 0 0;
+  border-bottom: 1px solid #c1c1c1;
+}
+
+.rest {
+  width: 100%;
+  height: 100%;
+  padding-left: 20px;
+}
+
+.loginButton {
+  height: 40px;
+  width: 376px;
+  border-radius: 5px;
+  border: 1px solid #c1c1c1;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  font-size: 16px;
+  align-items: center;
+}
+
+.loginButton:hover {
+  cursor: pointer;
+}
+
+.continueButton {
+  height: 40px;
+  width: 376px;
+  border-radius: 5px;
+  background-color: rgba(169, 169, 255, 1);
+  border: 0;
+  color: #ffffff;
+  margin-bottom: 20px;
+  transition: 0.1s;
+}
+
+.continueButton:hover {
+  cursor: pointer;
+  background-color: #6968ff;
+}
+
+.continueButton:active {
+  background-color: #5756a5;
+  cursor: pointer;
+}
+
+.inputField {
+  width: 344px;
+  height: 36px;
+  border-radius: 3px;
+  border: 1px solid #c1c1c1;
+  background-color: rgba(241, 241, 241, 1);
+  margin-bottom: 10px;
+  padding-left: 15px;
+  font-size: 16px;
+  padding-right: 15px;
+}
+
+.loginVia {
+  width: 376px;
+  height: 20px;
+  font-size: 16px;
+  color: rgba(193, 193, 193, 1);
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  margin-bottom: 15px;
+}
+
+.imgs {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+}
+
+.stay {
+  width: 376px;
+  height: 20px;
+  font-size: 16px;
+  color: rgba(193, 193, 193, 1);
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.noAccount {
+  width: 376px;
+  font-size: 16px;
+  color: rgba(193, 193, 193, 1);
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+}

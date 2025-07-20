@@ -68,7 +68,6 @@ class PostgresEngine(DBEngine):
         with self._connect(db_name) as conn:
             with conn.cursor() as cur:
                 for query in self._split_queries(full_query):
-                    cur.execute(query)
                     self._save_query_result(cur, query, results)
         return results
 
@@ -80,15 +79,29 @@ class PostgresEngine(DBEngine):
     def _save_query_result(
         self, cur: cursor, query: str, results: list[SQLQueryResult]
     ):
-        rowcount = cur.rowcount
         data = None
-
         start = time.perf_counter()
+        cur.execute(query)
         try:
-            data = cur.fetchall()
+            raw_data = cur.fetchall()
+            # Only try formatting if description is available (for SELECT)
+            if cur.description:
+                column_names = [str(desc[0]) for desc in cur.description]
+                data = {
+                    "columns": column_names,
+                    "data": {col: [] for col in column_names}
+                }
+                for row in raw_data:
+                    for col, value in zip(column_names, row):
+                        data["data"][col].append(value)
+            else:
+                data = raw_data  # fallback, shouldn't usually happen
         except psycopg2.ProgrammingError:
-            pass
+            # For queries that do not return results (e.g., INSERT, DROP)
+            data = None
+        rowcount = cur.rowcount
         execution_time = time.perf_counter() - start
+        rowcount = cur.rowcount
 
         results.append(SQLQueryResult(query, rowcount, data, execution_time))
 

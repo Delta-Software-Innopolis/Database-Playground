@@ -3,10 +3,10 @@
 
 body {
   font-family: "Onest", sans-serif;
+  font-size: 24px;
   margin: 0;
 }
 
 .mono {
   font-family: "Azeret Mono", monospace;
 }
-

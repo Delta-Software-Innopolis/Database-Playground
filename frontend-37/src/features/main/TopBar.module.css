@@ -1,0 +1,82 @@
+.topbar {
+  margin: 0 !important;
+  padding: 16px !important;
+
+  background-color: rgba(0, 0, 0, 0) !important;
+
+  border-radius: 0 !important;
+  box-shadow: none !important;
+
+  text-shadow: 0px 0px 8px rgba(0, 0, 0, 0.5) !important;
+}
+
+.content {
+  flex-basis: 500 !important;
+  justify-content: flex-end !important;
+}
+
+.dropdownContent {
+  visibility: hidden;
+  overflow: hidden;
+
+  position: absolute;
+
+  top: 0;
+  right: 0;
+
+  padding: 26px;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: flex-end;
+
+  gap: 10px;
+}
+
+.dropdownButton:hover ~ .dropdownContent {
+  visibility: visible;
+}
+
+.dropdownContent:hover {
+  visibility: visible;
+}
+
+.button {
+  border-radius: 5px !important;
+
+  background-color: white !important;
+  color: #1f1f1f !important;
+
+  width: fit-content !important;
+
+  padding: 5px 16px !important;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25) !important;
+
+  font-size: 16px !important;
+
+  height: fit-content !important;
+
+  line-height: 200% !important;
+}
+
+.button:hover {
+  background-color: #f1f1f1 !important;
+}
+
+.button:active {
+  background-color: #c1c1c1 !important;
+}
+
+.buttonAccent {
+  background-color: #a9a9ff !important;
+  color: white !important;
+}
+
+.buttonAccent:hover {
+  background-color: #6968ff !important;
+}
+
+.buttonAccent:active {
+  background-color: #5756a5 !important;
+}

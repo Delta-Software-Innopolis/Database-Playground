@@ -79,7 +79,7 @@ class ColumnInfo:
 class SQLQueryResult:
     query: str
     rowcount: int
-    data: list[tuple] | None
+    data: dict | list[tuple] | None
     execution_time: float
 
     def to_json(self) -> dict:
@@ -92,7 +92,7 @@ class SQLQueryResult:
 
 
 @dataclass
-class MongoQuery:
+class OldMongoQuery:
 
     class Type(Enum):
         GET_COLLECTION_NAMES = 1
@@ -111,7 +111,7 @@ class MongoQuery:
     input: str | list | dict | None
 
 
-MQT = MongoQuery.Type
+MQT = OldMongoQuery.Type
 
 
 @dataclass
