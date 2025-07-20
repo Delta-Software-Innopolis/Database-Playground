@@ -117,7 +117,7 @@ export function Main() {
           isOpen={showCreateClassroom}
           setIsOpen={setShowCreateClassroom}
         >
-          <CreateClassroom />
+          <CreateClassroom onClose={() => setShowCreateClassroom(false)} />
         </ModalWindow>
       </div>
     </div>
