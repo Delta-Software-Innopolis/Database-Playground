@@ -1,30 +1,21 @@
 import { TopBar } from "@/shared/ui/TopBar";
 import { api } from "@/shared/utils/api";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router";
 import styles from "./ClassroomPage.module.css";
-import { Classroom, User } from "./types";
-
-interface StudentsResponse {
-  classroomId: number;
-  students: User[];
-}
+import { Assignments } from "./Assignments";
+import { ClassroomTabs } from "./Tabs";
+import { classroomStore } from "./store";
+import { Classroom } from "./types";
 
 export function ClassroomPage() {
-  const [classroom, setClassroom] = useState<Classroom | null>(null);
-  const [students, setStudents] = useState<User[] | null>(null);
+  const { classroom, updateClassroom } = classroomStore();
   const { id } = useParams();
 
   useEffect(() => {
     const run = async () => {
       const classroom = await api<Classroom>({ path: `classroom/${id}/` });
-      setClassroom(classroom);
-
-      const students = await api<StudentsResponse>({
-        path: `/classroom/${id}/students`,
-      });
-      console.log(students, "students json");
-      setStudents(students.students);
+      updateClassroom(classroom);
     };
 
     run();
@@ -36,14 +27,16 @@ export function ClassroomPage() {
     <div>
       <TopBar className={styles.topbar} />
       <div className={styles.content}>
-        <div className={styles.title}>{classroom.title}</div>
-        <div className={styles.description}>{classroom.description}</div>
-        <div>capacity: {classroom.capacity}</div>
-        <div>invite: {classroom.invite}</div>
-        <div>
-          {students?.map((student) => (
-            <div>{student.username}</div>
-          ))}
+        <div className={styles.classroom}>
+          <div className={styles.title}>{classroom.title}</div>
+          <div className={styles.teacher} style={{ marginBottom: 10 }}>
+            <span className={styles.by}>By</span>{" "}
+            <span className={styles.email}>{classroom.teacher.email}</span>
+          </div>
+          <ClassroomTabs />
+        </div>
+        <div className={styles.assignments}>
+          <Assignments />
         </div>
       </div>
     </div>

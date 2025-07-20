@@ -3,3 +3,39 @@
   border-radius: 22px 22px 0px 0px;
   box-shadow: none;
 }
+
+.content {
+  margin-left: 26px;
+  margin-right: 16px;
+  width: 100%;
+  display: flex;
+}
+
+.title {
+  color: #1f1f1f;
+}
+
+.teacher {
+  font-size: 16px;
+}
+
+.by {
+  color: #666666;
+}
+
+.email {
+  color: #6968ff;
+}
+
+.description {
+  font-size: 16px;
+  color: #1f1f1f;
+}
+
+.classroom {
+  width: 50%;
+}
+
+.assignments {
+  width: 50%;
+}

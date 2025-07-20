@@ -1,0 +1,20 @@
+.tabs {
+  display: flex;
+  border: 1px solid #c1c1c1;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.tab {
+  font-size: 16px;
+  color: #1f1f1f;
+  padding: 8px 10px;
+  border-right: 1px solid #f1f1f1;
+  cursor: pointer;
+}
+
+.selected {
+  background-color: #f1f1f1;
+  cursor: normal;
+}
