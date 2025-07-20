@@ -60,3 +60,9 @@ textarea::placeholder {
   border-radius: 3px;
   cursor: pointer;
 }
+
+.capacity::inner-spin-button,
+.capacity::outer-spin-button {
+  appearance: none;
+  margin: 0;
+}

@@ -114,6 +114,7 @@ export function Playground() {
               handleUpload={() => setShowUpload(true)}
               handleSave={() => {}}
               handleTemplateChoice={() => setShowTemplateChoice(true)}
+              showUpload={false}
             />
           </div>
           <div className={`fira ${styles.contentContainer}`}>

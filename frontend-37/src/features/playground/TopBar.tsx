@@ -10,27 +10,25 @@ interface PlaygroundTopBarProps {
   handleUpload: () => void;
   handleSave: () => void;
   handleTemplateChoice: () => void;
+  showUpload?: boolean;
 }
 
 export function PlaygroundTopBar({
   handleUpload,
-  handleSave,
   handleTemplateChoice,
+  showUpload = true,
 }: PlaygroundTopBarProps) {
   const { template } = templateStore();
 
   return (
     <TopBar className={styles.topbar} contentClassName={styles.topbarContent}>
-      <TopBarElement>
-        <Button className={styles.saveButton} onClick={handleUpload}>
-          <img src={uploadImg} alt="Upload"></img>
-        </Button>
-      </TopBarElement>
-      <TopBarElement>
-        <Button className={styles.saveButton} onClick={handleSave}>
-          <img src={saveImg} alt="Save"></img>
-        </Button>
-      </TopBarElement>
+      {showUpload && (
+        <TopBarElement>
+          <Button className={styles.saveButton} onClick={handleUpload}>
+            <img src={uploadImg} alt="Upload"></img>
+          </Button>
+        </TopBarElement>
+      )}
       <TopBarElement>
         <Button
           className={styles.templateButton}

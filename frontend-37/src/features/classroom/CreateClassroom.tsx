@@ -58,6 +58,7 @@ export function CreateClassroom({ onClose }: CreateClassroomProps) {
           value={capacity}
           onChange={(e) => setCapacity(+e.target.value)}
           type="number"
+          className={styles.capacity}
         />
         <button className={styles.createButton} onClick={onClick}>
           Create
