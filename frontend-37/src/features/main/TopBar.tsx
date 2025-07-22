@@ -49,7 +49,9 @@ export function MainTopBar({
           Classrooms
         </Button>
         {access ? (
-          <div className={styles.buttonAnim}>
+          <div
+            className={[styles.buttonAnim, styles.loginButtonWrapper].join(" ")}
+          >
             <Button
               className={[styles.button, styles.buttonAccent].join(" ")}
               onClick={onLogoutClick}
